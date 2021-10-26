@@ -54,8 +54,8 @@ namespace UniExp
         {
             try
             {
-                //saveFileDialog.ShowDialog();
                 string filename = saveFileDialog.FileName;
+                //saveFileDialog.ShowDialog();
                 gridViewCriterias gridView = new gridViewCriterias();
                 gridView.Update(dataGridViewCriteria);
             }

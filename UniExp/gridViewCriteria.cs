@@ -67,12 +67,14 @@ namespace UniExpGridViewCriteria
                     MessageBox.Show(string.Format("Заполните поле: 'Значение' для критерия: {0}",
                         dataGridViewRow.Cells[0].Value.ToString()), "Предупреждение",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //throw new Exception();
                 }
                 if (dataGridViewRow.Cells[0].Value == null && dataGridViewRow.Cells[1].Value != null)
                 {
                     MessageBox.Show(string.Format("Заполните поле: 'Параметр' для значеня: {0}",
                        dataGridViewRow.Cells[1].Value.ToString()), "Предупреждение",
                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //throw new Exception();
                 }
                 if (dataGridViewRow.Cells[0].Value == null && dataGridViewRow.Cells[1].Value == null)
                 {
