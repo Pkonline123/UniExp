@@ -59,6 +59,13 @@ namespace UniExp
                 gridViewCriterias gridView = new gridViewCriterias();
                 gridView.Update(dataGridViewCriteria);
             }
+            catch (ArgumentException aEx)
+            {
+                if (aEx.ParamName == "Предупреждение")
+                    WriteWarning(aEx.Message);
+                else
+                    WriteErr(aEx.Message);
+            }
             catch (Exception ex)
             {
                 WriteErr(ex.Message);
@@ -73,6 +80,13 @@ namespace UniExp
                 gridViewCriterias gridView = new gridViewCriterias();
                 gridView.Load(dataGridViewCriteria);
             }
+            catch (ArgumentException aEx)
+            {
+                if (aEx.ParamName == "Предупреждение")
+                    WriteWarning(aEx.Message);
+                else
+                    WriteErr(aEx.Message);
+            }
             catch (Exception ex)
             {
                 WriteErr(ex.Message);
@@ -81,6 +95,12 @@ namespace UniExp
         private void WriteErr(string message)
         {
             MessageBox.Show(message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void WriteWarning(string message)
+        {
+            MessageBox.Show(message, "Предупреждение", 
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }

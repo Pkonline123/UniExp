@@ -64,17 +64,23 @@ namespace UniExpGridViewCriteria
             {
                 if (dataGridViewRow.Cells[0].Value != null && dataGridViewRow.Cells[1].Value == null)
                 {
-                    MessageBox.Show(string.Format("Заполните поле: 'Значение' для критерия: {0}",
-                        dataGridViewRow.Cells[0].Value.ToString()), "Предупреждение",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //throw new Exception();
+                    //MessageBox.Show(string.Format("Заполните поле: 'Значение' для критерия: {0}",
+                    //    dataGridViewRow.Cells[0].Value.ToString()), "Предупреждение",
+                    //    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    throw new ArgumentException(string.Format("Заполните поле: 'Значение' для критерия: {0}",
+                        dataGridViewRow.Cells[0].Value.ToString()), "Предупреждение");
+                    //break;
                 }
                 if (dataGridViewRow.Cells[0].Value == null && dataGridViewRow.Cells[1].Value != null)
                 {
-                    MessageBox.Show(string.Format("Заполните поле: 'Параметр' для значеня: {0}",
-                       dataGridViewRow.Cells[1].Value.ToString()), "Предупреждение",
-                       MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //throw new Exception();
+                    //MessageBox.Show(string.Format("Заполните поле: 'Параметр' для значеня: {0}",
+                    //   dataGridViewRow.Cells[1].Value.ToString()), "Предупреждение",
+                    //   MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    throw new ArgumentException(string.Format("Заполните поле: 'Параметр' для значеня: {0}",
+                       dataGridViewRow.Cells[1].Value.ToString()), "Предупреждение");
+                    //throw new Exception(string.Format("Заполните поле: 'Параметр' для значеня: {0}",
+                    //   dataGridViewRow.Cells[1].Value.ToString()));
+                    //break;
                 }
                 if (dataGridViewRow.Cells[0].Value == null && dataGridViewRow.Cells[1].Value == null)
                 {
@@ -96,6 +102,7 @@ namespace UniExpGridViewCriteria
         {
             gridViewColsCriterias.Clear();
             gridViewRowCriteria.Clear();
+            //Отчистить грид при открытии повторно
             //
             this.gridViewColsCriterias.Add(new gridViewColsCriteria() { columnName = "Параметр" });
             this.gridViewColsCriterias.Add(new gridViewColsCriteria() { columnName = "Значение" });
