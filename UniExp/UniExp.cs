@@ -22,7 +22,7 @@ namespace UniExp
             }
             catch (Exception ex)
             {
-                WriteErr(ex.Message);
+                WriteErrInfo(ex.Message);
             }
         }
 
@@ -34,7 +34,7 @@ namespace UniExp
             }
             catch (Exception ex)
             {
-                WriteErr(ex.Message);
+                WriteErrInfo(ex.Message);
             }
         }
 
@@ -46,7 +46,7 @@ namespace UniExp
             }
             catch (Exception ex)
             {
-                WriteErr(ex.Message);
+                WriteErrInfo(ex.Message);
             }
         }
 
@@ -61,14 +61,11 @@ namespace UniExp
             }
             catch (ArgumentException aEx)
             {
-                if (aEx.ParamName == "Предупреждение")
-                    WriteWarning(aEx.Message);
-                else
-                    WriteErr(aEx.Message);
+                WriteErrInfo(aEx.Message, aEx.ParamName);
             }
             catch (Exception ex)
             {
-                WriteErr(ex.Message);
+                WriteErrInfo(ex.Message);
             }
         }
 
@@ -82,25 +79,29 @@ namespace UniExp
             }
             catch (ArgumentException aEx)
             {
-                if (aEx.ParamName == "Предупреждение")
-                    WriteWarning(aEx.Message);
-                else
-                    WriteErr(aEx.Message);
+                WriteErrInfo(aEx.Message, aEx.ParamName);
             }
             catch (Exception ex)
             {
-                WriteErr(ex.Message);
+                WriteErrInfo(ex.Message);
             }
         }
-        private void WriteErr(string message)
+        private void WriteErrInfo(string message, string typeErrInfo = "Error")
         {
-            MessageBox.Show(message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void WriteWarning(string message)
-        {
-            MessageBox.Show(message, "Предупреждение", 
-                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            switch (typeErrInfo)
+            {
+                case "Error":
+                    {
+                        MessageBox.Show(message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    }
+                case "Warning":
+                    {
+                        MessageBox.Show(message, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    }
+            }
+            
         }
     }
 }
