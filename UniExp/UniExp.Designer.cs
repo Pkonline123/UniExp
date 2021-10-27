@@ -76,20 +76,28 @@
             // SaveCriterias
             // 
             this.SaveCriterias.Name = "SaveCriterias";
-            this.SaveCriterias.Size = new System.Drawing.Size(180, 22);
+            this.SaveCriterias.Size = new System.Drawing.Size(153, 22);
             this.SaveCriterias.Text = "Сохранить";
             this.SaveCriterias.Click += new System.EventHandler(this.SaveCriterias_Click);
             // 
             // LoadCriterias
             // 
             this.LoadCriterias.Name = "LoadCriterias";
-            this.LoadCriterias.Size = new System.Drawing.Size(180, 22);
+            this.LoadCriterias.Size = new System.Drawing.Size(153, 22);
             this.LoadCriterias.Text = "Открыть файл";
             this.LoadCriterias.Click += new System.EventHandler(this.LoadCriterias_Click);
             // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.FileName = "data.json";
+            this.saveFileDialog.Filter = "Данные|*.json";
+            this.saveFileDialog.RestoreDirectory = true;
+            // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.FileName = "data.json";
+            this.openFileDialog.Filter = "Данные|*.json";
+            this.openFileDialog.RestoreDirectory = true;
             // 
             // UniExp
             // 
@@ -100,6 +108,7 @@
             this.Controls.Add(this.MainMenu);
             this.MainMenuStrip = this.MainMenu;
             this.Name = "UniExp";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UniExp";
             this.Load += new System.EventHandler(this.UniExp_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCriteria)).EndInit();

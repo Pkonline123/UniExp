@@ -30,7 +30,10 @@ namespace UniExp
         {
             try
             {
-                //dataGridViewCriteria
+                GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+                dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaName, gridViewRowCriterias.colCriteriaName);
+                dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaValue, gridViewRowCriterias.colCriteriaValue);
+                //dataGridViewCriteria.Rows.Add(1);
             }
             catch (Exception ex)
             {
@@ -54,10 +57,11 @@ namespace UniExp
         {
             try
             {
-                string filename = saveFileDialog.FileName;
-                //saveFileDialog.ShowDialog();
-                gridViewCriterias gridView = new gridViewCriterias();
-                gridView.Update(dataGridViewCriteria);
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    GridViewCriterias gridView = new GridViewCriterias();
+                    gridView.Save(dataGridViewCriteria, saveFileDialog.FileName);
+                }
             }
             catch (ArgumentException aEx)
             {
@@ -73,9 +77,11 @@ namespace UniExp
         {
             try
             {
-                //openFileDialog.ShowDialog();
-                gridViewCriterias gridView = new gridViewCriterias();
-                gridView.Load(dataGridViewCriteria);
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    GridViewCriterias gridView = new GridViewCriterias();
+                    gridView.Load(dataGridViewCriteria, openFileDialog.FileName);
+                }
             }
             catch (ArgumentException aEx)
             {

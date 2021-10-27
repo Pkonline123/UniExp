@@ -19,102 +19,138 @@ namespace UniExpGridViewCriteria
      * метод вывода ошибок +
      * Диалоговый выбр файлов при сохранении и загрузки.+
      */
-    public class gridViewColsCriteria
+    //public class gridViewColsCriteria
+    //{
+    //    public string columnName { get; set; }
+    //    public gridViewColsCriteria()
+    //    {
+    //        this.columnName = string.Empty;
+    //    }
+    //}
+
+    public class GridViewColumnsCriteria
     {
-        public string columnName { get; set; }
-        public gridViewColsCriteria()
+        public readonly string colCriteriaName = "Параметр";
+        public readonly string colCriteriaValue = "Значение";
+
+        public GridViewColumnsCriteria()
         {
-            this.columnName = string.Empty;
+           
         }
     }
-
-    public class gridViewRowCriteria
+    public class GridViewRowCriteria : GridViewColumnsCriteria
     {
         public string criteriaName { get; set; }
         public string criteriaValue { get; set; }
 
-        public gridViewRowCriteria()
+        public GridViewRowCriteria()
         {
             this.criteriaName = string.Empty;
             this.criteriaValue = string.Empty;
         }
     }
 
-    public class gridViewCriterias
+    public class GridViewCriterias
     {
-        public List<gridViewColsCriteria> gridViewColsCriterias { get; set; }
-        public List<gridViewRowCriteria> gridViewRowCriteria { get; set; }
+        //public List<gridViewColsCriteria> gridViewColsCriterias { get; set; }
+        public List<GridViewRowCriteria> gridViewRowCriteria { get; set; }
 
-        public gridViewCriterias()
+        public GridViewCriterias()
         {
-            this.gridViewColsCriterias = new List<gridViewColsCriteria>();
-            this.gridViewRowCriteria = new List<gridViewRowCriteria>();
+            //this.gridViewColsCriterias = new List<gridViewColsCriteria>();
+            this.gridViewRowCriteria = new List<GridViewRowCriteria>();
         }
 
-        public void Update(DataGridView dataGridViewCriteria, string fileName = "")
+        public void Save(DataGridView dataGridViewCriteria, string fileName = null)
         {
-            gridViewColsCriterias.Clear();
+            if (dataGridViewCriteria == null)
+                throw new Exception("gridViewCriterias.Update: Ожидалось значение (DataGridView)dataGridViewCriterias");
+            if (string.IsNullOrEmpty(fileName))
+                throw new Exception("gridViewCriterias.Update: Ожидалось значение (string)fileName");
+            //Рабоатет както странно
+            if(dataGridViewCriteria.Rows.Count <= 1)
+                throw new Exception(string.Format("Перед сохранением необходимо заполнить таблицу '{0}'", 
+                    "Параметр/Значение"));
+            //
+            //gridViewColsCriterias.Clear();
             gridViewRowCriteria.Clear();
             //
-            foreach (DataGridViewColumn dataGridViewColumn in dataGridViewCriteria.Columns)
-            {
-                this.gridViewColsCriterias.Add(new gridViewColsCriteria() { columnName = dataGridViewColumn.Name });
-            }
+            //foreach (DataGridViewColumn dataGridViewColumn in dataGridViewCriteria.Columns)
+            //{
+            //    this.gridViewColsCriterias.Add(new gridViewColsCriteria() { columnName = dataGridViewColumn.Name });
+            //}
+            GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
             foreach (DataGridViewRow dataGridViewRow in dataGridViewCriteria.Rows)
             {
                 if (dataGridViewRow.Index == dataGridViewCriteria.RowCount - 1)
                     break;
                 //
-                if (dataGridViewRow.Cells[0].Value != null && dataGridViewRow.Cells[1].Value == null)
+                if (dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value != null && 
+                    dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value == null)
                 {
                     throw new ArgumentException(string.Format("Заполните поле: 'Значение' для критерия: '{0}'",
-                        dataGridViewRow.Cells[0].Value.ToString()), "Warning");
+                        dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value.ToString()), "Warning");
                 }
-                if (dataGridViewRow.Cells[0].Value == null && dataGridViewRow.Cells[1].Value != null)
+                if (dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value == null && 
+                    dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value != null)
                 {
                     throw new ArgumentException(string.Format("Заполните поле: 'Параметр' для значеня: '{0}'",
-                       dataGridViewRow.Cells[1].Value.ToString()), "Warning");
+                       dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value.ToString()), "Warning");
                 }
-                if (dataGridViewRow.Cells[0].Value == null && dataGridViewRow.Cells[1].Value == null)
+                if (dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value == null && 
+                    dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value == null)
                 {
                     throw new ArgumentException(string.Format("Заполните поля: 'Параметр' и 'Значение' " +
                         "для записи: № {0}", dataGridViewRow.Index + 1, "Warning"));
                 }
-                this.gridViewRowCriteria.Add(new gridViewRowCriteria()
+                this.gridViewRowCriteria.Add(new GridViewRowCriteria()
                 {
-                    criteriaName = dataGridViewRow.Cells[0].Value == null ? 
-                        string.Empty : dataGridViewRow.Cells[0].Value.ToString(),
-                    criteriaValue = dataGridViewRow.Cells[1].Value == null ? 
-                        string.Empty : dataGridViewRow.Cells[1].Value.ToString()
+                    criteriaName = dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value == null ? 
+                        string.Empty : dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value.ToString(),
+                    criteriaValue = dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value == null ? 
+                        string.Empty : dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value.ToString()
                 });
             }
             //сериализация
-            //File.WriteAllText(fileName, JsonSerializer.Serialize<gridViewColsCriteria>(gridViewColsCriterias));
+            File.WriteAllText(fileName, JsonSerializer.Serialize<GridViewCriterias>(this));
 
         }
-        public void Load(DataGridView dataGridViewCriteria)
+        public void Load(DataGridView dataGridViewCriteria, string fileName = null)
         {
-            gridViewColsCriterias.Clear();
+            if (dataGridViewCriteria == null)
+                throw new Exception("gridViewCriterias.Load: Ожидалось значение (DataGridView)dataGridViewCriterias");
+            if (string.IsNullOrEmpty(fileName))
+                throw new Exception("gridViewCriterias.Load: Ожидалось значение (string)fileName");
+            //
+            //gridViewColsCriterias.Clear();
             gridViewRowCriteria.Clear();
             //Возмоно пререработать
             dataGridViewCriteria.Rows.Clear();
+            dataGridViewCriteria.Columns.Clear();
             //
-            this.gridViewColsCriterias.Add(new gridViewColsCriteria() { columnName = "Параметр" });
-            this.gridViewColsCriterias.Add(new gridViewColsCriteria() { columnName = "Значение" });
-            this.gridViewRowCriteria.Add(new gridViewRowCriteria() { criteriaName = "Критерий1", criteriaValue = "Знач1" });
-            this.gridViewRowCriteria.Add(new gridViewRowCriteria() { criteriaName = "Критерий2", criteriaValue = "Знач2" });
-            this.gridViewRowCriteria.Add(new gridViewRowCriteria() { criteriaName = "Критерий3", criteriaValue = "Знач3" });
-            //
-            foreach (gridViewColsCriteria grViewColsCriteria in gridViewColsCriterias)
-            {
-                dataGridViewCriteria.Columns.Add(grViewColsCriteria.columnName, grViewColsCriteria.columnName);
-            }
-            foreach (gridViewRowCriteria grViewRowCriteria in gridViewRowCriteria)
-            {
-                dataGridViewCriteria.Rows.Add(grViewRowCriteria.criteriaName, grViewRowCriteria.criteriaValue);
-            }
+            //this.gridViewColsCriterias.Add(new gridViewColsCriteria() { columnName = "Параметр" });
+            //this.gridViewColsCriterias.Add(new gridViewColsCriteria() { columnName = "Значение" });
+            //this.gridViewRowCriteria.Add(new GridViewRowCriteria() { criteriaName = "Критерий1", criteriaValue = "Знач1" });
+            //this.gridViewRowCriteria.Add(new GridViewRowCriteria() { criteriaName = "Критерий2", criteriaValue = "Знач2" });
+            //this.gridViewRowCriteria.Add(new GridViewRowCriteria() { criteriaName = "Критерий3", criteriaValue = "Знач3" });
             //дсериализация
-            //WeatherForecast weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(File.ReadAllText(fileName));
+            GridViewCriterias gridViewCriterias = JsonSerializer.Deserialize<GridViewCriterias>(File.ReadAllText(fileName));
+            gridViewRowCriteria.AddRange(gridViewCriterias.gridViewRowCriteria);
+            //
+            //foreach (gridViewColsCriteria grViewColsCriteria in gridViewColsCriterias)
+            //{
+            //    dataGridViewCriteria.Columns.Add(grViewColsCriteria.columnName, grViewColsCriteria.columnName);
+            //}
+            GridViewRowCriteria gridViewRowCriterias = gridViewRowCriteria.FirstOrDefault();
+            if (gridViewRowCriterias != null)
+            {
+                dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaName, gridViewRowCriterias.colCriteriaName);
+                dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaValue, gridViewRowCriterias.colCriteriaValue);
+                foreach (GridViewRowCriteria grViewRowCriteria in gridViewRowCriteria)
+                {
+                    dataGridViewCriteria.Rows.Add(grViewRowCriteria.criteriaName, grViewRowCriteria.criteriaValue);
+                }
+            }
         }
     }
 }
