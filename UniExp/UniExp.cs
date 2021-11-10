@@ -14,7 +14,6 @@ namespace UniExp
 {
     public partial class UniExp : Form
     {
-
         public UniExp()
         {
             try
@@ -89,19 +88,27 @@ namespace UniExp
         {
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                string[] filesNames = Directory.GetFiles(folderBrowserDialog.SelectedPath);
+                string[] filesNames = Directory.GetFiles(folderBrowserDialog.SelectedPath, "*.json");
                 foreach (string fileName in filesNames)
                 {
-                    string[] flnam = fileName.Split(new char[] { '\\' });
-                    if (flnam.Last().Contains(".json"))
-                        lstBoxProjName.Items.Add(flnam.Last());
+                    //string[] flName = fileName.Split(new char[] { '\\' });
+                    //if (flName.Last().Contains(".json"))
+                    //if (fileName.Contains(".json"))
+                    //{                       
+                    //lstBoxProjName.Items.Add(flName.Last());
+                    toolStripStatusLabel.Text = Path.GetDirectoryName(fileName);
+                    //lstBoxProjName.Items.Add(fileName.Split(new char[] { '\\' }).Last());
+                    lstBoxProjName.Items.Add(Path.GetFileName(fileName));
+                    //}
                 }
             }
         }
 
         private void lstBoxProjName_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            GridViewCriterias gridView = new GridViewCriterias();
+            if(lstBoxProjName.SelectedItem != null)
+                gridView.Load(dataGridViewCriteria, toolStripStatusLabel.Text + "\\" + lstBoxProjName.SelectedItem);
         }
 
         private void LoadCriterias_Click(object sender, EventArgs e)
