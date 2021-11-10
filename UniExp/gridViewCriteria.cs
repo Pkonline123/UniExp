@@ -30,7 +30,7 @@ namespace UniExpGridViewCriteria
 
     public class GridViewColumnsCriteria
     {
-        public readonly string colCriteriaName = "Параметр";
+        public readonly string colCriteriaName = "Критерий";
         public readonly string colCriteriaValue = "Значение";
 
         public GridViewColumnsCriteria()
