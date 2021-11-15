@@ -29,35 +29,40 @@
         private void InitializeComponent()
         {
             this.MainMenu = new System.Windows.Forms.MenuStrip();
-            this.MenuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.SaveCriterias = new System.Windows.Forms.ToolStripMenuItem();
-            this.LoadCriterias = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMenuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCreated = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnUndo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnExist = new System.Windows.Forms.ToolStripMenuItem();
+            this.SelectFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panelLstBoxProjName = new System.Windows.Forms.Panel();
             this.lstBoxProjName = new System.Windows.Forms.ListBox();
-            this.SelectFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.dataGridViewCriteria = new System.Windows.Forms.DataGridView();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.MainMenu.SuspendLayout();
             this.panelLstBoxProjName.SuspendLayout();
             this.panelMain.SuspendLayout();
-            this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCriteria)).BeginInit();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
             // 
             this.MainMenu.BackColor = System.Drawing.Color.White;
             this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuFile,
+            this.btnMenuFile,
             this.SelectFolder});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
@@ -65,28 +70,71 @@
             this.MainMenu.TabIndex = 1;
             this.MainMenu.Text = "MainMenu";
             // 
-            // MenuFile
+            // btnMenuFile
             // 
-            this.MenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SaveCriterias,
-            this.LoadCriterias});
-            this.MenuFile.Name = "MenuFile";
-            this.MenuFile.Size = new System.Drawing.Size(48, 20);
-            this.MenuFile.Text = "Файл";
+            this.btnMenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnCreated,
+            this.btnOpen,
+            this.toolStripSeparator1,
+            this.btnSave,
+            this.btnUndo,
+            this.toolStripSeparator2,
+            this.btnExist});
+            this.btnMenuFile.Name = "btnMenuFile";
+            this.btnMenuFile.Size = new System.Drawing.Size(48, 20);
+            this.btnMenuFile.Text = "Файл";
             // 
-            // SaveCriterias
+            // btnCreated
             // 
-            this.SaveCriterias.Name = "SaveCriterias";
-            this.SaveCriterias.Size = new System.Drawing.Size(153, 22);
-            this.SaveCriterias.Text = "Сохранить";
-            this.SaveCriterias.Click += new System.EventHandler(this.SaveCriterias_Click);
+            this.btnCreated.Name = "btnCreated";
+            this.btnCreated.Size = new System.Drawing.Size(180, 22);
+            this.btnCreated.Text = "Создать";
             // 
-            // LoadCriterias
+            // btnOpen
             // 
-            this.LoadCriterias.Name = "LoadCriterias";
-            this.LoadCriterias.Size = new System.Drawing.Size(153, 22);
-            this.LoadCriterias.Text = "Открыть файл";
-            this.LoadCriterias.Click += new System.EventHandler(this.LoadCriterias_Click);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(180, 22);
+            this.btnOpen.Text = "Открыть";
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Enabled = false;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(180, 22);
+            this.btnSave.Text = "Сохранить";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnUndo
+            // 
+            this.btnUndo.Enabled = false;
+            this.btnUndo.Name = "btnUndo";
+            this.btnUndo.Size = new System.Drawing.Size(180, 22);
+            this.btnUndo.Text = "Отменить";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // btnExist
+            // 
+            this.btnExist.Name = "btnExist";
+            this.btnExist.Size = new System.Drawing.Size(180, 22);
+            this.btnExist.Text = "Закрыть";
+            this.btnExist.Click += new System.EventHandler(this.btnExist_Click);
+            // 
+            // SelectFolder
+            // 
+            this.SelectFolder.Name = "SelectFolder";
+            this.SelectFolder.Size = new System.Drawing.Size(101, 20);
+            this.SelectFolder.Text = "Выбрать папку";
+            this.SelectFolder.Click += new System.EventHandler(this.SelectFolder_Click);
             // 
             // saveFileDialog
             // 
@@ -119,13 +167,6 @@
             this.lstBoxProjName.TabIndex = 0;
             this.lstBoxProjName.SelectedIndexChanged += new System.EventHandler(this.lstBoxProjName_SelectedIndexChanged);
             // 
-            // SelectFolder
-            // 
-            this.SelectFolder.Name = "SelectFolder";
-            this.SelectFolder.Size = new System.Drawing.Size(101, 20);
-            this.SelectFolder.Text = "Выбрать папку";
-            this.SelectFolder.Click += new System.EventHandler(this.SelectFolder_Click);
-            // 
             // folderBrowserDialog
             // 
             this.folderBrowserDialog.SelectedPath = "C:\\vsproj_andrey\\UniExp\\UniExp\\Projects";
@@ -139,23 +180,6 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(962, 365);
             this.panelMain.TabIndex = 3;
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Enabled = false;
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(113, 17);
-            this.toolStripStatusLabel.Text = "Папка с проектами";
-            // 
-            // statusStrip
-            // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 389);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(962, 22);
-            this.statusStrip.TabIndex = 1;
-            this.statusStrip.Text = "statusStrip";
             // 
             // splitContainer
             // 
@@ -184,6 +208,24 @@
             this.dataGridViewCriteria.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewCriteria.Size = new System.Drawing.Size(798, 178);
             this.dataGridViewCriteria.TabIndex = 0;
+            this.dataGridViewCriteria.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCriteria_CellValueChanged);
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Enabled = false;
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(113, 17);
+            this.toolStripStatusLabel.Text = "Папка с проектами";
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel});
+            this.statusStrip.Location = new System.Drawing.Point(0, 389);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(962, 22);
+            this.statusStrip.TabIndex = 1;
+            this.statusStrip.Text = "statusStrip";
             // 
             // UniExp
             // 
@@ -202,12 +244,12 @@
             this.MainMenu.PerformLayout();
             this.panelLstBoxProjName.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCriteria)).EndInit();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,9 +257,9 @@
 
         #endregion
         private System.Windows.Forms.MenuStrip MainMenu;
-        private System.Windows.Forms.ToolStripMenuItem MenuFile;
-        private System.Windows.Forms.ToolStripMenuItem SaveCriterias;
-        private System.Windows.Forms.ToolStripMenuItem LoadCriterias;
+        private System.Windows.Forms.ToolStripMenuItem btnMenuFile;
+        private System.Windows.Forms.ToolStripMenuItem btnSave;
+        private System.Windows.Forms.ToolStripMenuItem btnOpen;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Panel panelLstBoxProjName;
@@ -229,6 +271,11 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.DataGridView dataGridViewCriteria;
+        private System.Windows.Forms.ToolStripMenuItem btnCreated;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem btnUndo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem btnExist;
     }
 }
 
