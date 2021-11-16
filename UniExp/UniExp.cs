@@ -16,8 +16,6 @@ namespace UniExp
     {
         protected const string selectedFilePrefix = " > ";
         protected const string editableFile = " * ";
-        //private bool _editTable = false;
-        //protected bool editTable { get { return _editTable; } set { SetEditTable(value); } }
 
         public UniExp()
         {
@@ -35,32 +33,30 @@ namespace UniExp
         {
             try
             {
-                GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
-                dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaName, gridViewRowCriterias.colCriteriaName);
-                dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaValue, gridViewRowCriterias.colCriteriaValue);
-                //dataGridViewCriteria.Enabled = false;
+                //GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+                //dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaName, gridViewRowCriterias.colCriteriaName);
+                //dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaValue, gridViewRowCriterias.colCriteriaValue);
+                initConrolsGrid();
+                dataGridViewCriteria.Enabled = false;
                 SetEditTable(false);
-                //dataGridViewCriteria.Rows.Add(1);
             }
             catch (Exception ex)
             {
                 WriteErrInfo(ex.Message);
             }
+        }
+
+        private void initConrolsGrid()
+        {
+            dataGridViewCriteria.Rows.Clear();
+            dataGridViewCriteria.Columns.Clear();
+            //
+            GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+            dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaName, gridViewRowCriterias.colCriteriaName);
+            dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaValue, gridViewRowCriterias.colCriteriaValue);
         }
 
         private void dataGridViewCriteria_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                
-            }
-            catch (Exception ex)
-            {
-                WriteErrInfo(ex.Message);
-            }
-        }
-
-        private void dataGridViewCriteria_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -76,8 +72,6 @@ namespace UniExp
         {
             try
             {
-                //editTable = true;
-                //
                 SetEditTable(true);
             }
             catch (Exception ex)
@@ -90,17 +84,14 @@ namespace UniExp
         {
             if (editMode)
             {
-                dataGridViewCriteria.Enabled = true;
                 btnSave.Enabled = true;
                 btnUndo.Enabled = true;
             }
             else
             {
-                dataGridViewCriteria.Enabled = false;
                 btnSave.Enabled = false;
                 btnUndo.Enabled = false;
             }
-            //this._editTable = value;
             if (lstBoxProjName.SelectedIndex >= 0)
                 lstBoxProjName.Items[lstBoxProjName.SelectedIndex] =
                     makeFilePrefix(lstBoxProjName.SelectedIndex, editMode);
@@ -110,22 +101,20 @@ namespace UniExp
         {
             string result = string.Empty;
             //
-            if (index < -1)
+            if (index < 0 || index > lstBoxProjName.Items.Count - 1)
                 throw new Exception("makeFilePrefix: Ожидалось значение (int)index");
             if(isEditMode && !isSelected)
                 throw new Exception("makeFilePrefix: При (bool)isEditMode = true ожидалось значение" +
                     "(bool)isSelected = true");
             //
-            if (lstBoxProjName.SelectedIndex > -1)
-            {
                 bool editMode = false;
                 if (isEditMode)
                 {
-                    if (!isFilePrefix(lstBoxProjName.SelectedItem.ToString(), out editMode))
+                    if (!isFilePrefix(lstBoxProjName.Items[index].ToString(), out editMode))
                     {
                         result = string.Format("{0}{1}", editableFile, lstBoxProjName.Items[index]);
                     }
-                    else if (isFilePrefix(lstBoxProjName.SelectedItem.ToString(), out editMode))
+                    else if (isFilePrefix(lstBoxProjName.Items[index].ToString(), out editMode))
                     {
                         if (!editMode)
                             result = ((string)lstBoxProjName.Items[index]).
@@ -134,18 +123,17 @@ namespace UniExp
                             result = (string)lstBoxProjName.Items[index];
                     }
                 }
-                //!isEditMode
                 else
                 {                    
                     //
-                    if (!isFilePrefix(lstBoxProjName.SelectedItem.ToString(), out editMode))
+                    if (!isFilePrefix(lstBoxProjName.Items[index].ToString(), out editMode))
                     {
                         if (isSelected)
                             result = string.Format("{0}{1}", selectedFilePrefix, lstBoxProjName.Items[index]);
                         else
                             result = (string)lstBoxProjName.Items[index];
                     }
-                    else if (isFilePrefix(lstBoxProjName.SelectedItem.ToString(), out editMode))
+                    else if (isFilePrefix(lstBoxProjName.Items[index].ToString(), out editMode))
                     {
                         if (isSelected)
                         {
@@ -159,7 +147,6 @@ namespace UniExp
                             result = ((string)lstBoxProjName.Items[index]).Substring(editableFile.Length);
                     }
                 }
-            }
             return result;
         }
 
@@ -167,11 +154,15 @@ namespace UniExp
         {
             try
             {
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    GridViewCriterias gridView = new GridViewCriterias();
-                    gridView.Save(dataGridViewCriteria, saveFileDialog.FileName);
-                }
+                if (lstBoxProjName.SelectedIndex < 0)
+                    throw new Exception("Ожидалось значение (int)lstBoxProjName.SelectedIndex > -1");
+                //
+                GridViewCriterias gridView = new GridViewCriterias();
+                gridView.Save(dataGridViewCriteria, Path.Combine(toolStripStatusLabel.Text,
+                    makeFilePrefix(lstBoxProjName.SelectedIndex, false, false)));
+                lstBoxProjName.Items[lstBoxProjName.SelectedIndex] = 
+                    makeFilePrefix(lstBoxProjName.SelectedIndex);
+                SetEditTable(false);
             }
             catch (ArgumentException aEx)
             {
@@ -182,21 +173,70 @@ namespace UniExp
                 WriteErrInfo(ex.Message);
             }
         }
-        private void SelectFolder_Click(object sender, EventArgs e)
+
+        private void btnCreated_Click(object sender, EventArgs e)
         {
             try
             {
-
-                //?
-                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string[] filesNames = Directory.GetFiles(folderBrowserDialog.SelectedPath, "*.json");
+                    lstBoxProjName.Items.Clear();
+                    //
+                    if (File.Exists(saveFileDialog.FileName))
+                        File.Delete(saveFileDialog.FileName);
+                    //
+                    string[] filesNames = Directory.GetFiles(Path.GetDirectoryName(saveFileDialog.FileName),
+                            "*.json");
+                    toolStripStatusLabel.Text = Path.GetDirectoryName(saveFileDialog.FileName);
                     foreach (string fileName in filesNames)
                     {
-                        toolStripStatusLabel.Text = Path.GetDirectoryName(fileName);
+                        //toolStripStatusLabel.Text = Path.GetDirectoryName(fileName);
                         lstBoxProjName.Items.Add(Path.GetFileName(fileName));
+                        //if (Path.GetFileName(fileName) == Path.GetFileName(saveFileDialog.FileName))
+                        //{
+                        //    lstBoxProjName.SelectedIndex = lstBoxProjName.Items.Count - 1;
+                        //}
+                    }
+                    lstBoxProjName.Items.Add(Path.GetFileName(saveFileDialog.FileName));
+                    lstBoxProjName.SelectedIndex = lstBoxProjName.Items.Count - 1;
+                    lstBoxProjName.Items[lstBoxProjName.SelectedIndex] =
+                        makeFilePrefix(lstBoxProjName.SelectedIndex, true, true);
+                }
+            }
+            catch(Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
+        private void btnUndo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string fileName = Path.Combine(toolStripStatusLabel.Text,
+                    makeFilePrefix(lstBoxProjName.SelectedIndex, false, false));
+                if (File.Exists(fileName))
+                {
+                    GridViewCriterias gridView = new GridViewCriterias();
+                    gridView.Load(dataGridViewCriteria, fileName);
+                    //lstBoxProjName.SelectedIndex = lstBoxProjName.SelectedIndex;
+                }
+                else 
+                {
+                    if (lstBoxProjName.Items.Count > 1) {
+                        lstBoxProjName.Items.Remove(lstBoxProjName.SelectedItem);
+                        lstBoxProjName.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        lstBoxProjName.Items.Clear();
+                        initConrolsGrid();
+                        toolStripStatusLabel.Text = "Папка с проектами";
+                        dataGridViewCriteria.Enabled = false;
                     }
                 }
+                //
+                SetEditTable(false);
             }
             catch(Exception ex)
             {
@@ -216,17 +256,37 @@ namespace UniExp
                         int currSelectedIndex = currSelectedIteam(out editMode);
                         if (!editMode)
                         {
-                            GridViewCriterias gridView = new GridViewCriterias();
-                            gridView.Load(dataGridViewCriteria, Path.Combine(toolStripStatusLabel.Text, 
-                                lstBoxProjName.SelectedItem.ToString()));
+                            string fileName = Path.Combine(toolStripStatusLabel.Text,
+                                makeFilePrefix(lstBoxProjName.SelectedIndex, false, false));
+                            if (File.Exists(fileName))
+                            {
+                                GridViewCriterias gridView = new GridViewCriterias();
+                                //gridView.Load(dataGridViewCriteria, Path.Combine(toolStripStatusLabel.Text, 
+                                //    lstBoxProjName.SelectedItem.ToString()));
+                                gridView.Load(dataGridViewCriteria, fileName);
+                            }
+                            else
+                            {
+                                //dataGridViewCriteria.Rows.Clear();
+                                //dataGridViewCriteria.Columns.Clear();
+                                ////
+                                //GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+                                //dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaName, 
+                                //    gridViewRowCriterias.colCriteriaName);
+                                //dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaValue, 
+                                //    gridViewRowCriterias.colCriteriaValue);
+                                initConrolsGrid();
+                                //
+                                SetEditTable(true);
+                            }
                             if (currSelectedIndex != -1)
-                                lstBoxProjName.Items[currSelectedIndex] = getFileName(lstBoxProjName.
-                                    Items[currSelectedIndex].ToString());
+                                lstBoxProjName.Items[currSelectedIndex] =
+                                    makeFilePrefix(currSelectedIndex, false, false);
                             //
-                            //lstBoxProjName.Items[lstBoxProjName.SelectedIndex] = selectedFilePrefix +
-                            //        lstBoxProjName.SelectedItem;
                             lstBoxProjName.Items[lstBoxProjName.SelectedIndex] = 
                                 makeFilePrefix(lstBoxProjName.SelectedIndex);
+                            if(!dataGridViewCriteria.Enabled)
+                                dataGridViewCriteria.Enabled = true;
                         }
                         else
                         {
@@ -287,15 +347,15 @@ namespace UniExp
             return result;
         }
 
-        private string getFileName(string fileName)
-        {
-            string result = string.Empty;
-            //
-            if (string.IsNullOrEmpty(fileName))
-                throw new Exception("Ожидалось значение (string)fileName");
-            //
-            return fileName.Substring(selectedFilePrefix.Length);
-        }
+        //private string getFileName(string fileName)
+        //{
+        //    string result = string.Empty;
+        //    //
+        //    if (string.IsNullOrEmpty(fileName))
+        //        throw new Exception("Ожидалось значение (string)fileName");
+        //    //
+        //    return fileName.Substring(selectedFilePrefix.Length);
+        //}
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
@@ -303,36 +363,20 @@ namespace UniExp
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    lstBoxProjName.Items.Clear();
                     string[] filesNames = Directory.GetFiles(Path.GetDirectoryName(openFileDialog.FileName),
                         "*.json");
+                    toolStripStatusLabel.Text = Path.GetDirectoryName(openFileDialog.FileName);
                     foreach (string fileName in filesNames)
                     {
-                        toolStripStatusLabel.Text = Path.GetDirectoryName(fileName);
+                        //toolStripStatusLabel.Text = Path.GetDirectoryName(fileName);
                         lstBoxProjName.Items.Add(Path.GetFileName(fileName));
                         if (Path.GetFileName(fileName) == Path.GetFileName(openFileDialog.FileName))
                         {
                             lstBoxProjName.SelectedIndex = lstBoxProjName.Items.Count - 1;
-                            //lstBoxProjName.Items[lstBoxProjName.Items.Count - 1] =
-                            //    makeFilePrefix(lstBoxProjName.Items.Count - 1);
                         }
                     }
                 }
-                //DialogResult dialogResult = DialogResult.No;
-                //if (tabControl.TabPages[0].Text == "Новый документ*" ||
-                //        openFileDialog.FileName == openFileDialog.FileName + "*")
-                //{
-                //    dialogResult = MessageBox.Show("Имеются не сохраненные изменения.\nВы действительно хотите " +
-                //        "открыть новый файл?", "Предупреждение", 
-                //        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                //}
-                //if (dialogResult == DialogResult.Yes)
-                //{
-                //if (openFileDialog.ShowDialog() == DialogResult.OK)
-                //{
-                //    GridViewCriterias gridView = new GridViewCriterias();
-                //    gridView.Load(dataGridViewCriteria, openFileDialog.FileName);
-                //}
-                //}
             }
             catch (ArgumentException aEx)
             {
@@ -351,6 +395,24 @@ namespace UniExp
                 this.Close();
             }
             catch(Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
+        private void UniExp_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (btnSave.Enabled)
+                {
+                    e.Cancel = true;
+                    WriteErrInfo("Перед закрытием приложения необходимо сохранить или " +
+                        "отменить изменения текущего проекта", "Warning");
+                }
+
+            }
+            catch (Exception ex)
             {
                 WriteErrInfo(ex.Message);
             }

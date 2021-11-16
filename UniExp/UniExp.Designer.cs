@@ -37,7 +37,6 @@
             this.btnUndo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExist = new System.Windows.Forms.ToolStripMenuItem();
-            this.SelectFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panelLstBoxProjName = new System.Windows.Forms.Panel();
@@ -62,8 +61,7 @@
             // 
             this.MainMenu.BackColor = System.Drawing.Color.White;
             this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnMenuFile,
-            this.SelectFolder});
+            this.btnMenuFile});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Size = new System.Drawing.Size(962, 24);
@@ -89,6 +87,7 @@
             this.btnCreated.Name = "btnCreated";
             this.btnCreated.Size = new System.Drawing.Size(180, 22);
             this.btnCreated.Text = "Создать";
+            this.btnCreated.Click += new System.EventHandler(this.btnCreated_Click);
             // 
             // btnOpen
             // 
@@ -116,6 +115,7 @@
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(180, 22);
             this.btnUndo.Text = "Отменить";
+            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
             // toolStripSeparator2
             // 
@@ -129,18 +129,12 @@
             this.btnExist.Text = "Закрыть";
             this.btnExist.Click += new System.EventHandler(this.btnExist_Click);
             // 
-            // SelectFolder
-            // 
-            this.SelectFolder.Name = "SelectFolder";
-            this.SelectFolder.Size = new System.Drawing.Size(101, 20);
-            this.SelectFolder.Text = "Выбрать папку";
-            this.SelectFolder.Click += new System.EventHandler(this.SelectFolder_Click);
-            // 
             // saveFileDialog
             // 
             this.saveFileDialog.FileName = "data.json";
             this.saveFileDialog.Filter = "Данные|*.json";
             this.saveFileDialog.RestoreDirectory = true;
+            this.saveFileDialog.Title = "Создать проекта";
             // 
             // openFileDialog
             // 
@@ -239,6 +233,7 @@
             this.Name = "UniExp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UniExp";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UniExp_FormClosing);
             this.Load += new System.EventHandler(this.UniExp_Load);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
@@ -264,7 +259,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Panel panelLstBoxProjName;
         private System.Windows.Forms.ListBox lstBoxProjName;
-        private System.Windows.Forms.ToolStripMenuItem SelectFolder;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
