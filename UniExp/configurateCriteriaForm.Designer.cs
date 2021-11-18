@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(configurateCriteriaForm));
             this.panelConfigurateCriteria = new System.Windows.Forms.Panel();
             this.btnCancelConfigurateCriteria = new System.Windows.Forms.Button();
             this.btnSaveConfigurateCriteria = new System.Windows.Forms.Button();
@@ -53,22 +54,27 @@
             // 
             this.btnCancelConfigurateCriteria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancelConfigurateCriteria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCancelConfigurateCriteria.Location = new System.Drawing.Point(227, 140);
+            this.btnCancelConfigurateCriteria.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelConfigurateCriteria.Image")));
+            this.btnCancelConfigurateCriteria.Location = new System.Drawing.Point(236, 129);
             this.btnCancelConfigurateCriteria.Name = "btnCancelConfigurateCriteria";
-            this.btnCancelConfigurateCriteria.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelConfigurateCriteria.Size = new System.Drawing.Size(90, 36);
             this.btnCancelConfigurateCriteria.TabIndex = 2;
             this.btnCancelConfigurateCriteria.Text = "Отменить";
+            this.btnCancelConfigurateCriteria.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancelConfigurateCriteria.UseVisualStyleBackColor = true;
             // 
             // btnSaveConfigurateCriteria
             // 
             this.btnSaveConfigurateCriteria.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSaveConfigurateCriteria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSaveConfigurateCriteria.Location = new System.Drawing.Point(22, 141);
+            this.btnSaveConfigurateCriteria.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveConfigurateCriteria.Image")));
+            this.btnSaveConfigurateCriteria.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveConfigurateCriteria.Location = new System.Drawing.Point(6, 129);
             this.btnSaveConfigurateCriteria.Name = "btnSaveConfigurateCriteria";
-            this.btnSaveConfigurateCriteria.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveConfigurateCriteria.Size = new System.Drawing.Size(90, 36);
             this.btnSaveConfigurateCriteria.TabIndex = 1;
             this.btnSaveConfigurateCriteria.Text = "Сохранить";
+            this.btnSaveConfigurateCriteria.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSaveConfigurateCriteria.UseVisualStyleBackColor = true;
             this.btnSaveConfigurateCriteria.Click += new System.EventHandler(this.btnSaveConfigurateCriteria_Click);
             // 

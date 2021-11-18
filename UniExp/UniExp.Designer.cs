@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UniExp));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.btnMenuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCreated = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,48 +85,53 @@
             // 
             // btnCreated
             // 
+            this.btnCreated.Image = ((System.Drawing.Image)(resources.GetObject("btnCreated.Image")));
             this.btnCreated.Name = "btnCreated";
-            this.btnCreated.Size = new System.Drawing.Size(132, 22);
+            this.btnCreated.Size = new System.Drawing.Size(180, 22);
             this.btnCreated.Text = "Создать";
             this.btnCreated.Click += new System.EventHandler(this.btnCreated_Click);
             // 
             // btnOpen
             // 
+            this.btnOpen.Image = ((System.Drawing.Image)(resources.GetObject("btnOpen.Image")));
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(132, 22);
+            this.btnOpen.Size = new System.Drawing.Size(180, 22);
             this.btnOpen.Text = "Открыть";
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(129, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // btnSave
             // 
             this.btnSave.Enabled = false;
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(132, 22);
+            this.btnSave.Size = new System.Drawing.Size(180, 22);
             this.btnSave.Text = "Сохранить";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnUndo
             // 
             this.btnUndo.Enabled = false;
+            this.btnUndo.Image = ((System.Drawing.Image)(resources.GetObject("btnUndo.Image")));
             this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(132, 22);
+            this.btnUndo.Size = new System.Drawing.Size(180, 22);
             this.btnUndo.Text = "Отменить";
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(129, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // btnExist
             // 
+            this.btnExist.Image = ((System.Drawing.Image)(resources.GetObject("btnExist.Image")));
             this.btnExist.Name = "btnExist";
-            this.btnExist.Size = new System.Drawing.Size(132, 22);
+            this.btnExist.Size = new System.Drawing.Size(180, 22);
             this.btnExist.Text = "Закрыть";
             this.btnExist.Click += new System.EventHandler(this.btnExist_Click);
             // 
@@ -232,6 +238,7 @@
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.MainMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MainMenu;
             this.Name = "UniExp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

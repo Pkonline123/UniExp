@@ -153,6 +153,9 @@ namespace UniExpGridViewCriteria
             //
             try
             {
+                //!!!
+                // Проверить уникальные значения в столбце критерий
+                //Доавить ограничение на колво символов
                 if (dataGridViewCriteria == null)
                     throw new Exception("gridViewCriterias.chekValues: Ожидалось значение (DataGridView)dataGridViewCriterias");
                 //Рабоатет както странно
