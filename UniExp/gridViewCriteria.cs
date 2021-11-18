@@ -84,6 +84,9 @@ namespace UniExpGridViewCriteria
             GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
             foreach (DataGridViewRow dataGridViewRow in dataGridViewCriteria.Rows)
             {
+                if (dataGridViewRow.Index == dataGridViewCriteria.RowCount - 1)
+                    break;
+                //
                 this.gridViewRowCriteria.Add(new GridViewRowCriteria()
                 {
                     criteriaName = dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value == null ? 
