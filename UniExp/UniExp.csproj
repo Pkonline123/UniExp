@@ -104,6 +104,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="configurateCriteriaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="configurateCriteriaForm.Designer.cs">
+      <DependentUpon>configurateCriteriaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="gridViewCriteria.cs" />
     <Compile Include="UniExp.cs">
       <SubType>Form</SubType>
@@ -113,6 +119,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="configurateCriteriaForm.resx">
+      <DependentUpon>configurateCriteriaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UniExp.resx">
       <DependentUpon>UniExp.cs</DependentUpon>
     </EmbeddedResource>

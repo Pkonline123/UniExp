@@ -85,27 +85,27 @@
             // btnCreated
             // 
             this.btnCreated.Name = "btnCreated";
-            this.btnCreated.Size = new System.Drawing.Size(180, 22);
+            this.btnCreated.Size = new System.Drawing.Size(132, 22);
             this.btnCreated.Text = "Создать";
             this.btnCreated.Click += new System.EventHandler(this.btnCreated_Click);
             // 
             // btnOpen
             // 
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(180, 22);
+            this.btnOpen.Size = new System.Drawing.Size(132, 22);
             this.btnOpen.Text = "Открыть";
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(129, 6);
             // 
             // btnSave
             // 
             this.btnSave.Enabled = false;
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(180, 22);
+            this.btnSave.Size = new System.Drawing.Size(132, 22);
             this.btnSave.Text = "Сохранить";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -113,19 +113,19 @@
             // 
             this.btnUndo.Enabled = false;
             this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(180, 22);
+            this.btnUndo.Size = new System.Drawing.Size(132, 22);
             this.btnUndo.Text = "Отменить";
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(129, 6);
             // 
             // btnExist
             // 
             this.btnExist.Name = "btnExist";
-            this.btnExist.Size = new System.Drawing.Size(180, 22);
+            this.btnExist.Size = new System.Drawing.Size(132, 22);
             this.btnExist.Text = "Закрыть";
             this.btnExist.Click += new System.EventHandler(this.btnExist_Click);
             // 
@@ -193,7 +193,7 @@
             // 
             this.dataGridViewCriteria.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewCriteria.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewCriteria.BackgroundColor = System.Drawing.Color.LightGray;
+            this.dataGridViewCriteria.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewCriteria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCriteria.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewCriteria.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -202,6 +202,8 @@
             this.dataGridViewCriteria.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewCriteria.Size = new System.Drawing.Size(798, 178);
             this.dataGridViewCriteria.TabIndex = 0;
+            this.dataGridViewCriteria.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridViewCriteria_CellBeginEdit);
+            this.dataGridViewCriteria.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCriteria_CellClick);
             this.dataGridViewCriteria.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCriteria_CellValueChanged);
             // 
             // toolStripStatusLabel

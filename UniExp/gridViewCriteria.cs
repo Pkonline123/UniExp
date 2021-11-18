@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.IO;
+using System.Drawing;
 
 namespace UniExpGridViewCriteria
 {
@@ -31,7 +32,8 @@ namespace UniExpGridViewCriteria
     public class GridViewColumnsCriteria
     {
         public readonly string colCriteriaName = "Критерий";
-        public readonly string colCriteriaValue = "Значение";
+        public readonly string colCriteriaValue = "Значения";
+        public readonly string colBtnCriteriaValue = "Конструктор";
 
         public GridViewColumnsCriteria()
         {
@@ -68,12 +70,12 @@ namespace UniExpGridViewCriteria
             if (string.IsNullOrEmpty(fileName))
                 throw new Exception("gridViewCriterias.Update: Ожидалось значение (string)fileName");
             //Рабоатет както странно
-            if(dataGridViewCriteria.Rows.Count <= 1)
-                throw new Exception(string.Format("Перед сохранением необходимо заполнить таблицу '{0}'", 
-                    "Параметр/Значение"));
+            //if(dataGridViewCriteria.Rows.Count <= 1)
+            //    throw new Exception(string.Format("Перед сохранением необходимо заполнить таблицу '{0}'", 
+            //        "Параметр/Значения"));
             //
             //gridViewColsCriterias.Clear();
-            gridViewRowCriteria.Clear();
+            this.gridViewRowCriteria.Clear();
             //
             //foreach (DataGridViewColumn dataGridViewColumn in dataGridViewCriteria.Columns)
             //{
@@ -82,27 +84,6 @@ namespace UniExpGridViewCriteria
             GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
             foreach (DataGridViewRow dataGridViewRow in dataGridViewCriteria.Rows)
             {
-                if (dataGridViewRow.Index == dataGridViewCriteria.RowCount - 1)
-                    break;
-                //
-                if (dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value != null && 
-                    dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value == null)
-                {
-                    throw new ArgumentException(string.Format("Заполните поле: 'Значение' для критерия: '{0}'",
-                        dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value.ToString()), "Warning");
-                }
-                if (dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value == null && 
-                    dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value != null)
-                {
-                    throw new ArgumentException(string.Format("Заполните поле: 'Параметр' для значеня: '{0}'",
-                       dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value.ToString()), "Warning");
-                }
-                if (dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value == null && 
-                    dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value == null)
-                {
-                    throw new ArgumentException(string.Format("Заполните поля: 'Параметр' и 'Значение' " +
-                        "для записи: № {0}", dataGridViewRow.Index + 1, "Warning"));
-                }
                 this.gridViewRowCriteria.Add(new GridViewRowCriteria()
                 {
                     criteriaName = dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value == null ? 
@@ -146,11 +127,66 @@ namespace UniExpGridViewCriteria
             {
                 dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaName, gridViewRowCriterias.colCriteriaName);
                 dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaValue, gridViewRowCriterias.colCriteriaValue);
+                dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaValue].
+                        DefaultCellStyle.BackColor = Color.FromName("Control");
+                //
+                DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
+                buttonColumn.HeaderText = gridViewRowCriterias.colBtnCriteriaValue;
+                buttonColumn.Name = gridViewRowCriterias.colBtnCriteriaValue;
+                buttonColumn.Text = gridViewRowCriterias.colCriteriaValue;
+                buttonColumn.UseColumnTextForButtonValue = true;
+                dataGridViewCriteria.Columns.Add(buttonColumn);
+
                 foreach (GridViewRowCriteria grViewRowCriteria in gridViewRowCriteria)
                 {
                     dataGridViewCriteria.Rows.Add(grViewRowCriteria.criteriaName, grViewRowCriteria.criteriaValue);
                 }
             }
+        }
+
+        public bool chekValues(DataGridView dataGridViewCriteria)
+        {
+            bool result = false;
+            //
+            try
+            {
+                if (dataGridViewCriteria == null)
+                    throw new Exception("gridViewCriterias.chekValues: Ожидалось значение (DataGridView)dataGridViewCriterias");
+                //Рабоатет както странно
+                if (dataGridViewCriteria.Rows.Count <= 1)
+                    throw new Exception(string.Format("Перед сохранением необходимо заполнить таблицу '{0}'",
+                        "Параметр/Значения"));
+                //
+                GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+                foreach (DataGridViewRow dataGridViewRow in dataGridViewCriteria.Rows)
+                {
+                    if (dataGridViewRow.Index == dataGridViewCriteria.RowCount - 1)
+                        break;
+                    //
+                    if (dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value == null ||
+                        string.IsNullOrEmpty(dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value.ToString()))
+                    {
+                        throw new ArgumentException(string.Format("Заполните поле: '{0}'",
+                            gridViewRowCriterias.colCriteriaName, "Warning"));
+                    }
+                    if (dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value == null ||
+                        string.IsNullOrEmpty(dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value.ToString()))
+                    {
+                        throw new ArgumentException(string.Format("Заполните поле: '{0}'",
+                            gridViewRowCriterias.colCriteriaValue, "Warning"));
+                    }
+                }
+                result = true;
+            }
+            catch(Exception ex)
+            {
+                if (ex.GetType() == typeof(ArgumentException))
+                    throw new ArgumentException(ex.Message, "Warning");
+                else
+                    throw new Exception(ex.Message);
+            }
+            //
+            return result;
         }
     }
 }
