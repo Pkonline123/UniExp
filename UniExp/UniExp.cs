@@ -128,6 +128,18 @@ namespace UniExp
             }
         }
 
+        private void dataGridViewCriteria_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            try
+            {
+                SetEditTable(true);
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
         private void SetEditTable(bool editMode)
         {
             if (editMode)
@@ -268,6 +280,9 @@ namespace UniExp
                 {
                     GridViewCriterias gridView = new GridViewCriterias();
                     gridView.Load(dataGridViewCriteria, fileName);
+                    //
+                    SetEditTable(false);
+                    gridView.chekValues(dataGridViewCriteria);
                 }
                 else 
                 {
@@ -282,9 +297,12 @@ namespace UniExp
                         toolStripStatusLabel.Text = "Папка с проектами";
                         dataGridViewCriteria.Enabled = false;
                     }
+                    SetEditTable(false);
                 }
-                //
-                SetEditTable(false);
+            }
+            catch(ArgumentException aEx)
+            {
+                WriteErrInfo(aEx.Message,"Warning");
             }
             catch(Exception ex)
             {
@@ -316,15 +334,21 @@ namespace UniExp
                                 GridViewCriterias gridView = new GridViewCriterias();
                                 gridView.Load(dataGridViewCriteria, fileName);
                                 SetEditTable(false);
+                                //
+                                if (!dataGridViewCriteria.Enabled)
+                                    dataGridViewCriteria.Enabled = true;
+                                //
+                                gridView.chekValues(dataGridViewCriteria);
                             }
                             else
                             {
                                 initConrolsGrid();
                                 //
                                 SetEditTable(true);
+                                //
+                                if (!dataGridViewCriteria.Enabled)
+                                    dataGridViewCriteria.Enabled = true;
                             }
-                            if(!dataGridViewCriteria.Enabled)
-                                dataGridViewCriteria.Enabled = true;
                         }
                         else
                         {
@@ -335,7 +359,11 @@ namespace UniExp
                     }
                 }
             }
-            catch(Exception ex)
+            catch (ArgumentException aEx)
+            {
+                WriteErrInfo(aEx.Message, "Warning");
+            }
+            catch (Exception ex)
             {
                 WriteErrInfo(ex.Message);
             }

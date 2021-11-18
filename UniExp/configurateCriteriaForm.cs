@@ -31,23 +31,30 @@ namespace UniExp
 
         private void configurateCriteriaForm_Load(object sender, EventArgs e)
         {
-            this.txtBoxCriteriaName.Text = criteriaName;
-            string[] criteriasValues = this.criteriaValue.Split( new char[] {';'}, 
-                StringSplitOptions.RemoveEmptyEntries);
-            if (criteriasValues.Length > 0)
+            try
             {
-                dataGridViewConfigurateCriteria.Rows.Clear();
-                for(int idx = 0; idx < 5; idx++)
+                this.txtBoxCriteriaName.Text = criteriaName;
+                string[] criteriasValues = this.criteriaValue.Split(new char[] { ';' },
+                    StringSplitOptions.RemoveEmptyEntries);
+                if (criteriasValues.Length > 0)
                 {
-                    if (idx <= criteriasValues.Length - 1)
+                    dataGridViewConfigurateCriteria.Rows.Clear();
+                    for (int idx = 0; idx < 5; idx++)
                     {
-                        dataGridViewConfigurateCriteria.Rows.Add(criteriasValues[idx]);
-                    }
-                    else
-                    {
-                        dataGridViewConfigurateCriteria.Rows.Add(1);
+                        if (idx <= criteriasValues.Length - 1)
+                        {
+                            dataGridViewConfigurateCriteria.Rows.Add(criteriasValues[idx]);
+                        }
+                        else
+                        {
+                            dataGridViewConfigurateCriteria.Rows.Add(1);
+                        }
                     }
                 }
+            }
+            catch(Exception ex)
+            {
+                WriteErrInfo(ex.Message);
             }
         }
 
