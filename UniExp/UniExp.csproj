@@ -153,14 +153,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Image\check.png" />
     <Content Include="Image\close.png" />
+    <Content Include="Image\close_16px.png" />
     <Content Include="Image\create.png" />
     <Content Include="Image\noted_note_pen_notebook_write_icon_193949.ico" />
     <Content Include="Image\open.png" />
     <Content Include="Image\save.png" />
-    <Content Include="Image\save_16px.png" />
     <Content Include="Image\undo.png" />
-    <Content Include="Image\undo_16px.png" />
     <Content Include="noted_note_pen_notebook_write_icon_193949.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

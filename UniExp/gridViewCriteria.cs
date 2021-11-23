@@ -31,6 +31,7 @@ namespace UniExpGridViewCriteria
 
     public class GridViewColumnsCriteria
     {
+        public readonly string colCriteriaIndex = "№";
         public readonly string colCriteriaName = "Критерий";
         public readonly string colCriteriaValue = "Значения";
         public readonly string colBtnCriteriaValue = "Конструктор";
@@ -42,11 +43,13 @@ namespace UniExpGridViewCriteria
     }
     public class GridViewRowCriteria : GridViewColumnsCriteria
     {
+        //public int criteriaIndex { get; set; }
         public string criteriaName { get; set; }
         public string criteriaValue { get; set; }
 
         public GridViewRowCriteria()
         {
+            //this.criteriaIndex = 0;
             this.criteriaName = string.Empty;
             this.criteriaValue = string.Empty;
         }
@@ -89,6 +92,8 @@ namespace UniExpGridViewCriteria
                 //
                 this.gridViewRowCriteria.Add(new GridViewRowCriteria()
                 {
+                    //criteriaIndex = dataGridViewRow.Index,
+                    //dataGridViewRow.Cells.IndexOf(dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName]),
                     criteriaName = dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value == null ? 
                         string.Empty : dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value.ToString(),
                     criteriaValue = dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaValue].Value == null ? 
@@ -106,6 +111,7 @@ namespace UniExpGridViewCriteria
             if (string.IsNullOrEmpty(fileName))
                 throw new Exception("gridViewCriterias.Load: Ожидалось значение (string)fileName");
             //
+            dataGridViewCriteria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             //gridViewColsCriterias.Clear();
             gridViewRowCriteria.Clear();
             //Возмоно пререработать
@@ -128,6 +134,10 @@ namespace UniExpGridViewCriteria
             GridViewRowCriteria gridViewRowCriterias = gridViewRowCriteria.FirstOrDefault();
             if (gridViewRowCriterias != null)
             {
+                dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaIndex, gridViewRowCriterias.colCriteriaIndex);
+                dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaIndex].
+                DefaultCellStyle.BackColor = Color.FromName("Control");
+                //dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaIndex].Width = 10;
                 dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaName, gridViewRowCriterias.colCriteriaName);
                 dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaValue, gridViewRowCriterias.colCriteriaValue);
                 dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaValue].
@@ -137,13 +147,20 @@ namespace UniExpGridViewCriteria
                 buttonColumn.HeaderText = gridViewRowCriterias.colBtnCriteriaValue;
                 buttonColumn.Name = gridViewRowCriterias.colBtnCriteriaValue;
                 buttonColumn.Text = gridViewRowCriterias.colCriteriaValue;
+                //buttonColumn.FlatStyle = FlatStyle.Popup;
+                //buttonColumn.styl = ;
+                //buttonColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
                 buttonColumn.UseColumnTextForButtonValue = true;
                 dataGridViewCriteria.Columns.Add(buttonColumn);
-
+                //
+                //int numRow = 0;
                 foreach (GridViewRowCriteria grViewRowCriteria in gridViewRowCriteria)
                 {
-                    dataGridViewCriteria.Rows.Add(grViewRowCriteria.criteriaName, grViewRowCriteria.criteriaValue);
+                    dataGridViewCriteria.Rows.Add(string.Empty, grViewRowCriteria.criteriaName,
+                        grViewRowCriteria.criteriaValue);
                 }
+                //
+                dataGridViewCriteria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
         }
 
@@ -154,8 +171,10 @@ namespace UniExpGridViewCriteria
             try
             {
                 //!!!
-                // Проверить уникальные значения в столбце критерий
-                //Доавить ограничение на колво символов
+                // Проверить уникальные значения в столбце критерий+
+                // Доавить ограничение на колво символов+
+                // Добавить нумерацию в таблицу
+                // Обработка ошибки на клике по столбцу
                 if (dataGridViewCriteria == null)
                     throw new Exception("gridViewCriterias.chekValues: Ожидалось значение (DataGridView)dataGridViewCriterias");
                 //Рабоатет както странно
@@ -164,6 +183,8 @@ namespace UniExpGridViewCriteria
                         "Параметр/Значения"));
                 //
                 GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+                List<string> lstCriteriaNames = new List<string>();
+                List<string> lstUniqCriteriaNames = new List<string>();
                 foreach (DataGridViewRow dataGridViewRow in dataGridViewCriteria.Rows)
                 {
                     if (dataGridViewRow.Index == dataGridViewCriteria.RowCount - 1)
@@ -181,6 +202,23 @@ namespace UniExpGridViewCriteria
                         throw new ArgumentException(string.Format("Заполните поле: '{0}'",
                             gridViewRowCriterias.colCriteriaValue, "Warning"));
                     }
+                    //
+                    lstCriteriaNames.Add(dataGridViewRow.Cells[gridViewRowCriterias.colCriteriaName].Value.ToString());
+                }
+                foreach (string criteriaName in lstCriteriaNames)
+                {
+                    if (!lstUniqCriteriaNames.Contains(criteriaName))
+                    {
+                        if (criteriaName.Length > 255)
+                            throw new Exception(string.Format("Наименование критерия: '{0}' превышает 255 символов",
+                                criteriaName));
+                        else
+                            lstUniqCriteriaNames.Add(criteriaName);
+                    }
+                }
+                if(lstUniqCriteriaNames.Count != lstCriteriaNames.Count)
+                {
+                    throw new Exception("В рамках одного проекта не может быть критериев с одинаковым наименованием");
                 }
                 result = true;
             }

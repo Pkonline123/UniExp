@@ -53,6 +53,10 @@ namespace UniExp
             dataGridViewCriteria.Columns.Clear();
             //
             GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+            dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaIndex, gridViewRowCriterias.colCriteriaIndex);
+            dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaIndex].
+                DefaultCellStyle.BackColor = Color.FromName("Control");
+            //dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaIndex].Width = 20;
             dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaName, gridViewRowCriterias.colCriteriaName);
             dataGridViewCriteria.Columns.Add(gridViewRowCriterias.colCriteriaValue, gridViewRowCriterias.colCriteriaValue);
             dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaValue].
@@ -61,8 +65,22 @@ namespace UniExp
             buttonColumn.HeaderText = gridViewRowCriterias.colBtnCriteriaValue;
             buttonColumn.Name = gridViewRowCriterias.colBtnCriteriaValue;
             buttonColumn.Text = gridViewRowCriterias.colCriteriaValue;
+            //buttonColumn.FlatStyle = FlatStyle.Popup;
+            //buttonColumn.DefaultCellStyle.ForeColor = Color.Red;
+            //buttonColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             buttonColumn.UseColumnTextForButtonValue = true;
             dataGridViewCriteria.Columns.Add(buttonColumn);
+            //
+            //setColumnSize();
+            dataGridViewCriteria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void dataGridViewCriteria_AutoSizeColumnsModeChanged(object sender, DataGridViewAutoSizeColumnsModeEventArgs e)
+        {
+            GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+            dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaIndex].Width = 30;
+            dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaValue].Width = 60;
+            dataGridViewCriteria.Columns[gridViewRowCriterias.colBtnCriteriaValue].Width = 100;
         }
 
         private void dataGridViewCriteria_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -71,6 +89,10 @@ namespace UniExp
             {
                 GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
                 if (e.ColumnIndex == dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaValue].Index)
+                {
+                    e.Cancel = true;
+                }
+                if(e.ColumnIndex == dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaIndex].Index)
                 {
                     e.Cancel = true;
                 }
@@ -85,27 +107,30 @@ namespace UniExp
         {
             try
             {
-                GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
-                if (e.ColumnIndex == dataGridViewCriteria.Columns[gridViewRowCriterias.colBtnCriteriaValue].Index)
+                if (e.RowIndex >= 0)
                 {
-                    object criteriaNameObj = dataGridViewCriteria.Rows[e.RowIndex].Cells[gridViewRowCriterias.colCriteriaName].Value;
-                    string criteriaName = criteriaNameObj == null ? string.Empty : criteriaNameObj.ToString();
-                    object criteriaValueObj = dataGridViewCriteria.Rows[e.RowIndex].Cells[gridViewRowCriterias.colCriteriaValue].Value;
-                    string criteriaValue = criteriaValueObj == null ? string.Empty : criteriaValueObj.ToString();
-                    //
-                    if (string.IsNullOrEmpty(criteriaName))
+                    GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+                    if (e.ColumnIndex == dataGridViewCriteria.Columns[gridViewRowCriterias.colBtnCriteriaValue].Index)
                     {
-                        WriteErrInfo("Необходимо заполнить наименования критерия","Warning");
-                        return;
-                    }
-                    //
-                    using (configurateCriteriaForm configurateCriteria = new configurateCriteriaForm(criteriaName, criteriaValue))
-                    {
-                        configurateCriteria.Owner = this;
-                        if (configurateCriteria.ShowDialog() == DialogResult.OK)
+                        object criteriaNameObj = dataGridViewCriteria.Rows[e.RowIndex].Cells[gridViewRowCriterias.colCriteriaName].Value;
+                        string criteriaName = criteriaNameObj == null ? string.Empty : criteriaNameObj.ToString();
+                        object criteriaValueObj = dataGridViewCriteria.Rows[e.RowIndex].Cells[gridViewRowCriterias.colCriteriaValue].Value;
+                        string criteriaValue = criteriaValueObj == null ? string.Empty : criteriaValueObj.ToString();
+                        //
+                        if (string.IsNullOrEmpty(criteriaName))
                         {
-                            dataGridViewCriteria.Rows[e.RowIndex].
-                                Cells[gridViewRowCriterias.colCriteriaValue].Value = configurateCriteria.getCriteriaValue();
+                            WriteErrInfo("Необходимо заполнить наименования критерия", "Warning");
+                            return;
+                        }
+                        //
+                        using (configurateCriteriaForm configurateCriteria = new configurateCriteriaForm(criteriaName, criteriaValue))
+                        {
+                            configurateCriteria.Owner = this;
+                            if (configurateCriteria.ShowDialog() == DialogResult.OK)
+                            {
+                                dataGridViewCriteria.Rows[e.RowIndex].
+                                    Cells[gridViewRowCriterias.colCriteriaValue].Value = configurateCriteria.getCriteriaValue();
+                            }
                         }
                     }
                 }
@@ -120,12 +145,32 @@ namespace UniExp
         {
             try
             {
+                GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+                if (dataGridViewCriteria.Rows[e.RowIndex].Cells[gridViewRowCriterias.colCriteriaIndex].Value == null)
+                {
+                    dataGridViewCriteria.Rows[e.RowIndex].Cells[gridViewRowCriterias.colCriteriaIndex].Value =
+                        e.RowIndex + 1;
+                }
+                //
                 SetEditTable(true);
             }
             catch (Exception ex)
             {
                 WriteErrInfo(ex.Message);
             }
+        }
+
+        private void dataGridViewCriteria_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if (e.RowIndex < dataGridViewCriteria.RowCount - 1)
+            //if(!dataGridViewCriteria.Rows[e.RowIndex].IsNewRow)
+            {
+                GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+                dataGridViewCriteria.Rows[e.RowIndex].Cells[gridViewRowCriterias.colCriteriaIndex].Value =
+                    e.RowIndex + 1;
+            }
+            //GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
+            //dataGridViewCriteria.Rows[e.RowIndex].HeaderCell.Value = (e.RowIndex + 1).ToString();
         }
 
         private void dataGridViewCriteria_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
@@ -262,6 +307,8 @@ namespace UniExp
                     lstBoxProjName.SelectedIndex = lstBoxProjName.Items.Count - 1;
                     lstBoxProjName.Items[lstBoxProjName.SelectedIndex] =
                         makeFilePrefix(lstBoxProjName.SelectedIndex, true, true);
+                    //
+                    //setColumnSize();
                 }
             }
             catch(Exception ex)
@@ -437,6 +484,8 @@ namespace UniExp
                             lstBoxProjName.SelectedIndex = lstBoxProjName.Items.Count - 1;
                         }
                     }
+                    //
+                    //setColumnSize();
                 }
             }
             catch (ArgumentException aEx)
@@ -478,6 +527,12 @@ namespace UniExp
                 WriteErrInfo(ex.Message);
             }
         }
+
+        //private void setColumnSize()
+        //{
+        //    //dataGridViewCriteria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+        //    dataGridViewCriteria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        //}
 
         private void WriteErrInfo(string message, string typeErrInfo = "Error")
         {

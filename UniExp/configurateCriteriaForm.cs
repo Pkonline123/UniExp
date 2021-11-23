@@ -89,6 +89,9 @@ namespace UniExp
                 {
                     if (!lstUniqCriteriaVals.Contains(criteriaVal))
                     {
+                        if (criteriaVal.Length > 50)
+                            throw new Exception(string.Format("Наименование значения: '{0}, превышает " +
+                                "допустимую длину в 50 символов'", criteriaVal));
                         lstUniqCriteriaVals.Add(criteriaVal);
                     }
                 }

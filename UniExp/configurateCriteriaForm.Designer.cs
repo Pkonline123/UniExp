@@ -55,7 +55,8 @@
             this.btnCancelConfigurateCriteria.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancelConfigurateCriteria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancelConfigurateCriteria.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelConfigurateCriteria.Image")));
-            this.btnCancelConfigurateCriteria.Location = new System.Drawing.Point(236, 129);
+            this.btnCancelConfigurateCriteria.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancelConfigurateCriteria.Location = new System.Drawing.Point(239, 129);
             this.btnCancelConfigurateCriteria.Name = "btnCancelConfigurateCriteria";
             this.btnCancelConfigurateCriteria.Size = new System.Drawing.Size(90, 36);
             this.btnCancelConfigurateCriteria.TabIndex = 2;
@@ -69,11 +70,11 @@
             this.btnSaveConfigurateCriteria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSaveConfigurateCriteria.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveConfigurateCriteria.Image")));
             this.btnSaveConfigurateCriteria.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveConfigurateCriteria.Location = new System.Drawing.Point(6, 129);
+            this.btnSaveConfigurateCriteria.Location = new System.Drawing.Point(0, 129);
             this.btnSaveConfigurateCriteria.Name = "btnSaveConfigurateCriteria";
             this.btnSaveConfigurateCriteria.Size = new System.Drawing.Size(90, 36);
             this.btnSaveConfigurateCriteria.TabIndex = 1;
-            this.btnSaveConfigurateCriteria.Text = "Сохранить";
+            this.btnSaveConfigurateCriteria.Text = "Добавить";
             this.btnSaveConfigurateCriteria.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSaveConfigurateCriteria.UseVisualStyleBackColor = true;
             this.btnSaveConfigurateCriteria.Click += new System.EventHandler(this.btnSaveConfigurateCriteria_Click);
