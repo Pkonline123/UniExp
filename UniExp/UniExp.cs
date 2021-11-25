@@ -263,7 +263,7 @@ namespace UniExp
                     throw new Exception("Ожидалось значение (int)lstBoxProjName.SelectedIndex > -1");
                 //
                 GridViewCriterias gridView = new GridViewCriterias();
-                if (gridView.chekValues(dataGridViewCriteria))
+                if (gridView.checkValues(dataGridViewCriteria))
                 {
                     gridView.Save(dataGridViewCriteria, Path.Combine(toolStripStatusLabel.Text,
                         makeFilePrefix(lstBoxProjName.SelectedIndex, false, false)));
@@ -329,7 +329,7 @@ namespace UniExp
                     gridView.Load(dataGridViewCriteria, fileName);
                     //
                     SetEditTable(false);
-                    gridView.chekValues(dataGridViewCriteria);
+                    gridView.checkValues(dataGridViewCriteria);
                 }
                 else 
                 {
@@ -385,7 +385,7 @@ namespace UniExp
                                 if (!dataGridViewCriteria.Enabled)
                                     dataGridViewCriteria.Enabled = true;
                                 //
-                                gridView.chekValues(dataGridViewCriteria);
+                                gridView.checkValues(dataGridViewCriteria);
                             }
                             else
                             {
