@@ -44,7 +44,7 @@
             this.panelConfigurateCriteria.Controls.Add(this.btnCancelConfigurateCriteria);
             this.panelConfigurateCriteria.Controls.Add(this.btnSaveConfigurateCriteria);
             this.panelConfigurateCriteria.Controls.Add(this.dataGridViewConfigurateCriteria);
-            this.panelConfigurateCriteria.Location = new System.Drawing.Point(10, 66);
+            this.panelConfigurateCriteria.Location = new System.Drawing.Point(10, 55);
             this.panelConfigurateCriteria.Name = "panelConfigurateCriteria";
             this.panelConfigurateCriteria.Size = new System.Drawing.Size(329, 172);
             this.panelConfigurateCriteria.TabIndex = 2;
@@ -62,6 +62,7 @@
             this.btnCancelConfigurateCriteria.Text = "Отменить";
             this.btnCancelConfigurateCriteria.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancelConfigurateCriteria.UseVisualStyleBackColor = true;
+            this.btnCancelConfigurateCriteria.MouseHover += new System.EventHandler(this.btnCancelConfigurateCriteria_MouseHover);
             // 
             // btnSaveConfigurateCriteria
             // 
@@ -69,7 +70,7 @@
             this.btnSaveConfigurateCriteria.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSaveConfigurateCriteria.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveConfigurateCriteria.Image")));
             this.btnSaveConfigurateCriteria.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveConfigurateCriteria.Location = new System.Drawing.Point(0, 129);
+            this.btnSaveConfigurateCriteria.Location = new System.Drawing.Point(143, 129);
             this.btnSaveConfigurateCriteria.Name = "btnSaveConfigurateCriteria";
             this.btnSaveConfigurateCriteria.Size = new System.Drawing.Size(90, 36);
             this.btnSaveConfigurateCriteria.TabIndex = 1;
@@ -77,6 +78,7 @@
             this.btnSaveConfigurateCriteria.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSaveConfigurateCriteria.UseVisualStyleBackColor = true;
             this.btnSaveConfigurateCriteria.Click += new System.EventHandler(this.btnSaveConfigurateCriteria_Click);
+            this.btnSaveConfigurateCriteria.MouseHover += new System.EventHandler(this.btnSaveConfigurateCriteria_MouseHover);
             // 
             // dataGridViewConfigurateCriteria
             // 
@@ -119,7 +121,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(351, 243);
+            this.ClientSize = new System.Drawing.Size(351, 242);
             this.Controls.Add(this.txtBoxCriteriaName);
             this.Controls.Add(this.lblCriteria);
             this.Controls.Add(this.panelConfigurateCriteria);

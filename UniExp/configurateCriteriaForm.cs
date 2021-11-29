@@ -122,6 +122,18 @@ namespace UniExp
             }
         }
 
+        private void btnSaveConfigurateCriteria_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip btnSaveConfigurateCriteriaToolTip = new ToolTip();
+            btnSaveConfigurateCriteriaToolTip.SetToolTip(btnSaveConfigurateCriteria, "Сохранить введеные значения");
+        }
+
+        private void btnCancelConfigurateCriteria_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip btnCancelConfigurateCriteriaToolTip = new ToolTip();
+            btnCancelConfigurateCriteriaToolTip.SetToolTip(btnCancelConfigurateCriteria, "Вернуться к окну \"UniExp\"");
+        }
+
         private void WriteErrInfo(string message, string typeErrInfo = "Error")
         {
             switch (typeErrInfo)

@@ -38,6 +38,7 @@ namespace UniExp
                 //
                 initConrolsGrid();
                 dataGridViewCriteria.Enabled = false;
+                dataGridViewRoles.Enabled = false;
                 SetEditTable(false);
             }
             catch (Exception ex)
@@ -72,14 +73,16 @@ namespace UniExp
         {
             try
             {
-                //GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
-                GridViewColumns gridViewColumns = new GridViewColumns();
-                if (dataGridViewCriteria.Columns.Contains(gridViewColumns.colIndex))
-                    dataGridViewCriteria.Columns[gridViewColumns.colIndex].Width = 30;
-                if (dataGridViewCriteria.Columns.Contains(gridViewColumns.colCriteriaValue))
-                    dataGridViewCriteria.Columns[gridViewColumns.colCriteriaValue].Width = 60;
-                if (dataGridViewCriteria.Columns.Contains(gridViewColumns.colBtnValue))
-                    dataGridViewCriteria.Columns[gridViewColumns.colBtnValue].Width = 100;
+                if (dataGridViewCriteria.Columns.Count > 0)
+                {
+                    GridViewColumns gridViewColumns = new GridViewColumns();
+                    if (dataGridViewCriteria.Columns.Contains(gridViewColumns.colIndex))
+                        dataGridViewCriteria.Columns[gridViewColumns.colIndex].Width = 30;
+                    if (dataGridViewCriteria.Columns.Contains(gridViewColumns.colCriteriaValue))
+                        dataGridViewCriteria.Columns[gridViewColumns.colCriteriaValue].Width = 80;
+                    if (dataGridViewCriteria.Columns.Contains(gridViewColumns.colBtnValue))
+                        dataGridViewCriteria.Columns[gridViewColumns.colBtnValue].Width = 100;
+                }
             }
             catch (Exception ex)
             {
@@ -91,13 +94,12 @@ namespace UniExp
         {
             try
             {
-                //GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
                 GridViewColumns gridViewColumns = new GridViewColumns();
-                if (e.ColumnIndex == dataGridViewCriteria.Columns[gridViewColumns.colCriteriaValue].Index)
+                if (e.ColumnIndex == dataGridViewCriteria.Columns[gridViewColumns.colIndex].Index)
                 {
                     e.Cancel = true;
                 }
-                if (e.ColumnIndex == dataGridViewCriteria.Columns[gridViewColumns.colIndex].Index)
+                if (e.ColumnIndex == dataGridViewCriteria.Columns[gridViewColumns.colCriteriaValue].Index)
                 {
                     e.Cancel = true;
                 }
@@ -114,7 +116,6 @@ namespace UniExp
             {
                 if (e.RowIndex >= 0)
                 {
-                    //GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
                     GridViewColumns gridViewColumns = new GridViewColumns();
                     if (e.ColumnIndex == dataGridViewCriteria.Columns[gridViewColumns.colBtnValue].Index)
                     {
@@ -151,7 +152,6 @@ namespace UniExp
         {
             try
             {
-                //GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
                 GridViewColumns gridViewColumns = new GridViewColumns();
                 if (dataGridViewCriteria.Rows[e.RowIndex].Cells[gridViewColumns.colIndex].Value == null)
                 {
@@ -170,17 +170,18 @@ namespace UniExp
         private void dataGridViewCriteria_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             if (e.RowIndex < dataGridViewCriteria.RowCount - 1)
-            //if(!dataGridViewCriteria.Rows[e.RowIndex].IsNewRow)
             {
-                //GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
                 GridViewColumns gridViewColumns = new GridViewColumns();
                 dataGridViewCriteria.Rows[e.RowIndex].Cells[gridViewColumns.colIndex].Value =
                     e.RowIndex + 1;
             }
-            //GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
-            //dataGridViewCriteria.Rows[e.RowIndex].HeaderCell.Value = (e.RowIndex + 1).ToString();
         }
 
+        /// <summary>
+        /// перенумерация
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridViewCriteria_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             try
@@ -194,6 +195,147 @@ namespace UniExp
         }
         //
         #endregion dataGridViewCriteria
+        //
+        #region dataGridViewRoles
+        //
+        private void dataGridViewRoles_AutoSizeColumnsModeChanged(object sender, DataGridViewAutoSizeColumnsModeEventArgs e)
+        {
+            try
+            {
+                if (dataGridViewRoles.Columns.Count > 0)
+                {
+                    GridViewColumns gridViewColumns = new GridViewColumns();
+                    if (dataGridViewRoles.Columns.Contains(gridViewColumns.colIndex))
+                        dataGridViewRoles.Columns[gridViewColumns.colIndex].Width = 30;
+                    if (dataGridViewRoles.Columns.Contains(gridViewColumns.colRoleValue))
+                        dataGridViewRoles.Columns[gridViewColumns.colRoleValue].Width = 80;
+                    if (dataGridViewRoles.Columns.Contains(gridViewColumns.colBtnValue))
+                        dataGridViewRoles.Columns[gridViewColumns.colBtnValue].Width = 100;
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
+        private void dataGridViewRoles_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            try
+            {
+                GridViewColumns gridViewColumns = new GridViewColumns();
+                if (e.ColumnIndex == dataGridViewRoles.Columns[gridViewColumns.colIndex].Index)
+                {
+                    e.Cancel = true;
+                }
+                if (e.ColumnIndex == dataGridViewRoles.Columns[gridViewColumns.colRoleName].Index)
+                {
+                    e.Cancel = true;
+                }
+                if (e.ColumnIndex == dataGridViewRoles.Columns[gridViewColumns.colRoleValue].Index)
+                {
+                    e.Cancel = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Доделать
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridViewRoles_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex >= 0)
+                {
+                    GridViewColumns gridViewColumns = new GridViewColumns();
+                    if (e.ColumnIndex == dataGridViewRoles.Columns[gridViewColumns.colBtnValue].Index)
+                    {
+                        object roleNameObj = dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colRoleName].Value;
+                        string roleName = roleNameObj == null ? string.Empty : roleNameObj.ToString();
+                        object roleValueObj = dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colRoleValue].Value;
+                        string roleValue = roleValueObj == null ? string.Empty : roleValueObj.ToString();
+                        //
+                        using (configurateCriteriaForm configurateRole = new configurateCriteriaForm(roleName, roleValue))
+                        {
+                            configurateRole.Owner = this;
+                            if (configurateRole.ShowDialog() == DialogResult.OK)
+                            {
+                                dataGridViewRoles.Rows[e.RowIndex].
+                                    Cells[gridViewColumns.colRoleName].Value = configurateRole.getCriteriaValue();
+                                dataGridViewRoles.Rows[e.RowIndex].
+                                    Cells[gridViewColumns.colRoleValue].Value = configurateRole.getCriteriaValue();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
+        private void dataGridViewRoles_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                GridViewColumns gridViewColumns = new GridViewColumns();
+                if (dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colIndex].Value == null)
+                {
+                    dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colIndex].Value =
+                        e.RowIndex + 1;
+                }
+                //
+                SetEditTable(true);
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
+        private void dataGridViewRoles_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex < dataGridViewRoles.RowCount - 1)
+                {
+                    GridViewColumns gridViewColumns = new GridViewColumns();
+                    dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colIndex].Value =
+                        e.RowIndex + 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Перенумерация
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridViewRoles_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            try
+            {
+                SetEditTable(true);
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+        //
+        #endregion dataGridViewRoles
         //
         #region MainMenu
         //
@@ -299,6 +441,7 @@ namespace UniExp
                         initConrolsGrid();
                         toolStripStatusLabel.Text = "Папка с проектами";
                         dataGridViewCriteria.Enabled = false;
+                        dataGridViewRoles.Enabled = false;
                     }
                     SetEditTable(false);
                 }
@@ -362,6 +505,20 @@ namespace UniExp
                 WriteErrInfo(ex.Message);
             }
         }
+
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.Owner = this;
+            about.ShowDialog();
+        }
+
+        private void btninfoUniExp_Click(object sender, EventArgs e)
+        {
+            HelpFrom helpFrom = new HelpFrom();
+            helpFrom.Owner = this;
+            helpFrom.ShowDialog();
+        }
         //
         #endregion MainMenu
         //
@@ -402,6 +559,8 @@ namespace UniExp
                                 //
                                 if (!dataGridViewCriteria.Enabled)
                                     dataGridViewCriteria.Enabled = true;
+                                if (!dataGridViewRoles.Enabled)
+                                    dataGridViewRoles.Enabled = true;
                                 //
                                 gridView.checkValues(dataGridViewCriteria, dataGridViewRoles);
                             }
@@ -413,6 +572,8 @@ namespace UniExp
                                 //
                                 if (!dataGridViewCriteria.Enabled)
                                     dataGridViewCriteria.Enabled = true;
+                                if (!dataGridViewRoles.Enabled)
+                                    dataGridViewRoles.Enabled = true;
                             }
                         }
                         else
@@ -440,8 +601,9 @@ namespace UniExp
         //
         private void initConrolsGrid()
         {
-            //GridViewRowCriteria gridViewRowCriterias = new GridViewRowCriteria();
             GridViewColumns gridViewColumns = new GridViewColumns();
+            //
+            #region dataGridViewCriteriaInitControls
             //
             dataGridViewCriteria.Rows.Clear();
             dataGridViewCriteria.Columns.Clear();
@@ -451,23 +613,46 @@ namespace UniExp
             dataGridViewCriteria.Columns.Add(gridViewColumns.colIndex, gridViewColumns.colIndex);
             dataGridViewCriteria.Columns[gridViewColumns.colIndex].
                 DefaultCellStyle.BackColor = Color.FromName("Control");
-            //dataGridViewCriteria.Columns[gridViewRowCriterias.colCriteriaIndex].Width = 20;
             dataGridViewCriteria.Columns.Add(gridViewColumns.colCriteriaName, gridViewColumns.colCriteriaName);
             dataGridViewCriteria.Columns.Add(gridViewColumns.colCriteriaValue, gridViewColumns.colCriteriaValue);
             dataGridViewCriteria.Columns[gridViewColumns.colCriteriaValue].
                 DefaultCellStyle.BackColor = Color.FromName("Control");
-            DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
-            buttonColumn.HeaderText = gridViewColumns.colBtnValue;
-            buttonColumn.Name = gridViewColumns.colBtnValue;
-            buttonColumn.Text = gridViewColumns.colCriteriaValue;
-            //buttonColumn.FlatStyle = FlatStyle.Popup;
-            //buttonColumn.DefaultCellStyle.ForeColor = Color.Red;
-            //buttonColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-            buttonColumn.UseColumnTextForButtonValue = true;
-            dataGridViewCriteria.Columns.Add(buttonColumn);
+            DataGridViewButtonColumn btnColumnCriteria = new DataGridViewButtonColumn();
+            btnColumnCriteria.HeaderText = gridViewColumns.colBtnValue;
+            btnColumnCriteria.Name = gridViewColumns.colBtnValue;
+            btnColumnCriteria.Text = gridViewColumns.colCriteriaValue;
+            btnColumnCriteria.UseColumnTextForButtonValue = true;
+            dataGridViewCriteria.Columns.Add(btnColumnCriteria);
             //
-            //setColumnSize();
             dataGridViewCriteria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            #endregion dataGridViewCriteriaInitControls
+            //
+            #region dataGridViewRoleInitControls
+            //
+            dataGridViewRoles.Rows.Clear();
+            dataGridViewRoles.Columns.Clear();
+            //
+            dataGridViewRoles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            //
+            dataGridViewRoles.Columns.Add(gridViewColumns.colIndex, gridViewColumns.colIndex);
+            dataGridViewRoles.Columns[gridViewColumns.colIndex].
+                DefaultCellStyle.BackColor = Color.FromName("Control");
+            dataGridViewRoles.Columns.Add(gridViewColumns.colRoleName, gridViewColumns.colRoleName);
+            dataGridViewRoles.Columns[gridViewColumns.colRoleName].
+                DefaultCellStyle.BackColor = Color.FromName("Control");
+            dataGridViewRoles.Columns.Add(gridViewColumns.colRoleValue, gridViewColumns.colRoleValue);
+            dataGridViewRoles.Columns[gridViewColumns.colRoleValue].
+                DefaultCellStyle.BackColor = Color.FromName("Control");
+            DataGridViewButtonColumn btnColumnRole = new DataGridViewButtonColumn();
+            btnColumnRole.HeaderText = gridViewColumns.colBtnValue;
+            btnColumnRole.Name = gridViewColumns.colBtnValue;
+            btnColumnRole.Text = gridViewColumns.colRoleValue;
+            btnColumnRole.UseColumnTextForButtonValue = true;
+            dataGridViewRoles.Columns.Add(btnColumnRole);
+            //
+            dataGridViewRoles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //
+            #endregion dataGridViewRoleInitControls
         }
 
         private void SetEditTable(bool editMode)
