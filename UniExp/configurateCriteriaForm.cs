@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UniExpGridViewCriteria;
 
 namespace UniExp
 {
@@ -18,7 +19,13 @@ namespace UniExp
         public configurateCriteriaForm()
         {
             InitializeComponent();
-            dataGridViewConfigurateCriteria.Rows.Add(5);
+            //
+            GridViewColumns gridViewColumns = new GridViewColumns();
+            dataGridViewConfigurateCriteria.Columns.Add(gridViewColumns.colCriteriaValue,
+                gridViewColumns.colCriteriaValue);
+            GridViewLimit gridViewLimit = new GridViewLimit();
+            dataGridViewConfigurateCriteria.Rows.Add(gridViewLimit.maxCriteriaValueRows);
+            //
             this.criteriaName = string.Empty;
             this.criteriaValue = string.Empty;
         }
@@ -33,13 +40,14 @@ namespace UniExp
         {
             try
             {
-                this.txtBoxCriteriaName.Text = criteriaName;
-                string[] criteriasValues = this.criteriaValue.Split(new char[] { ';' },
-                    StringSplitOptions.RemoveEmptyEntries);
+                this.txtBoxCriteriaName.Text = this.criteriaName;
+                //                
+                string[] criteriasValues = GridViewRowCriteria.GetSplitValue(this.criteriaValue);
                 if (criteriasValues.Length > 0)
                 {
+                    GridViewLimit gridViewLimit = new GridViewLimit();
                     dataGridViewConfigurateCriteria.Rows.Clear();
-                    for (int idx = 0; idx < 5; idx++)
+                    for (int idx = 0; idx < gridViewLimit.maxCriteriaValueRows; idx++)
                     {
                         if (idx <= criteriasValues.Length - 1)
                         {
@@ -62,6 +70,7 @@ namespace UniExp
         {
             return this.criteriaName;
         }
+
         public string getCriteriaValue()
         {
             return this.criteriaValue;
@@ -72,12 +81,14 @@ namespace UniExp
             try
             {
                 this.DialogResult = DialogResult.None;
+                GridViewColumns gridViewColumns = new GridViewColumns();
+                GridViewLimit gridViewLimit = new GridViewLimit();
                 List<string> lstCriteriaVals = new List<string>();
                 List<string> lstUniqCriteriaVals = new List<string>();
-                for (int idx = 0; idx < 5; idx++)
+                for (int idx = 0; idx < gridViewLimit.maxCriteriaValueRows; idx++)
                 {
                     object criteriaValueObj = dataGridViewConfigurateCriteria.Rows[idx].
-                        Cells[0].Value;
+                        Cells[gridViewColumns.colCriteriaValue].Value;
                     string criteriaValue = criteriaValueObj == null ? string.Empty : criteriaValueObj.ToString();
                     //
                     if(!string.IsNullOrEmpty(criteriaValue))
@@ -89,9 +100,9 @@ namespace UniExp
                 {
                     if (!lstUniqCriteriaVals.Contains(criteriaVal))
                     {
-                        if (criteriaVal.Length > 50)
+                        if (criteriaVal.Length > gridViewLimit.maxLnCriteriaValue)
                             throw new Exception(string.Format("Наименование значения: '{0}, превышает " +
-                                "допустимую длину в 50 символов'", criteriaVal));
+                                "допустимую длину в {1} символов'", criteriaVal, gridViewLimit.maxLnCriteriaValue));
                         lstUniqCriteriaVals.Add(criteriaVal);
                     }
                 }
@@ -101,7 +112,7 @@ namespace UniExp
                 }
                 else
                 {
-                    this.criteriaValue = string.Join(";", lstUniqCriteriaVals);
+                    this.criteriaValue = GridViewRowCriteria.GetBuildValue(lstUniqCriteriaVals);
                     this.DialogResult = DialogResult.OK;
                 }
             }

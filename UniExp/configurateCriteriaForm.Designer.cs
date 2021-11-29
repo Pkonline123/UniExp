@@ -33,7 +33,6 @@
             this.btnCancelConfigurateCriteria = new System.Windows.Forms.Button();
             this.btnSaveConfigurateCriteria = new System.Windows.Forms.Button();
             this.dataGridViewConfigurateCriteria = new System.Windows.Forms.DataGridView();
-            this.Значения = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblCriteria = new System.Windows.Forms.Label();
             this.txtBoxCriteriaName = new System.Windows.Forms.TextBox();
             this.panelConfigurateCriteria.SuspendLayout();
@@ -90,8 +89,6 @@
             this.dataGridViewConfigurateCriteria.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewConfigurateCriteria.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewConfigurateCriteria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewConfigurateCriteria.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Значения});
             this.dataGridViewConfigurateCriteria.Dock = System.Windows.Forms.DockStyle.Top;
             this.dataGridViewConfigurateCriteria.GridColor = System.Drawing.Color.Black;
             this.dataGridViewConfigurateCriteria.Location = new System.Drawing.Point(0, 0);
@@ -99,15 +96,10 @@
             this.dataGridViewConfigurateCriteria.Size = new System.Drawing.Size(329, 123);
             this.dataGridViewConfigurateCriteria.TabIndex = 0;
             // 
-            // Значения
-            // 
-            this.Значения.HeaderText = "Значения";
-            this.Значения.Name = "Значения";
-            // 
             // lblCriteria
             // 
             this.lblCriteria.AutoSize = true;
-            this.lblCriteria.Location = new System.Drawing.Point(13, 13);
+            this.lblCriteria.Location = new System.Drawing.Point(8, 13);
             this.lblCriteria.Name = "lblCriteria";
             this.lblCriteria.Size = new System.Drawing.Size(58, 13);
             this.lblCriteria.TabIndex = 3;
@@ -116,10 +108,10 @@
             // txtBoxCriteriaName
             // 
             this.txtBoxCriteriaName.Enabled = false;
-            this.txtBoxCriteriaName.Location = new System.Drawing.Point(16, 29);
+            this.txtBoxCriteriaName.Location = new System.Drawing.Point(10, 29);
             this.txtBoxCriteriaName.Name = "txtBoxCriteriaName";
             this.txtBoxCriteriaName.ReadOnly = true;
-            this.txtBoxCriteriaName.Size = new System.Drawing.Size(323, 20);
+            this.txtBoxCriteriaName.Size = new System.Drawing.Size(329, 20);
             this.txtBoxCriteriaName.TabIndex = 4;
             // 
             // configurateCriteriaForm
@@ -153,7 +145,6 @@
         private System.Windows.Forms.Button btnCancelConfigurateCriteria;
         private System.Windows.Forms.Button btnSaveConfigurateCriteria;
         private System.Windows.Forms.DataGridView dataGridViewConfigurateCriteria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Значения;
         private System.Windows.Forms.Label lblCriteria;
         private System.Windows.Forms.TextBox txtBoxCriteriaName;
     }

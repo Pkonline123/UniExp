@@ -40,22 +40,30 @@
             this.btnExist = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.panelLstBoxProjName = new System.Windows.Forms.Panel();
-            this.lstBoxProjName = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.dataGridViewCriteria = new System.Windows.Forms.DataGridView();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.splitContainerMailn = new System.Windows.Forms.SplitContainer();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.dataGridViewCriteria = new System.Windows.Forms.DataGridView();
+            this.dataGridViewRoles = new System.Windows.Forms.DataGridView();
+            this.panelLstBoxProjName = new System.Windows.Forms.Panel();
+            this.lstBoxProjName = new System.Windows.Forms.ListBox();
             this.MainMenu.SuspendLayout();
-            this.panelLstBoxProjName.SuspendLayout();
             this.panelMain.SuspendLayout();
+            this.statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMailn)).BeginInit();
+            this.splitContainerMailn.Panel1.SuspendLayout();
+            this.splitContainerMailn.Panel2.SuspendLayout();
+            this.splitContainerMailn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCriteria)).BeginInit();
-            this.statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRoles)).BeginInit();
+            this.panelLstBoxProjName.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -148,72 +156,18 @@
             this.openFileDialog.Filter = "Данные|*.json";
             this.openFileDialog.RestoreDirectory = true;
             // 
-            // panelLstBoxProjName
-            // 
-            this.panelLstBoxProjName.Controls.Add(this.lstBoxProjName);
-            this.panelLstBoxProjName.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelLstBoxProjName.Location = new System.Drawing.Point(0, 0);
-            this.panelLstBoxProjName.Name = "panelLstBoxProjName";
-            this.panelLstBoxProjName.Size = new System.Drawing.Size(164, 365);
-            this.panelLstBoxProjName.TabIndex = 2;
-            // 
-            // lstBoxProjName
-            // 
-            this.lstBoxProjName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstBoxProjName.FormattingEnabled = true;
-            this.lstBoxProjName.Location = new System.Drawing.Point(0, 0);
-            this.lstBoxProjName.Name = "lstBoxProjName";
-            this.lstBoxProjName.Size = new System.Drawing.Size(164, 365);
-            this.lstBoxProjName.TabIndex = 0;
-            this.lstBoxProjName.SelectedIndexChanged += new System.EventHandler(this.lstBoxProjName_SelectedIndexChanged);
-            // 
             // folderBrowserDialog
             // 
             this.folderBrowserDialog.SelectedPath = "C:\\vsproj_andrey\\UniExp\\UniExp\\Projects";
             // 
             // panelMain
             // 
-            this.panelMain.Controls.Add(this.splitContainer);
-            this.panelMain.Controls.Add(this.panelLstBoxProjName);
+            this.panelMain.Controls.Add(this.splitContainerMailn);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 24);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(962, 365);
+            this.panelMain.Size = new System.Drawing.Size(962, 387);
             this.panelMain.TabIndex = 3;
-            // 
-            // splitContainer
-            // 
-            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer.Location = new System.Drawing.Point(164, 0);
-            this.splitContainer.Name = "splitContainer";
-            this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer.Panel1
-            // 
-            this.splitContainer.Panel1.Controls.Add(this.dataGridViewCriteria);
-            this.splitContainer.Size = new System.Drawing.Size(798, 365);
-            this.splitContainer.SplitterDistance = 178;
-            this.splitContainer.TabIndex = 3;
-            // 
-            // dataGridViewCriteria
-            // 
-            this.dataGridViewCriteria.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridViewCriteria.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridViewCriteria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCriteria.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewCriteria.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dataGridViewCriteria.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewCriteria.MultiSelect = false;
-            this.dataGridViewCriteria.Name = "dataGridViewCriteria";
-            this.dataGridViewCriteria.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridViewCriteria.Size = new System.Drawing.Size(798, 178);
-            this.dataGridViewCriteria.TabIndex = 0;
-            this.dataGridViewCriteria.AutoSizeColumnsModeChanged += new System.Windows.Forms.DataGridViewAutoSizeColumnsModeEventHandler(this.dataGridViewCriteria_AutoSizeColumnsModeChanged);
-            this.dataGridViewCriteria.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridViewCriteria_CellBeginEdit);
-            this.dataGridViewCriteria.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCriteria_CellClick);
-            this.dataGridViewCriteria.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCriteria_CellValueChanged);
-            this.dataGridViewCriteria.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewCriteria_RowsAdded);
-            this.dataGridViewCriteria.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewCriteria_RowsRemoved);
             // 
             // toolStripStatusLabel
             // 
@@ -232,13 +186,102 @@
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip";
             // 
+            // splitContainerMailn
+            // 
+            this.splitContainerMailn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMailn.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerMailn.Name = "splitContainerMailn";
+            // 
+            // splitContainerMailn.Panel1
+            // 
+            this.splitContainerMailn.Panel1.AutoScroll = true;
+            this.splitContainerMailn.Panel1.Controls.Add(this.panelLstBoxProjName);
+            // 
+            // splitContainerMailn.Panel2
+            // 
+            this.splitContainerMailn.Panel2.Controls.Add(this.splitContainer);
+            this.splitContainerMailn.Size = new System.Drawing.Size(962, 387);
+            this.splitContainerMailn.SplitterDistance = 189;
+            this.splitContainerMailn.TabIndex = 3;
+            // 
+            // splitContainer
+            // 
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer.Name = "splitContainer";
+            this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.Controls.Add(this.dataGridViewCriteria);
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.Controls.Add(this.dataGridViewRoles);
+            this.splitContainer.Size = new System.Drawing.Size(769, 387);
+            this.splitContainer.SplitterDistance = 188;
+            this.splitContainer.TabIndex = 4;
+            // 
+            // dataGridViewCriteria
+            // 
+            this.dataGridViewCriteria.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewCriteria.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridViewCriteria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCriteria.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewCriteria.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridViewCriteria.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewCriteria.MultiSelect = false;
+            this.dataGridViewCriteria.Name = "dataGridViewCriteria";
+            this.dataGridViewCriteria.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridViewCriteria.Size = new System.Drawing.Size(769, 188);
+            this.dataGridViewCriteria.TabIndex = 0;
+            this.dataGridViewCriteria.AutoSizeColumnsModeChanged += new System.Windows.Forms.DataGridViewAutoSizeColumnsModeEventHandler(this.dataGridViewCriteria_AutoSizeColumnsModeChanged);
+            this.dataGridViewCriteria.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridViewCriteria_CellBeginEdit);
+            this.dataGridViewCriteria.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCriteria_CellClick);
+            this.dataGridViewCriteria.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCriteria_CellValueChanged);
+            this.dataGridViewCriteria.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewCriteria_RowsAdded);
+            this.dataGridViewCriteria.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewCriteria_RowsRemoved);
+            // 
+            // dataGridViewRoles
+            // 
+            this.dataGridViewRoles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewRoles.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridViewRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRoles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewRoles.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridViewRoles.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewRoles.MultiSelect = false;
+            this.dataGridViewRoles.Name = "dataGridViewRoles";
+            this.dataGridViewRoles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridViewRoles.Size = new System.Drawing.Size(769, 195);
+            this.dataGridViewRoles.TabIndex = 1;
+            // 
+            // panelLstBoxProjName
+            // 
+            this.panelLstBoxProjName.Controls.Add(this.lstBoxProjName);
+            this.panelLstBoxProjName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelLstBoxProjName.Location = new System.Drawing.Point(0, 0);
+            this.panelLstBoxProjName.Name = "panelLstBoxProjName";
+            this.panelLstBoxProjName.Size = new System.Drawing.Size(189, 387);
+            this.panelLstBoxProjName.TabIndex = 4;
+            // 
+            // lstBoxProjName
+            // 
+            this.lstBoxProjName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstBoxProjName.FormattingEnabled = true;
+            this.lstBoxProjName.Location = new System.Drawing.Point(0, 0);
+            this.lstBoxProjName.Name = "lstBoxProjName";
+            this.lstBoxProjName.Size = new System.Drawing.Size(189, 387);
+            this.lstBoxProjName.TabIndex = 0;
+            this.lstBoxProjName.SelectedIndexChanged += new System.EventHandler(this.lstBoxProjName_SelectedIndexChanged);
+            // 
             // UniExp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(962, 411);
-            this.Controls.Add(this.panelMain);
             this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.panelMain);
             this.Controls.Add(this.MainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MainMenu;
@@ -249,14 +292,20 @@
             this.Load += new System.EventHandler(this.UniExp_Load);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
-            this.panelLstBoxProjName.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
+            this.splitContainerMailn.Panel1.ResumeLayout(false);
+            this.splitContainerMailn.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMailn)).EndInit();
+            this.splitContainerMailn.ResumeLayout(false);
             this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCriteria)).EndInit();
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRoles)).EndInit();
+            this.panelLstBoxProjName.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -269,19 +318,21 @@
         private System.Windows.Forms.ToolStripMenuItem btnOpen;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.Panel panelLstBoxProjName;
-        private System.Windows.Forms.ListBox lstBoxProjName;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.SplitContainer splitContainer;
-        private System.Windows.Forms.DataGridView dataGridViewCriteria;
         private System.Windows.Forms.ToolStripMenuItem btnCreated;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem btnUndo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem btnExist;
+        private System.Windows.Forms.SplitContainer splitContainerMailn;
+        private System.Windows.Forms.SplitContainer splitContainer;
+        private System.Windows.Forms.DataGridView dataGridViewCriteria;
+        private System.Windows.Forms.DataGridView dataGridViewRoles;
+        private System.Windows.Forms.Panel panelLstBoxProjName;
+        private System.Windows.Forms.ListBox lstBoxProjName;
     }
 }
 
