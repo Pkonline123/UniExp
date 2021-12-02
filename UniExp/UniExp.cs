@@ -177,15 +177,15 @@ namespace UniExp
             }
         }
 
-        /// <summary>
-        /// перенумерация
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void dataGridViewCriteria_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             try
             {
+                GridViewColumns gridViewColumns = new GridViewColumns();
+                for (int i = e.RowIndex; i < dataGridViewCriteria.Rows.Count - 1; i++)
+                {
+                    dataGridViewCriteria.Rows[i].Cells[gridViewColumns.colIndex].Value = i + 1;
+                }                
                 SetEditTable(true);
             }
             catch (Exception ex)
@@ -257,20 +257,24 @@ namespace UniExp
                     GridViewColumns gridViewColumns = new GridViewColumns();
                     if (e.ColumnIndex == dataGridViewRoles.Columns[gridViewColumns.colBtnValue].Index)
                     {
+                        object roleNumberObj = dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colIndex].Value;
+                        string roleNumber = roleNumberObj == null ? string.Empty : roleNumberObj.ToString();
                         object roleNameObj = dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colRoleName].Value;
                         string roleName = roleNameObj == null ? string.Empty : roleNameObj.ToString();
                         object roleValueObj = dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colRoleValue].Value;
                         string roleValue = roleValueObj == null ? string.Empty : roleValueObj.ToString();
                         //
-                        using (configurateCriteriaForm configurateRole = new configurateCriteriaForm(roleName, roleValue))
+                        using (configurateRoleFrom configurateRole = 
+                            new configurateRoleFrom(roleNumber, roleName, roleValue, 
+                            GridViewRoles.getCriterias(dataGridViewCriteria)))
                         {
                             configurateRole.Owner = this;
                             if (configurateRole.ShowDialog() == DialogResult.OK)
                             {
                                 dataGridViewRoles.Rows[e.RowIndex].
-                                    Cells[gridViewColumns.colRoleName].Value = configurateRole.getCriteriaValue();
+                                    Cells[gridViewColumns.colRoleName].Value = configurateRole.getRoleName();
                                 dataGridViewRoles.Rows[e.RowIndex].
-                                    Cells[gridViewColumns.colRoleValue].Value = configurateRole.getCriteriaValue();
+                                    Cells[gridViewColumns.colRoleValue].Value = configurateRole.getRoleValue();
                             }
                         }
                     }
@@ -318,15 +322,15 @@ namespace UniExp
             }
         }
 
-        /// <summary>
-        /// Перенумерация
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void dataGridViewRoles_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             try
             {
+                GridViewColumns gridViewColumns = new GridViewColumns();
+                for (int i = e.RowIndex; i < dataGridViewRoles.Rows.Count - 1; i++)
+                {
+                    dataGridViewRoles.Rows[i].Cells[gridViewColumns.colIndex].Value = i + 1;
+                }
                 SetEditTable(true);
             }
             catch (Exception ex)
@@ -375,32 +379,40 @@ namespace UniExp
         {
             try
             {
-                string directoryName = Path.GetDirectoryName(saveFileDialog.FileName);
-                if (string.IsNullOrEmpty(directoryName))
-                    saveFileDialog.InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), UniExpConst.projectDir);
-                //
-                saveFileDialog.FileName = "data.json";
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                if (!btnSave.Enabled)
                 {
-                    lstBoxProjName.Items.Clear();
+                    string directoryName = Path.GetDirectoryName(saveFileDialog.FileName);
+                    if (string.IsNullOrEmpty(directoryName))
+                        saveFileDialog.InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), UniExpConst.projectDir);
                     //
-                    if (File.Exists(saveFileDialog.FileName))
-                        File.Delete(saveFileDialog.FileName);
-                    //
-                    string[] filesNames = Directory.GetFiles(Path.GetDirectoryName(saveFileDialog.FileName),
-                            "*.json");
-                    toolStripStatusLabel.Text = Path.GetDirectoryName(saveFileDialog.FileName);
-                    foreach (string fileName in filesNames)
+                    saveFileDialog.FileName = "data.json";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        lstBoxProjName.Items.Add(Path.GetFileName(fileName));
+                        lstBoxProjName.Items.Clear();
+                        //
+                        if (File.Exists(saveFileDialog.FileName))
+                            File.Delete(saveFileDialog.FileName);
+                        //
+                        string[] filesNames = Directory.GetFiles(Path.GetDirectoryName(saveFileDialog.FileName),
+                                "*.json");
+                        toolStripStatusLabel.Text = Path.GetDirectoryName(saveFileDialog.FileName);
+                        foreach (string fileName in filesNames)
+                        {
+                            lstBoxProjName.Items.Add(Path.GetFileName(fileName));
+                        }
+                        lstBoxProjName.Items.Add(Path.GetFileName(saveFileDialog.FileName));
+                        //
+                        lstBoxProjName.SelectedIndex = lstBoxProjName.Items.Count - 1;
+                        lstBoxProjName.Items[lstBoxProjName.SelectedIndex] =
+                            makeFilePrefix(lstBoxProjName.SelectedIndex, true, true);
+                        //
+                        //setColumnSize();
                     }
-                    lstBoxProjName.Items.Add(Path.GetFileName(saveFileDialog.FileName));
-                    //
-                    lstBoxProjName.SelectedIndex = lstBoxProjName.Items.Count - 1;
-                    lstBoxProjName.Items[lstBoxProjName.SelectedIndex] =
-                        makeFilePrefix(lstBoxProjName.SelectedIndex, true, true);
-                    //
-                    //setColumnSize();
+                }
+                else
+                {
+                    WriteErrInfo("Перед созданием проекта необходимо сохранить или " +
+                        "отменить изменения текущего проекта", "Warning");
                 }
             }
             catch (Exception ex)
@@ -460,28 +472,36 @@ namespace UniExp
         {
             try
             {
-                string directoryName = Path.GetDirectoryName(openFileDialog.FileName);
-                if (string.IsNullOrEmpty(directoryName))
-                    openFileDialog.InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), UniExpConst.projectDir);
-                //
-                openFileDialog.FileName = "data.json";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (!btnSave.Enabled)
                 {
-                    lstBoxProjName.Items.Clear();
-                    string[] filesNames = Directory.GetFiles(Path.GetDirectoryName(openFileDialog.FileName),
-                        "*.json");
-                    toolStripStatusLabel.Text = Path.GetDirectoryName(openFileDialog.FileName);
-                    foreach (string fileName in filesNames)
-                    {
-                        //toolStripStatusLabel.Text = Path.GetDirectoryName(fileName);
-                        lstBoxProjName.Items.Add(Path.GetFileName(fileName));
-                        if (Path.GetFileName(fileName) == Path.GetFileName(openFileDialog.FileName))
-                        {
-                            lstBoxProjName.SelectedIndex = lstBoxProjName.Items.Count - 1;
-                        }
-                    }
+                    string directoryName = Path.GetDirectoryName(openFileDialog.FileName);
+                    if (string.IsNullOrEmpty(directoryName))
+                        openFileDialog.InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), UniExpConst.projectDir);
                     //
-                    //setColumnSize();
+                    openFileDialog.FileName = "data.json";
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        lstBoxProjName.Items.Clear();
+                        string[] filesNames = Directory.GetFiles(Path.GetDirectoryName(openFileDialog.FileName),
+                            "*.json");
+                        toolStripStatusLabel.Text = Path.GetDirectoryName(openFileDialog.FileName);
+                        foreach (string fileName in filesNames)
+                        {
+                            //toolStripStatusLabel.Text = Path.GetDirectoryName(fileName);
+                            lstBoxProjName.Items.Add(Path.GetFileName(fileName));
+                            if (Path.GetFileName(fileName) == Path.GetFileName(openFileDialog.FileName))
+                            {
+                                lstBoxProjName.SelectedIndex = lstBoxProjName.Items.Count - 1;
+                            }
+                        }
+                        //
+                        //setColumnSize();
+                    }
+                }
+                else
+                {
+                    WriteErrInfo("Перед открытием проекта необходимо сохранить или " +
+                       "отменить изменения текущего проекта", "Warning");
                 }
             }
             catch (ArgumentException aEx)

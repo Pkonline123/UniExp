@@ -19,15 +19,29 @@ namespace UniExp
 
         private void HelpFrom_Load(object sender, EventArgs e)
         {
-            txtBoxInfo.Text = "Новая запись в таблице добавляется автоматически." +
+            try
+            {
+            txtBoxInfo.Text = "Новая запись в таблице добавляется автоматически." + Environment.NewLine +
                 "Для удаления записи в таблице необходимо выбрать нужноую строку в таблице и нажать клавишу \"Del\". и тд.";
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(string.Format("HelpFrom_Load:{0}", ex.Message));
+            }
         }
 
         private void HelpFrom_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            try
             {
-                this.Close();
+                if (e.KeyCode == Keys.Escape)
+                {
+                    this.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(string.Format("HelpFrom_KeyDown:{0}", ex.Message));
             }
         }
     }

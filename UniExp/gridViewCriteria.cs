@@ -14,13 +14,6 @@ using System.Text.Encodings.Web;
 
 namespace UniExpGridViewCriteria
 {
-    /*
-     * обработка null значений
-     * Проверка на коректность данных из файла и из таблицы
-     * Везде трайкетч +
-     * метод вывода ошибок +
-     * Диалоговый выбр файлов при сохранении и загрузки.+
-     */
     //public class gridViewColsCriteria
     //{
     //    public string columnName { get; set; }
@@ -105,8 +98,8 @@ namespace UniExpGridViewCriteria
         public readonly string colCriteriaValue = "Значение";
         public readonly string colBtnValue = "Конструктор";
         public readonly string colRoleOperate = "И/ИЛИ";
-        public readonly string colRoleName = "Критерий правила";
-        public readonly string colRoleValue = "Значение правила";
+        public readonly string colRoleName = "Если";
+        public readonly string colRoleValue = "То";
 
         public GridViewColumns()
         {
@@ -315,7 +308,7 @@ namespace UniExpGridViewCriteria
         //    return this.gridViewRowCriterias;
         //}
 
-        public static bool checkValues(DataGridView dataGridViewCriteria, 
+        public static bool checkValues(DataGridView dataGridViewCriteria,
             out List<GridViewRowCriteria> gridViewRowCriterias)
         {
             gridViewRowCriterias = new List<GridViewRowCriteria>();
@@ -413,6 +406,110 @@ namespace UniExpGridViewCriteria
             //
             return result;
         }
+
+        //public static List<string> getCriterias(DataGridView dataGridViewCriteria)
+        //{
+        //    List<string> result = new List<string>();
+        //    try
+        //    {
+        //        if (dataGridViewCriteria == null)
+        //            throw new Exception("gridViewCriterias.getCriterias: Ожидалось значение (DataGridView)dataGridViewCriteria");
+        //        //
+        //        GridViewColumns gridViewColumns = new GridViewColumns();
+        //        object criteraObjName = null;
+        //        string criteraName = string.Empty;
+        //        foreach (DataGridViewRow dataGridViewRow in dataGridViewCriteria.Rows)
+        //        {
+        //            if (dataGridViewRow.Index == dataGridViewCriteria.Rows.Count - 1)
+        //                break;
+        //            //
+        //            criteraObjName = dataGridViewRow.Cells[gridViewColumns.colCriteriaName].Value;
+        //            criteraName = criteraObjName == null ? string.Empty : criteraObjName.ToString();
+        //            //
+        //            if(string.IsNullOrEmpty(criteraName))
+        //                throw new ArgumentException(string.Format("В рамках проекта должно быть указанно наименование {0}",
+        //                    gridViewColumns.colCriteriaName), "Warning");
+        //            if(result.Contains(criteraName))
+        //                throw new ArgumentException(string.Format("В рамках одного проекта не может быть одинаковых наименований для {0}",
+        //                gridViewColumns.colCriteriaName), "Warning");
+        //            //
+        //            result.Add(criteraName);
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //    return result;
+        //}
+
+        //public static List<string> getCriteriaValues(DataGridView dataGridViewCriteria, string searhCriteriaName)
+        //{
+        //    List<string> result = new List<string>();
+        //    try
+        //    {
+        //        if (dataGridViewCriteria == null)
+        //            throw new Exception("gridViewCriterias.getCriteriaValues: Ожидалось значение (DataGridView)dataGridViewCriteria");
+        //        if(string.IsNullOrEmpty(searhCriteriaName))
+        //            throw new Exception("gridViewCriterias.getCriteriaValues: Ожидалось значение (string)searhCriteriaName");
+        //        //
+        //        GridViewColumns gridViewColumns = new GridViewColumns();
+        //        object criteraObjName = null;
+        //        string criteraName = string.Empty;
+        //        object criteraObjValue = null;
+        //        string criteraFmtValue = string.Empty;
+        //        List<string> unqCriteriaNames = new List<string>();
+        //        List<string> unqCriteriaValues = new List<string>();
+        //        //
+        //        foreach (DataGridViewRow dataGridViewRow in dataGridViewCriteria.Rows)
+        //        {
+        //            if (dataGridViewRow.Index == dataGridViewCriteria.Rows.Count - 1)
+        //                break;
+        //            //
+        //            criteraObjName = dataGridViewRow.Cells[gridViewColumns.colCriteriaName].Value;
+        //            criteraName = criteraObjName == null ? string.Empty : criteraObjName.ToString();
+        //            //
+        //            if (string.IsNullOrEmpty(criteraName))
+        //                throw new ArgumentException(string.Format("В рамках проекта должно быть указанно наименование {0}",
+        //                    gridViewColumns.colCriteriaName), "Warning");
+        //            if (unqCriteriaNames.Contains(criteraName))
+        //                throw new ArgumentException(string.Format("В рамках одного проекта не может быть одинаковых наименований для {0}",
+        //                gridViewColumns.colCriteriaName), "Warning");
+        //            else
+        //                unqCriteriaNames.Add(criteraName);
+        //            //
+        //            if (criteraName == searhCriteriaName)
+        //            {
+        //                criteraObjValue = dataGridViewRow.Cells[gridViewColumns.colCriteriaValue].Value;
+        //                criteraFmtValue = criteraObjValue == null ? string.Empty : criteraObjValue.ToString();
+        //                string[] criteraValues = GridViewRowCriteria.GetSplitValue(criteraFmtValue);
+        //                if(criteraValues.Length == 0)
+        //                    throw new ArgumentException(string.Format("Для {0} '{1}' должно быть указано {2}",
+        //                        gridViewColumns.colCriteriaName, searhCriteriaName, 
+        //                        gridViewColumns.colCriteriaValue), "Warning");
+        //                //
+        //                foreach (string criteriaValue in criteraValues)
+        //                {
+        //                    if (!unqCriteriaValues.Contains(criteriaValue))
+        //                        unqCriteriaValues.Add(criteriaValue);
+        //                }
+        //                //
+        //                if (unqCriteriaValues.Count != criteraValues.Length)
+        //                    throw new ArgumentException(string.Format("В рамках одного проекта для {0} '{1}' " +
+        //                        "не может быть дублирующихся значений", gridViewColumns.colCriteriaName, searhCriteriaName), "Warning");
+        //                //
+        //                result.AddRange(unqCriteriaValues);
+        //                //
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //    return result;
+        //}
     }
 
     public class GridViewRowRole
@@ -926,6 +1023,107 @@ namespace UniExpGridViewCriteria
             //
             return result;
         }
-    }
 
+        //public static List<string> getCriterias(DataGridView dataGridViewCriteria)
+        //{
+        //    List<string> result = new List<string>();
+        //    try
+        //    {
+        //        if (dataGridViewCriteria == null)
+        //            throw new Exception("gridViewCriterias.getCriterias: Ожидалось значение (DataGridView)dataGridViewCriteria");
+        //        //
+        //        GridViewColumns gridViewColumns = new GridViewColumns();
+        //        object criteraObjName = null;
+        //        string criteraName = string.Empty;
+        //        foreach (DataGridViewRow dataGridViewRow in dataGridViewCriteria.Rows)
+        //        {
+        //            if (dataGridViewRow.Index == dataGridViewCriteria.Rows.Count - 1)
+        //                break;
+        //            //
+        //            criteraObjName = dataGridViewRow.Cells[gridViewColumns.colCriteriaName].Value;
+        //            criteraName = criteraObjName == null ? string.Empty : criteraObjName.ToString();
+        //            //
+        //            if (string.IsNullOrEmpty(criteraName))
+        //                throw new ArgumentException(string.Format("В рамках проекта должно быть указанно наименование {0}",
+        //                    gridViewColumns.colCriteriaName), "Warning");
+        //            if (result.Contains(criteraName))
+        //                throw new ArgumentException(string.Format("В рамках одного проекта не может быть одинаковых наименований для {0}",
+        //                gridViewColumns.colCriteriaName), "Warning");
+        //            //
+        //            result.Add(criteraName);
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //    return result;
+        //}
+
+        public static List<GridViewRowCriteria> getCriterias(DataGridView dataGridViewCriteria)
+        {
+            List<GridViewRowCriteria> result = new List<GridViewRowCriteria>();
+            try
+            {
+                if (dataGridViewCriteria == null)
+                    throw new Exception("GridViewRoles.getCriterias: Ожидалось значение (DataGridView)dataGridViewCriteria");
+                //
+                GridViewColumns gridViewColumns = new GridViewColumns();
+                object criteraObjName = null;
+                string criteraName = string.Empty;
+                object criteraObjValue = null;
+                string criteraFmtValue = string.Empty;
+                List<string> unqCriteraValues = new List<string>();
+                //
+                foreach (DataGridViewRow dataGridViewRow in dataGridViewCriteria.Rows)
+                {
+                    if (dataGridViewRow.Index == dataGridViewCriteria.Rows.Count - 1)
+                        break;
+                    //
+                    criteraObjName = dataGridViewRow.Cells[gridViewColumns.colCriteriaName].Value;
+                    criteraName = criteraObjName == null ? string.Empty : criteraObjName.ToString();
+                    //
+                    criteraObjValue = dataGridViewRow.Cells[gridViewColumns.colCriteriaValue].Value;
+                    criteraFmtValue = criteraObjValue == null ? string.Empty : criteraObjValue.ToString();
+                    //
+                    if (string.IsNullOrEmpty(criteraName))
+                        throw new ArgumentException(string.Format("В таблице {0}/{1} строка {2} не указано '{3}'",
+                            gridViewColumns.colCriteriaName, gridViewColumns.colCriteriaValue, dataGridViewRow.Index + 1,
+                            gridViewColumns.colCriteriaName), "Warning");
+                    if (string.IsNullOrEmpty(criteraFmtValue))
+                        throw new ArgumentException(string.Format("В таблице {0}/{1} строка {2} не указано '{3}'",
+                            gridViewColumns.colCriteriaName, gridViewColumns.colCriteriaValue, dataGridViewRow.Index + 1,
+                            gridViewColumns.colCriteriaValue), "Warning");
+                    if (result.FirstOrDefault(cr => cr.criteriaName == criteraName) != null)
+                        throw new ArgumentException(string.Format("В рамках одного проекта не может быть одинаковых наименований для '{0}'",
+                        gridViewColumns.colCriteriaName), "Warning");
+                    //
+                    string[] criteraValues = GridViewRowCriteria.GetSplitValue(criteraFmtValue);
+                    unqCriteraValues.Clear();
+                    foreach (string criteraValue in criteraValues)
+                    {
+                        if (!unqCriteraValues.Contains(criteraValue))
+                            unqCriteraValues.Add(criteraValue);
+                    }
+                    if (unqCriteraValues.Count != criteraValues.Length)
+                        throw new ArgumentException(string.Format("В таблице {0}/{1} строка {2} указаны одинаковые значения для {3}",
+                            gridViewColumns.colCriteriaName, gridViewColumns.colCriteriaValue, dataGridViewRow.Index + 1,
+                            gridViewColumns.colCriteriaName), "Warning");
+                    //
+                    result.Add(new GridViewRowCriteria()
+                    {
+                        criteriaOperate = string.Empty,
+                        criteriaName = criteraName,
+                        criteriaValue = criteraFmtValue
+                    });
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return result;
+        }
+
+    }
 }

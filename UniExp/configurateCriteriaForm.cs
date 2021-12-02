@@ -20,12 +20,6 @@ namespace UniExp
         {
             InitializeComponent();
             //
-            GridViewColumns gridViewColumns = new GridViewColumns();
-            dataGridViewConfigurateCriteria.Columns.Add(gridViewColumns.colCriteriaValue,
-                gridViewColumns.colCriteriaValue);
-            GridViewLimit gridViewLimit = new GridViewLimit();
-            dataGridViewConfigurateCriteria.Rows.Add(gridViewLimit.maxCriteriaValueRows);
-            //
             this.criteriaName = string.Empty;
             this.criteriaValue = string.Empty;
         }
@@ -40,12 +34,19 @@ namespace UniExp
         {
             try
             {
+                //
+                GridViewColumns gridViewColumns = new GridViewColumns();
+                dataGridViewConfigurateCriteria.Columns.Add(gridViewColumns.colCriteriaValue,
+                    gridViewColumns.colCriteriaValue);
+                GridViewLimit gridViewLimit = new GridViewLimit();
+                dataGridViewConfigurateCriteria.Rows.Add(gridViewLimit.maxCriteriaValueRows);
+                //
                 this.txtBoxCriteriaName.Text = this.criteriaName;
                 //                
                 string[] criteriasValues = GridViewRowCriteria.GetSplitValue(this.criteriaValue);
                 if (criteriasValues.Length > 0)
                 {
-                    GridViewLimit gridViewLimit = new GridViewLimit();
+                    //GridViewLimit gridViewLimit = new GridViewLimit();
                     dataGridViewConfigurateCriteria.Rows.Clear();
                     for (int idx = 0; idx < gridViewLimit.maxCriteriaValueRows; idx++)
                     {
@@ -101,14 +102,19 @@ namespace UniExp
                     if (!lstUniqCriteriaVals.Contains(criteriaVal))
                     {
                         if (criteriaVal.Length > gridViewLimit.maxLnCriteriaValue)
-                            throw new Exception(string.Format("Наименование значения: '{0}, превышает " +
-                                "допустимую длину в {1} символов'", criteriaVal, gridViewLimit.maxLnCriteriaValue));
+                        {
+                            WriteErrInfo(string.Format("Наименование значения: '{0}, превышает " +
+                                "допустимую длину в {1} символов'", criteriaVal, gridViewLimit.maxLnCriteriaValue),
+                                "Warning");
+                            return;
+                        }
                         lstUniqCriteriaVals.Add(criteriaVal);
                     }
                 }
                 if (lstUniqCriteriaVals.Count != lstCriteriaVals.Count)
                 {
-                    throw new Exception("В пределах одного критерия должны быть уникальные значения");
+                    WriteErrInfo("В пределах одного критерия должны быть уникальные значения", "Warning");
+                    return;
                 }
                 else
                 {
@@ -118,20 +124,35 @@ namespace UniExp
             }
             catch (Exception ex)
             {
-                WriteErrInfo(ex.Message, "Warning");
+                //WriteErrInfo(ex.Message, "Warning");
+                WriteErrInfo(ex.Message);
             }
         }
 
         private void btnSaveConfigurateCriteria_MouseHover(object sender, EventArgs e)
         {
-            ToolTip btnSaveConfigurateCriteriaToolTip = new ToolTip();
-            btnSaveConfigurateCriteriaToolTip.SetToolTip(btnSaveConfigurateCriteria, "Сохранить введеные значения");
+            try
+            {
+                ToolTip btnSaveConfigurateCriteriaToolTip = new ToolTip();
+                btnSaveConfigurateCriteriaToolTip.SetToolTip(btnSaveConfigurateCriteria, "Сохранить введеные значения");
+            }
+            catch(Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
         }
 
         private void btnCancelConfigurateCriteria_MouseHover(object sender, EventArgs e)
         {
-            ToolTip btnCancelConfigurateCriteriaToolTip = new ToolTip();
-            btnCancelConfigurateCriteriaToolTip.SetToolTip(btnCancelConfigurateCriteria, "Вернуться к окну \"UniExp\"");
+            try
+            {
+                ToolTip btnCancelConfigurateCriteriaToolTip = new ToolTip();
+                btnCancelConfigurateCriteriaToolTip.SetToolTip(btnCancelConfigurateCriteria, "Вернуться к окну \"UniExp\"");
+            }
+            catch(Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
         }
 
         private void WriteErrInfo(string message, string typeErrInfo = "Error")

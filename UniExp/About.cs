@@ -23,6 +23,12 @@ namespace UniExp
             try
             {
                 lblVersionName.Text = string.Empty;
+                lblLeader.Text = "Руководитель:";
+                lblLeaderName.Text = "Сергеев Николай Евгеньевич";
+                lblDeveloper.Text = "Выполнили:";
+                lblDeveloperName.Text = "Зачитайлов Андрей Сергеевич; " + "Довжанский Давид Юрьевич";
+                lblProjectName.Text = "Универсальная экспертная система";
+                lblVersion.Text = "Версия:";
                 //
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 if (assembly != null)
@@ -46,15 +52,29 @@ namespace UniExp
 
         private void btnBackward_MouseHover(object sender, EventArgs e)
         {
-            ToolTip btnBackwardToolTip = new ToolTip();
-            btnBackwardToolTip.SetToolTip(btnBackward, "Вернуться к окну \"UniExp\"");
+            try
+            {
+                ToolTip btnBackwardToolTip = new ToolTip();
+                btnBackwardToolTip.SetToolTip(btnBackward, "Вернуться к окну \"UniExp\"");
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(string.Format("btnBackward_MouseHover:{0}", ex.Message));
+            }
         }
 
         private void About_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            try
             {
-                this.Close();
+                if (e.KeyCode == Keys.Escape)
+                {
+                    this.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(string.Format("About_KeyDown:{0}", ex.Message));
             }
         }
     }
