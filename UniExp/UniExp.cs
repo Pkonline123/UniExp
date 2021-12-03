@@ -655,7 +655,7 @@ namespace UniExp
             DataGridViewButtonColumn btnColumnRole = new DataGridViewButtonColumn();
             btnColumnRole.HeaderText = gridViewColumns.colBtnValue;
             btnColumnRole.Name = gridViewColumns.colBtnValue;
-            btnColumnRole.Text = gridViewColumns.colRoleValue;
+            btnColumnRole.Text = gridViewColumns.colBtnValue;
             btnColumnRole.UseColumnTextForButtonValue = true;
             dataGridViewRoles.Columns.Add(btnColumnRole);
             //
