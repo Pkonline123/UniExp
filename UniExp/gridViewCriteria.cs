@@ -11,18 +11,10 @@ using System.Text.Json.Serialization;
 using System.IO;
 using System.Drawing;
 using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace UniExpGridViewCriteria
 {
-    //public class gridViewColsCriteria
-    //{
-    //    public string columnName { get; set; }
-    //    public gridViewColsCriteria()
-    //    {
-    //        this.columnName = string.Empty;
-    //    }
-    //}
-
     public class UniExpConst
     {
         public static readonly string selectedFilePrefix = " > ";
@@ -119,19 +111,6 @@ namespace UniExpGridViewCriteria
             this.criteriaValue = string.Empty;
             this.criteriaOperate = string.Empty;
         }
-
-        //public GridViewRowCriteria(string criteriaName, string criteriaValue) : this()
-        //{
-        //    this.criteriaName = criteriaName;
-        //    this.criteriaValue = criteriaValue;
-        //    this.criteriaOperate = string.Empty;
-        //}
-
-        //public GridViewRowCriteria(string criteriaName, string criteriaValue, string criteriaOperate) : 
-        //    this(criteriaName, criteriaValue)
-        //{
-        //    this.criteriaOperate = criteriaOperate;
-        //}
 
         public static string[] GetSplitValue(string fmtCriteriaValue)
         {
@@ -690,8 +669,13 @@ namespace UniExpGridViewCriteria
                 this.gridViewRowRoles.Add(gridViewRowRole);
             }
             //
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                WriteIndented = true
+            };
             //сериализация
-            File.WriteAllText(fileName, JsonSerializer.Serialize<GridViewRoles>(this));
+            File.WriteAllText(fileName, JsonSerializer.Serialize<GridViewRoles>(this, options));
         }
 
         public void Load(DataGridView dataGridViewCriteria, DataGridView dataGridViewRole, string fileName = null)
@@ -770,67 +754,6 @@ namespace UniExpGridViewCriteria
             //
             dataGridViewRole.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
-
-        //protected GridViewRole rolePerse(object roleIfValue, object roleToValue)
-        //{
-        //    GridViewRole result = new GridViewRole();
-        //    //
-        //    string roleIf = roleIfValue is string && string.IsNullOrEmpty((string)roleIfValue) ? 
-        //        string.Empty : (string)roleIfValue;
-        //    string roleTo = roleToValue is string && 
-        //        string.IsNullOrEmpty((string)roleToValue) ? string.Empty : (string)roleToValue;
-        //    //
-        //    GridViewDelims gridViewRoleDelims = new GridViewDelims();
-        //    //
-        //    if (!string.IsNullOrEmpty(roleTo))
-        //    {
-        //        string[] rolesTo = roleTo.Split(new string[] { gridViewRoleDelims.gvDilim }, 
-        //            StringSplitOptions.RemoveEmptyEntries);
-        //        if (rolesTo.Length != 2)
-        //            throw new Exception("GridViewRoles.rolePerse: Ожидалось значение rolesTo.Length == 2");
-        //        result.criteriaName = rolesTo[0];
-        //        result.criteriaValue = rolesTo[1];
-        //    }
-        //    if (!string.IsNullOrEmpty(roleIf))
-        //    {
-        //        string[] rolesIf = roleIf.Split(new string[] { gridViewRoleDelims.gvOpAndWDelim,
-        //                gridViewRoleDelims.gvOpOrWDelim }, StringSplitOptions.RemoveEmptyEntries);
-        //        if (rolesIf.Length == 0)
-        //            throw new Exception("GridViewRoles.rolePerse: Ожидалось значение rolesIf.Length > 0");
-        //        //
-        //        foreach (string rIf in rolesIf)
-        //        {
-        //            string[] rsIf = roleTo.Split(new string[] { gridViewRoleDelims.gvDilim }, StringSplitOptions.RemoveEmptyEntries);
-        //            if (rsIf.Length != 2)
-        //                throw new Exception("GridViewRoles.rolePerse: Ожидалось значение rsIf.Length == 2");
-        //            //
-        //            GridViewRowCriteria gridViewRowCriteria = new GridViewRowCriteria();
-        //            gridViewRowCriteria.criteriaName = rsIf[0];
-        //            if (string.IsNullOrEmpty(rsIf[1]))
-        //                throw new Exception("GridViewRoles.rolePerse: Ожидалось значение (string)rsIf[1]");
-        //            //
-        //            gridViewRowCriteria.criteriaOperate = rsIf[1].Substring(rsIf[1].Length - 1, 1);
-        //            if (gridViewRowCriteria.criteriaOperate == gridViewRoleDelims.gvOpAnd || 
-        //                gridViewRowCriteria.criteriaOperate == gridViewRoleDelims.gvOpOr)
-        //            {
-        //                gridViewRowCriteria.criteriaOperate = 
-        //                    gridViewRowCriteria.criteriaOperate == gridViewRoleDelims.gvOpAnd ?
-        //                    gridViewRoleDelims.gvOpAndR : gridViewRoleDelims.gvOpOrR;
-        //                gridViewRowCriteria.criteriaValue = rsIf[1].Length == 1 ? string.Empty :
-        //                    rsIf[1].Substring(0, rsIf[1].Length - 1);
-        //            }
-        //            else
-        //            {
-        //                gridViewRowCriteria.criteriaValue = rsIf[1];
-        //                gridViewRowCriteria.criteriaOperate = string.Empty;
-        //            }
-        //            //
-        //            result.Add(gridViewRowCriteria);
-        //        }
-        //    }
-        //    //
-        //    return result;
-        //}
 
         protected void DataInit(DataGridView dataGridViewCriteria = null, DataGridView dataGridViewRole = null)
         {
@@ -1023,42 +946,6 @@ namespace UniExpGridViewCriteria
             //
             return result;
         }
-
-        //public static List<string> getCriterias(DataGridView dataGridViewCriteria)
-        //{
-        //    List<string> result = new List<string>();
-        //    try
-        //    {
-        //        if (dataGridViewCriteria == null)
-        //            throw new Exception("gridViewCriterias.getCriterias: Ожидалось значение (DataGridView)dataGridViewCriteria");
-        //        //
-        //        GridViewColumns gridViewColumns = new GridViewColumns();
-        //        object criteraObjName = null;
-        //        string criteraName = string.Empty;
-        //        foreach (DataGridViewRow dataGridViewRow in dataGridViewCriteria.Rows)
-        //        {
-        //            if (dataGridViewRow.Index == dataGridViewCriteria.Rows.Count - 1)
-        //                break;
-        //            //
-        //            criteraObjName = dataGridViewRow.Cells[gridViewColumns.colCriteriaName].Value;
-        //            criteraName = criteraObjName == null ? string.Empty : criteraObjName.ToString();
-        //            //
-        //            if (string.IsNullOrEmpty(criteraName))
-        //                throw new ArgumentException(string.Format("В рамках проекта должно быть указанно наименование {0}",
-        //                    gridViewColumns.colCriteriaName), "Warning");
-        //            if (result.Contains(criteraName))
-        //                throw new ArgumentException(string.Format("В рамках одного проекта не может быть одинаковых наименований для {0}",
-        //                gridViewColumns.colCriteriaName), "Warning");
-        //            //
-        //            result.Add(criteraName);
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //    return result;
-        //}
 
         public static List<GridViewRowCriteria> getCriterias(DataGridView dataGridViewCriteria)
         {

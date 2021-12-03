@@ -35,10 +35,19 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.splitContainerMailn = new System.Windows.Forms.SplitContainer();
             this.panelLstBoxProjName = new System.Windows.Forms.Panel();
+            this.pnlProjectsName = new System.Windows.Forms.Panel();
             this.lstBoxProjName = new System.Windows.Forms.ListBox();
+            this.pnlProject = new System.Windows.Forms.Panel();
+            this.lblProjectName = new System.Windows.Forms.Label();
             this.splitContainerGrid = new System.Windows.Forms.SplitContainer();
+            this.pnlGridCriteria = new System.Windows.Forms.Panel();
             this.dataGridViewCriteria = new System.Windows.Forms.DataGridView();
+            this.pnlCriteria = new System.Windows.Forms.Panel();
+            this.lblCriteria = new System.Windows.Forms.Label();
+            this.pnlGridRole = new System.Windows.Forms.Panel();
             this.dataGridViewRoles = new System.Windows.Forms.DataGridView();
+            this.pnlRole = new System.Windows.Forms.Panel();
+            this.lblRole = new System.Windows.Forms.Label();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.btnMenuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCreated = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,35 +63,26 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblInfoHelp = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pnlCriteria = new System.Windows.Forms.Panel();
-            this.pnlGridCriteria = new System.Windows.Forms.Panel();
-            this.lblCriteria = new System.Windows.Forms.Label();
-            this.pnlRole = new System.Windows.Forms.Panel();
-            this.lblRole = new System.Windows.Forms.Label();
-            this.pnlGridRole = new System.Windows.Forms.Panel();
-            this.pnlProject = new System.Windows.Forms.Panel();
-            this.lblProjectName = new System.Windows.Forms.Label();
-            this.pnlProjectsName = new System.Windows.Forms.Panel();
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMailn)).BeginInit();
             this.splitContainerMailn.Panel1.SuspendLayout();
             this.splitContainerMailn.Panel2.SuspendLayout();
             this.splitContainerMailn.SuspendLayout();
             this.panelLstBoxProjName.SuspendLayout();
+            this.pnlProjectsName.SuspendLayout();
+            this.pnlProject.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerGrid)).BeginInit();
             this.splitContainerGrid.Panel1.SuspendLayout();
             this.splitContainerGrid.Panel2.SuspendLayout();
             this.splitContainerGrid.SuspendLayout();
+            this.pnlGridCriteria.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCriteria)).BeginInit();
+            this.pnlCriteria.SuspendLayout();
+            this.pnlGridRole.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRoles)).BeginInit();
+            this.pnlRole.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
-            this.pnlCriteria.SuspendLayout();
-            this.pnlGridCriteria.SuspendLayout();
-            this.pnlRole.SuspendLayout();
-            this.pnlGridRole.SuspendLayout();
-            this.pnlProject.SuspendLayout();
-            this.pnlProjectsName.SuspendLayout();
             this.SuspendLayout();
             // 
             // saveFileDialog
@@ -141,6 +141,15 @@
             this.panelLstBoxProjName.Size = new System.Drawing.Size(189, 365);
             this.panelLstBoxProjName.TabIndex = 5;
             // 
+            // pnlProjectsName
+            // 
+            this.pnlProjectsName.Controls.Add(this.lstBoxProjName);
+            this.pnlProjectsName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlProjectsName.Location = new System.Drawing.Point(0, 25);
+            this.pnlProjectsName.Name = "pnlProjectsName";
+            this.pnlProjectsName.Size = new System.Drawing.Size(189, 340);
+            this.pnlProjectsName.TabIndex = 4;
+            // 
             // lstBoxProjName
             // 
             this.lstBoxProjName.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -150,6 +159,25 @@
             this.lstBoxProjName.Size = new System.Drawing.Size(189, 340);
             this.lstBoxProjName.TabIndex = 0;
             this.lstBoxProjName.SelectedIndexChanged += new System.EventHandler(this.lstBoxProjName_SelectedIndexChanged);
+            // 
+            // pnlProject
+            // 
+            this.pnlProject.Controls.Add(this.lblProjectName);
+            this.pnlProject.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlProject.Location = new System.Drawing.Point(0, 0);
+            this.pnlProject.Name = "pnlProject";
+            this.pnlProject.Size = new System.Drawing.Size(189, 25);
+            this.pnlProject.TabIndex = 2;
+            // 
+            // lblProjectName
+            // 
+            this.lblProjectName.AutoSize = true;
+            this.lblProjectName.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblProjectName.Location = new System.Drawing.Point(3, 4);
+            this.lblProjectName.Name = "lblProjectName";
+            this.lblProjectName.Size = new System.Drawing.Size(56, 15);
+            this.lblProjectName.TabIndex = 1;
+            this.lblProjectName.Text = "Проекты";
             // 
             // splitContainerGrid
             // 
@@ -171,6 +199,15 @@
             this.splitContainerGrid.SplitterDistance = 177;
             this.splitContainerGrid.TabIndex = 4;
             // 
+            // pnlGridCriteria
+            // 
+            this.pnlGridCriteria.Controls.Add(this.dataGridViewCriteria);
+            this.pnlGridCriteria.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlGridCriteria.Location = new System.Drawing.Point(0, 25);
+            this.pnlGridCriteria.Name = "pnlGridCriteria";
+            this.pnlGridCriteria.Size = new System.Drawing.Size(769, 152);
+            this.pnlGridCriteria.TabIndex = 3;
+            // 
             // dataGridViewCriteria
             // 
             this.dataGridViewCriteria.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
@@ -191,6 +228,34 @@
             this.dataGridViewCriteria.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewCriteria_RowsAdded);
             this.dataGridViewCriteria.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewCriteria_RowsRemoved);
             // 
+            // pnlCriteria
+            // 
+            this.pnlCriteria.Controls.Add(this.lblCriteria);
+            this.pnlCriteria.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlCriteria.Location = new System.Drawing.Point(0, 0);
+            this.pnlCriteria.Name = "pnlCriteria";
+            this.pnlCriteria.Size = new System.Drawing.Size(769, 25);
+            this.pnlCriteria.TabIndex = 2;
+            // 
+            // lblCriteria
+            // 
+            this.lblCriteria.AutoSize = true;
+            this.lblCriteria.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblCriteria.Location = new System.Drawing.Point(4, 4);
+            this.lblCriteria.Name = "lblCriteria";
+            this.lblCriteria.Size = new System.Drawing.Size(61, 15);
+            this.lblCriteria.TabIndex = 0;
+            this.lblCriteria.Text = "Критерии";
+            // 
+            // pnlGridRole
+            // 
+            this.pnlGridRole.Controls.Add(this.dataGridViewRoles);
+            this.pnlGridRole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlGridRole.Location = new System.Drawing.Point(0, 25);
+            this.pnlGridRole.Name = "pnlGridRole";
+            this.pnlGridRole.Size = new System.Drawing.Size(769, 159);
+            this.pnlGridRole.TabIndex = 4;
+            // 
             // dataGridViewRoles
             // 
             this.dataGridViewRoles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
@@ -210,6 +275,25 @@
             this.dataGridViewRoles.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRoles_CellValueChanged);
             this.dataGridViewRoles.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewRoles_RowsAdded);
             this.dataGridViewRoles.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewRoles_RowsRemoved);
+            // 
+            // pnlRole
+            // 
+            this.pnlRole.Controls.Add(this.lblRole);
+            this.pnlRole.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlRole.Location = new System.Drawing.Point(0, 0);
+            this.pnlRole.Name = "pnlRole";
+            this.pnlRole.Size = new System.Drawing.Size(769, 25);
+            this.pnlRole.TabIndex = 3;
+            // 
+            // lblRole
+            // 
+            this.lblRole.AutoSize = true;
+            this.lblRole.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRole.Location = new System.Drawing.Point(4, 4);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(54, 15);
+            this.lblRole.TabIndex = 0;
+            this.lblRole.Text = "Правила";
             // 
             // MainMenu
             // 
@@ -309,6 +393,7 @@
             // 
             // btninfoUniExp
             // 
+            this.btninfoUniExp.Image = ((System.Drawing.Image)(resources.GetObject("btninfoUniExp.Image")));
             this.btninfoUniExp.Name = "btninfoUniExp";
             this.btninfoUniExp.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.btninfoUniExp.Size = new System.Drawing.Size(198, 22);
@@ -328,8 +413,8 @@
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel,
-            this.lblInfoHelp});
+            this.lblInfoHelp,
+            this.toolStripStatusLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 389);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(962, 22);
@@ -339,6 +424,7 @@
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Enabled = false;
+            this.toolStripStatusLabel.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(113, 17);
             this.toolStripStatusLabel.Text = "Папка с проектами";
@@ -347,93 +433,8 @@
             // 
             this.lblInfoHelp.Enabled = false;
             this.lblInfoHelp.Name = "lblInfoHelp";
-            this.lblInfoHelp.Size = new System.Drawing.Size(103, 17);
-            this.lblInfoHelp.Text = "F1 вызов справки";
-            this.lblInfoHelp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // pnlCriteria
-            // 
-            this.pnlCriteria.Controls.Add(this.lblCriteria);
-            this.pnlCriteria.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlCriteria.Location = new System.Drawing.Point(0, 0);
-            this.pnlCriteria.Name = "pnlCriteria";
-            this.pnlCriteria.Size = new System.Drawing.Size(769, 25);
-            this.pnlCriteria.TabIndex = 2;
-            // 
-            // pnlGridCriteria
-            // 
-            this.pnlGridCriteria.Controls.Add(this.dataGridViewCriteria);
-            this.pnlGridCriteria.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlGridCriteria.Location = new System.Drawing.Point(0, 25);
-            this.pnlGridCriteria.Name = "pnlGridCriteria";
-            this.pnlGridCriteria.Size = new System.Drawing.Size(769, 152);
-            this.pnlGridCriteria.TabIndex = 3;
-            // 
-            // lblCriteria
-            // 
-            this.lblCriteria.AutoSize = true;
-            this.lblCriteria.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblCriteria.Location = new System.Drawing.Point(4, 4);
-            this.lblCriteria.Name = "lblCriteria";
-            this.lblCriteria.Size = new System.Drawing.Size(61, 15);
-            this.lblCriteria.TabIndex = 0;
-            this.lblCriteria.Text = "Критерии";
-            // 
-            // pnlRole
-            // 
-            this.pnlRole.Controls.Add(this.lblRole);
-            this.pnlRole.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlRole.Location = new System.Drawing.Point(0, 0);
-            this.pnlRole.Name = "pnlRole";
-            this.pnlRole.Size = new System.Drawing.Size(769, 25);
-            this.pnlRole.TabIndex = 3;
-            // 
-            // lblRole
-            // 
-            this.lblRole.AutoSize = true;
-            this.lblRole.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRole.Location = new System.Drawing.Point(4, 4);
-            this.lblRole.Name = "lblRole";
-            this.lblRole.Size = new System.Drawing.Size(54, 15);
-            this.lblRole.TabIndex = 0;
-            this.lblRole.Text = "Правила";
-            // 
-            // pnlGridRole
-            // 
-            this.pnlGridRole.Controls.Add(this.dataGridViewRoles);
-            this.pnlGridRole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlGridRole.Location = new System.Drawing.Point(0, 25);
-            this.pnlGridRole.Name = "pnlGridRole";
-            this.pnlGridRole.Size = new System.Drawing.Size(769, 159);
-            this.pnlGridRole.TabIndex = 4;
-            // 
-            // pnlProject
-            // 
-            this.pnlProject.Controls.Add(this.lblProjectName);
-            this.pnlProject.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlProject.Location = new System.Drawing.Point(0, 0);
-            this.pnlProject.Name = "pnlProject";
-            this.pnlProject.Size = new System.Drawing.Size(189, 25);
-            this.pnlProject.TabIndex = 2;
-            // 
-            // lblProjectName
-            // 
-            this.lblProjectName.AutoSize = true;
-            this.lblProjectName.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblProjectName.Location = new System.Drawing.Point(3, 4);
-            this.lblProjectName.Name = "lblProjectName";
-            this.lblProjectName.Size = new System.Drawing.Size(56, 15);
-            this.lblProjectName.TabIndex = 1;
-            this.lblProjectName.Text = "Проекты";
-            // 
-            // pnlProjectsName
-            // 
-            this.pnlProjectsName.Controls.Add(this.lstBoxProjName);
-            this.pnlProjectsName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlProjectsName.Location = new System.Drawing.Point(0, 25);
-            this.pnlProjectsName.Name = "pnlProjectsName";
-            this.pnlProjectsName.Size = new System.Drawing.Size(189, 340);
-            this.pnlProjectsName.TabIndex = 4;
+            this.lblInfoHelp.Size = new System.Drawing.Size(66, 17);
+            this.lblInfoHelp.Text = "F1 справка";
             // 
             // UniExp
             // 
@@ -454,25 +455,25 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMailn)).EndInit();
             this.splitContainerMailn.ResumeLayout(false);
             this.panelLstBoxProjName.ResumeLayout(false);
+            this.pnlProjectsName.ResumeLayout(false);
+            this.pnlProject.ResumeLayout(false);
+            this.pnlProject.PerformLayout();
             this.splitContainerGrid.Panel1.ResumeLayout(false);
             this.splitContainerGrid.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerGrid)).EndInit();
             this.splitContainerGrid.ResumeLayout(false);
+            this.pnlGridCriteria.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCriteria)).EndInit();
+            this.pnlCriteria.ResumeLayout(false);
+            this.pnlCriteria.PerformLayout();
+            this.pnlGridRole.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRoles)).EndInit();
+            this.pnlRole.ResumeLayout(false);
+            this.pnlRole.PerformLayout();
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            this.pnlCriteria.ResumeLayout(false);
-            this.pnlCriteria.PerformLayout();
-            this.pnlGridCriteria.ResumeLayout(false);
-            this.pnlRole.ResumeLayout(false);
-            this.pnlRole.PerformLayout();
-            this.pnlGridRole.ResumeLayout(false);
-            this.pnlProject.ResumeLayout(false);
-            this.pnlProject.PerformLayout();
-            this.pnlProjectsName.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

@@ -243,11 +243,6 @@ namespace UniExp
             }
         }
 
-        /// <summary>
-        /// Доделать
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void dataGridViewRoles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -271,10 +266,14 @@ namespace UniExp
                             configurateRole.Owner = this;
                             if (configurateRole.ShowDialog() == DialogResult.OK)
                             {
-                                dataGridViewRoles.Rows[e.RowIndex].
-                                    Cells[gridViewColumns.colRoleName].Value = configurateRole.getRoleName();
-                                dataGridViewRoles.Rows[e.RowIndex].
-                                    Cells[gridViewColumns.colRoleValue].Value = configurateRole.getRoleValue();
+                                int idxNewRow = 0;
+                                if (dataGridViewRoles.Rows[e.RowIndex].IsNewRow)
+                                    idxNewRow = dataGridViewRoles.Rows.Add(1);
+                                else
+                                    idxNewRow = e.RowIndex;
+                                //
+                                dataGridViewRoles.Rows[idxNewRow].SetValues(string.Empty,
+                                       configurateRole.getRoleName(), configurateRole.getRoleValue());
                             }
                         }
                     }
@@ -291,7 +290,9 @@ namespace UniExp
             try
             {
                 GridViewColumns gridViewColumns = new GridViewColumns();
-                if (dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colIndex].Value == null)
+                object roleObjIdx = dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colIndex].Value;
+                string roleIdx = roleObjIdx == null ? string.Empty : roleObjIdx.ToString();
+                if (string.IsNullOrEmpty(roleIdx))
                 {
                     dataGridViewRoles.Rows[e.RowIndex].Cells[gridViewColumns.colIndex].Value =
                         e.RowIndex + 1;
@@ -350,13 +351,6 @@ namespace UniExp
                 if (lstBoxProjName.SelectedIndex < 0)
                     throw new Exception("Ожидалось значение (int)lstBoxProjName.SelectedIndex > -1");
                 //
-                //GridViewCriterias gridView = new GridViewCriterias();
-                //if (gridView.checkValues(dataGridViewCriteria))
-                //{
-                //    gridView.Save(dataGridViewCriteria, Path.Combine(toolStripStatusLabel.Text,
-                //        makeFilePrefix(lstBoxProjName.SelectedIndex, false, false)));
-                //    SetEditTable(false);
-                //}
                 GridViewRoles gridView = new GridViewRoles();
                 if (gridView.checkValues(dataGridViewCriteria, dataGridViewRoles))
                 {
@@ -429,11 +423,6 @@ namespace UniExp
                     makeFilePrefix(lstBoxProjName.SelectedIndex, false, false));
                 if (File.Exists(fileName))
                 {
-                    //GridViewCriterias gridView = new GridViewCriterias();
-                    //gridView.Load(dataGridViewCriteria, fileName);
-                    ////
-                    //SetEditTable(false);
-                    //gridView.checkValues(dataGridViewCriteria);
                     GridViewRoles gridView = new GridViewRoles();
                     gridView.Load(dataGridViewCriteria, dataGridViewRoles, fileName);
                     //
@@ -787,12 +776,6 @@ namespace UniExp
             }
             return result;
         }
-
-        //private void setColumnSize()
-        //{
-        //    //dataGridViewCriteria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-        //    dataGridViewCriteria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        //}
 
         private void WriteErrInfo(string message, string typeErrInfo = "Error")
         {

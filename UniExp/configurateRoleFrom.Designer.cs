@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(configurateRoleFrom));
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.pnlGridIf = new System.Windows.Forms.Panel();
             this.dataGridViewIf = new System.Windows.Forms.DataGridView();
@@ -98,6 +99,7 @@
             this.dataGridViewIf.Size = new System.Drawing.Size(775, 228);
             this.dataGridViewIf.TabIndex = 4;
             this.dataGridViewIf.AutoSizeColumnsModeChanged += new System.Windows.Forms.DataGridViewAutoSizeColumnsModeEventHandler(this.dataGridViewIf_AutoSizeColumnsModeChanged);
+            this.dataGridViewIf.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewIf_CellValueChanged);
             // 
             // pblIf
             // 
@@ -142,6 +144,7 @@
             this.dataGridViewTo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewTo.Size = new System.Drawing.Size(775, 102);
             this.dataGridViewTo.TabIndex = 3;
+            this.dataGridViewTo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTo_CellValueChanged);
             // 
             // pnlTo
             // 
@@ -186,22 +189,28 @@
             // 
             this.btnExist.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExist.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnExist.Location = new System.Drawing.Point(717, 430);
+            this.btnExist.Image = ((System.Drawing.Image)(resources.GetObject("btnExist.Image")));
+            this.btnExist.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExist.Location = new System.Drawing.Point(703, 430);
             this.btnExist.Name = "btnExist";
-            this.btnExist.Size = new System.Drawing.Size(75, 23);
+            this.btnExist.Size = new System.Drawing.Size(85, 23);
             this.btnExist.TabIndex = 5;
             this.btnExist.Text = "Отменить";
+            this.btnExist.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExist.UseVisualStyleBackColor = true;
             this.btnExist.MouseHover += new System.EventHandler(this.btnExist_MouseHover);
             // 
             // btnSave
             // 
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSave.Location = new System.Drawing.Point(636, 430);
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(612, 430);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(85, 23);
             this.btnSave.TabIndex = 6;
-            this.btnSave.Text = "Сохранить";
+            this.btnSave.Text = "Добавить";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             this.btnSave.MouseHover += new System.EventHandler(this.btnSave_MouseHover);

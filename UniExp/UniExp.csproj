@@ -186,6 +186,7 @@
     <Content Include="Image\create.png" />
     <Content Include="Image\noted_note_pen_notebook_write_icon_193949.ico" />
     <Content Include="Image\open.png" />
+    <Content Include="Image\question.png" />
     <Content Include="Image\save.png" />
     <Content Include="Image\undo.png" />
     <Content Include="noted_note_pen_notebook_write_icon_193949.ico" />

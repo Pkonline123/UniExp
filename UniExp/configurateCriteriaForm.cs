@@ -124,7 +124,6 @@ namespace UniExp
             }
             catch (Exception ex)
             {
-                //WriteErrInfo(ex.Message, "Warning");
                 WriteErrInfo(ex.Message);
             }
         }
