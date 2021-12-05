@@ -328,6 +328,25 @@ namespace UniExp
             }
         }
 
+        private void dataGridViewIf_MouseClick(object sender, MouseEventArgs e)
+        {
+            //if (e.Button == MouseButtons.Right)
+            //{
+            //    ContextMenu contextMenu = new ContextMenu();
+            //    contextMenu.MenuItems.Add(new MenuItem("Очистить"));
+
+            //    int currentMouseOverRow = dataGridViewIf.HitTest(e.X, e.Y).RowIndex;
+
+            //    if (currentMouseOverRow >= 0)
+            //    {
+            //        contextMenu.MenuItems.Add(new MenuItem(string.Format("Do something to row {0}", currentMouseOverRow.ToString())));
+            //    }
+
+            //    contextMenu.Show(dataGridViewIf, new Point(e.X, e.Y));
+
+            //}
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
