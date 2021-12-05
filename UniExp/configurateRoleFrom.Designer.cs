@@ -100,6 +100,7 @@
             this.dataGridViewIf.TabIndex = 4;
             this.dataGridViewIf.AutoSizeColumnsModeChanged += new System.Windows.Forms.DataGridViewAutoSizeColumnsModeEventHandler(this.dataGridViewIf_AutoSizeColumnsModeChanged);
             this.dataGridViewIf.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewIf_CellValueChanged);
+            this.dataGridViewIf.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewIf_KeyDown);
             // 
             // pblIf
             // 

@@ -306,6 +306,29 @@ namespace UniExp
             return this.roleValue;
         }
 
+        private void dataGridViewIf_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Delete && dataGridViewIf.SelectedRows.Count == 1)
+                {
+                    GridViewColumns gridViewColumns = new GridViewColumns();
+                    foreach (DataGridViewCell dataGridViewCell in dataGridViewIf.SelectedCells)
+                    {
+                        dataGridViewCell.Value = null;
+                        if (dataGridViewCell.ColumnIndex == 2)
+                        {
+                            ((DataGridViewComboBoxCell)dataGridViewCell).Items.Clear();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
