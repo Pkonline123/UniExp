@@ -97,6 +97,7 @@
             this.dataGridViewConfigurateCriteria.Name = "dataGridViewConfigurateCriteria";
             this.dataGridViewConfigurateCriteria.Size = new System.Drawing.Size(329, 123);
             this.dataGridViewConfigurateCriteria.TabIndex = 0;
+            this.dataGridViewConfigurateCriteria.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewConfigurateCriteria_KeyDown);
             // 
             // lblCriteria
             // 

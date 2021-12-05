@@ -77,6 +77,25 @@ namespace UniExp
             return this.criteriaValue;
         }
 
+        private void dataGridViewConfigurateCriteria_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Delete && dataGridViewConfigurateCriteria.SelectedRows.Count == 1)
+                {
+                    GridViewColumns gridViewColumns = new GridViewColumns();
+                    foreach (DataGridViewCell dataGridViewCell in dataGridViewConfigurateCriteria.SelectedCells)
+                    {
+                        dataGridViewCell.Value = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
         private void btnSaveConfigurateCriteria_Click(object sender, EventArgs e)
         {
             try
