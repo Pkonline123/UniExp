@@ -61,8 +61,8 @@
             this.btninfoUniExp = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblInfoHelp = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMailn)).BeginInit();
             this.splitContainerMailn.Panel1.SuspendLayout();
@@ -421,6 +421,13 @@
             this.statusStrip.TabIndex = 4;
             this.statusStrip.Text = "statusStrip";
             // 
+            // lblInfoHelp
+            // 
+            this.lblInfoHelp.Enabled = false;
+            this.lblInfoHelp.Name = "lblInfoHelp";
+            this.lblInfoHelp.Size = new System.Drawing.Size(66, 17);
+            this.lblInfoHelp.Text = "F1 справка";
+            // 
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Enabled = false;
@@ -428,13 +435,6 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(113, 17);
             this.toolStripStatusLabel.Text = "Папка с проектами";
-            // 
-            // lblInfoHelp
-            // 
-            this.lblInfoHelp.Enabled = false;
-            this.lblInfoHelp.Name = "lblInfoHelp";
-            this.lblInfoHelp.Size = new System.Drawing.Size(66, 17);
-            this.lblInfoHelp.Text = "F1 справка";
             // 
             // UniExp
             // 

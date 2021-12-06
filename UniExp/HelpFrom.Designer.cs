@@ -47,7 +47,7 @@
             // 
             this.txtBoxInfo.BackColor = System.Drawing.Color.White;
             this.txtBoxInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtBoxInfo.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtBoxInfo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtBoxInfo.Location = new System.Drawing.Point(0, 31);
             this.txtBoxInfo.Multiline = true;
             this.txtBoxInfo.Name = "txtBoxInfo";
