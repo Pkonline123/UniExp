@@ -16,7 +16,6 @@ namespace UniExp
         protected string roleNumber { get; set; }
         protected string roleName { get; set; }
         protected string roleValue { get; set; }
-        //protected GridViewRowRole gridViewRowRole { get; set; }
         protected List<GridViewRowCriteria> gridViewRowCriterias { get; set; }
 
         public configurateRoleFrom()
@@ -31,7 +30,7 @@ namespace UniExp
              *Проверить все экшены на трай/кетч +
              * Реализовать удаления для этой таблицы и для другого конфигуратора +
              *Посидеть потыкать протестирвоать +
-             *Дописать help
+             *Дописать help +
              * Рефакторинг кода
              *В ToolStript добавить с права сылку на хелп +
              *
@@ -328,6 +327,11 @@ namespace UniExp
             }
         }
 
+        /// <summary>
+        /// Проработка контекстного меню
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridViewIf_MouseClick(object sender, MouseEventArgs e)
         {
             //if (e.Button == MouseButtons.Right)
