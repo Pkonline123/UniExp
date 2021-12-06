@@ -295,15 +295,9 @@ namespace UniExpGridViewCriteria
             //
             try
             {
-                //!!!
-                // Проверить уникальные значения в столбце критерий+
-                // Доавить ограничение на колво символов+
-                // Добавить нумерацию в таблицу
-                // Обработка ошибки на клике по столбцу
                 if (dataGridViewCriteria == null)
                     throw new Exception("gridViewCriterias.checkValues: Ожидалось значение (DataGridView)dataGridViewCriteria");
                 //
-                //Рабоатет както странно
                 GridViewLimit gridViewLimit = new GridViewLimit();
                 GridViewColumns gridViewColumns = new GridViewColumns();
                 if (dataGridViewCriteria.Rows.Count <= 1)
@@ -369,7 +363,6 @@ namespace UniExpGridViewCriteria
                     throw new ArgumentException(string.Format("В рамках одного проекта не может быть одинакового '{0}' для разных '{1}'",
                         gridViewColumns.colCriteriaValue, gridViewColumns.colCriteriaName), "Warning");
                 }
-                // ? в разных критериях одинаковая часть значения
                 //
                 result = true;
             }
@@ -874,7 +867,6 @@ namespace UniExpGridViewCriteria
                     if (dataGridViewRole == null)
                         throw new Exception("GridViewRoles.checkValues: Ожидалось значение (DataGridView)dataGridViewRole");
                     //
-                    //Рабоатет както странно
                     GridViewLimit gridViewLimit = new GridViewLimit();
                     GridViewColumns gridViewColumns = new GridViewColumns();
                     if (dataGridViewRole.Rows.Count <= 1)
