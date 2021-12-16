@@ -1,4 +1,11 @@
-﻿using System;
+﻿//Для получения тестовых данных закоментировать
+//#define notMockData
+//Для работы с тестовыми данными заданного размера закоментировать
+//#define notTestData
+////Для считывания с закодированного файла разкоментировать
+#define testDecode
+//
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +19,7 @@ using System.IO;
 using System.Drawing;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using System.Diagnostics;
 
 namespace UniExpGridViewCriteria
 {
@@ -23,7 +31,7 @@ namespace UniExpGridViewCriteria
 
         public UniExpConst()
         {
-            
+
         }
     }
 
@@ -46,25 +54,26 @@ namespace UniExpGridViewCriteria
         }
     }
 
+#if notTestData
     public class GridViewLimit: GridViewDelims
     {
         // критерий
-        public readonly int maxLnCriteriaName = 50;
+        public readonly int maxLnCriteriaName = 50; 
         // значение
-        public readonly int maxLnCriteriaValue = 50;
+        public readonly int maxLnCriteriaValue = 50; 
         // таблица критериев (кол-во критериев)
-        public readonly int maxCriteriaRows = 100;
+        public readonly int maxCriteriaRows = 1000; 
         // таблица значений критерия (кол-во значений для одного критерия)
-        public readonly int maxCriteriaValueRows = 5;
+        public readonly int maxCriteriaValueRows = 5; 
         // все значения критерия
         public readonly int maxLnCriteriaValues = 0;
         //
         // таблица правила (кол-во правил)
-        public readonly int maxRoleRows = 100;
+        public readonly int maxRoleRows = 1000; 
         // таблица критериев правила (кол-во критериев для одного правила)
-        public readonly int maxRoleCriteriaRows = 10;
+        public readonly int maxRoleCriteriaRows = 10; 
         // таблица значений правила (кол-во значений для одного правила)
-        public readonly int maxRoleValueRows = 1;
+        public readonly int maxRoleValueRows = 1; 
         // все критерии правила (таблица критериев правила)
         public readonly int maxLnRoleNames = 0;
         // значение правила (таблица критериев правила, таблица значений правила)
@@ -82,6 +91,44 @@ namespace UniExpGridViewCriteria
                 (Math.Max(base.gvOpOrWDelim.Length, base.gvOpAndWDelim.Length) * (this.maxRoleCriteriaRows - 1));
         }
     }
+#else
+    public class GridViewLimit : GridViewDelims
+    {
+        // критерий
+        public readonly int maxLnCriteriaName = 50;
+        // значение
+        public readonly int maxLnCriteriaValue = 50;
+        // таблица критериев (кол-во критериев)
+        public readonly int maxCriteriaRows = 1;
+        // таблица значений критерия (кол-во значений для одного критерия)
+        public readonly int maxCriteriaValueRows = 5;
+        // все значения критерия
+        public readonly int maxLnCriteriaValues = 0;
+        //
+        // таблица правила (кол-во правил)
+        public readonly int maxRoleRows = 1;
+        // таблица критериев правила (кол-во критериев для одного правила)
+        public readonly int maxRoleCriteriaRows = 10;
+        // таблица значений правила (кол-во значений для одного правила)
+        public readonly int maxRoleValueRows = 1;
+        // все критерии правила (таблица критериев правила)
+        public readonly int maxLnRoleNames = 0;
+        // значение правила (таблица критериев правила, таблица значений правила)
+        public readonly int maxLnRoleValue = 0;
+        //
+
+        public GridViewLimit() : base()
+        {
+            this.maxLnCriteriaValues = (this.maxCriteriaValueRows * this.maxLnCriteriaValue) +
+                (base.gvDilim.Length * (this.maxCriteriaValueRows - 1));
+            //
+            int lnRoleValue = this.maxLnCriteriaName + base.gvDilim.Length + this.maxLnCriteriaValue;
+            this.maxLnRoleValue = lnRoleValue * this.maxRoleValueRows;
+            this.maxLnRoleNames = (lnRoleValue * this.maxRoleCriteriaRows) +
+                (Math.Max(base.gvOpOrWDelim.Length, base.gvOpAndWDelim.Length) * (this.maxRoleCriteriaRows - 1));
+        }
+    }
+#endif
 
     public class GridViewColumns
     {
@@ -304,7 +351,7 @@ namespace UniExpGridViewCriteria
                     throw new ArgumentException(string.Format("Перед сохранением необходимо заполнить таблицу '{0}'",
                         string.Format("{0}/{1}", gridViewColumns.colCriteriaName, gridViewColumns.colCriteriaValue)),
                         "Warning");
-                if (dataGridViewCriteria.Rows.Count > gridViewLimit.maxCriteriaRows)
+                if (dataGridViewCriteria.Rows.Count - 1 > gridViewLimit.maxCriteriaRows)
                     throw new ArgumentException(string.Format("В таблице '{0}' должно быть записей не более {1}",
                         string.Format("{0}/{1}", gridViewColumns.colCriteriaName, gridViewColumns.colCriteriaValue),
                         gridViewLimit.maxCriteriaRows), "Warning");
@@ -335,7 +382,8 @@ namespace UniExpGridViewCriteria
                         throw new ArgumentException(string.Format("Значение для критерия: '{0}' превышает {1} символов для строки {2}",
                             crName, gridViewLimit.maxLnCriteriaValues, dataGridViewRow.Index + 1), "Warning");
                     //
-                    gridViewRowCriterias.Add(new GridViewRowCriteria() {
+                    gridViewRowCriterias.Add(new GridViewRowCriteria()
+                    {
                         criteriaName = crName,
                         criteriaValue = crValue
                     });
@@ -489,7 +537,7 @@ namespace UniExpGridViewCriteria
         public string roleName { get; set; }
         public string roleValue { get; set; }
 
-        public GridViewRowRole(): base()
+        public GridViewRowRole() : base()
         {
             this.roleName = string.Empty;
             this.roleValue = string.Empty;
@@ -502,14 +550,14 @@ namespace UniExpGridViewCriteria
             if (!string.IsNullOrEmpty(fmtRoleName))
             {
                 GridViewDelims gridViewDelims = new GridViewDelims();
-                string[] rolesIf = fmtRoleName.Split(new string[] { gridViewDelims.gvOpDilim }, 
+                string[] rolesIf = fmtRoleName.Split(new string[] { gridViewDelims.gvOpDilim },
                     StringSplitOptions.RemoveEmptyEntries);
                 if (rolesIf.Length > 0)
                 {
                     //
                     foreach (string roleIf in rolesIf)
                     {
-                        string[] crIf = roleIf.Split(new string[] { gridViewDelims.gvDilim }, 
+                        string[] crIf = roleIf.Split(new string[] { gridViewDelims.gvDilim },
                             StringSplitOptions.RemoveEmptyEntries);
                         if (crIf.Length == 2)
                         {
@@ -526,7 +574,7 @@ namespace UniExpGridViewCriteria
                                     crIf[0].Substring(1);
                             }
                             else
-                            {                                
+                            {
                                 gridViewRowCriteria.criteriaOperate = string.Empty;
                                 gridViewRowCriteria.criteriaName = crIf[0];
                             }
@@ -671,6 +719,112 @@ namespace UniExpGridViewCriteria
             File.WriteAllText(fileName, JsonSerializer.Serialize<GridViewRoles>(this, options));
         }
 
+        public void SaveMockData(string fileName = null)
+        {
+            //
+            if (string.IsNullOrEmpty(fileName))
+                throw new Exception("GridViewRoles.Save: Ожидалось значение (string)fileName");
+            //
+            this.DataInit();
+            //
+#if notMockData
+#else
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+#endif
+            GridViewLimit gridViewLimit = new GridViewLimit();
+            Random random = new Random();
+            string criteriaName = string.Empty;
+            string criteriaVal = string.Empty;
+            List<string> criteriaVals = new List<string>();
+            for (int k = 0; k < gridViewLimit.maxCriteriaRows; k++)
+            {
+                criteriaName = string.Empty;
+                for (int i = 0; i < gridViewLimit.maxLnCriteriaName; i++)
+                {
+                    criteriaName += (char)random.Next(97, 122);
+                }
+                criteriaVals.Clear();
+                for (int i = 0; i < gridViewLimit.maxCriteriaValueRows; i++)
+                {
+                    criteriaVal = string.Empty;
+                    for (int j = 0; j < gridViewLimit.maxLnCriteriaValue; j++)
+                    {
+                        criteriaVal += (char)random.Next(97, 122);
+                    }
+                    criteriaVals.Add(criteriaVal);
+                }
+                GridViewRowCriteria gridViewRowCriteria = new GridViewRowCriteria();
+                gridViewRowCriteria.criteriaName = criteriaName;
+                gridViewRowCriteria.criteriaValue = GridViewRowCriteria.GetBuildValue(criteriaVals);
+                this.gridViewRowCriterias.Add(gridViewRowCriteria);
+            }
+            //
+            GridViewDelims gridViewDelims = new GridViewDelims();
+            List<GridViewRowCriteria> roleNames = new List<GridViewRowCriteria>();
+            GridViewRowCriteria roleVals = new GridViewRowCriteria();
+            for (int j = 0; j < gridViewLimit.maxRoleRows; j++)
+            {
+                roleNames.Clear();
+                roleVals.criteriaName = string.Empty;
+                roleVals.criteriaValue = string.Empty;
+                //
+                for (int i = 0; i < gridViewLimit.maxRoleCriteriaRows; i++)
+                {
+                    if (i == 0)
+                    {
+                        roleNames.Add(new GridViewRowCriteria()
+                        {
+                            criteriaOperate = string.Empty,
+                            criteriaName = this.gridViewRowCriterias[i].criteriaName,
+                            criteriaValue = GridViewRowCriteria.GetSplitValue(this.gridViewRowCriterias[i].criteriaValue)[0]
+                        });
+                        roleVals.criteriaName = roleNames[i].criteriaName;
+                        roleVals.criteriaValue = roleNames[i].criteriaValue;
+                    }
+                    else
+                    {
+                        roleNames.Add(new GridViewRowCriteria()
+                        {
+                            criteriaOperate = random.Next(0, 1) == 0 ? gridViewDelims.gvOpOrR : gridViewDelims.gvOpAndR,
+                            criteriaName = this.gridViewRowCriterias[i].criteriaName,
+                            criteriaValue = GridViewRowCriteria.GetSplitValue(this.gridViewRowCriterias[i].criteriaValue)[0]
+                        });
+                    }
+                }
+                GridViewRowRole gridViewRowRole = new GridViewRowRole();
+                gridViewRowRole.roleName = GridViewRowRole.GetBuildName(roleNames);
+                gridViewRowRole.roleValue = GridViewRowRole.GetBuildValue(roleVals);
+                this.gridViewRowRoles.Add(gridViewRowRole);
+            }
+
+            //
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                WriteIndented = true
+            };
+            string allText = JsonSerializer.Serialize<GridViewRoles>(this, options);
+#if notMockData
+#else
+            stopwatch.Stop();
+            MessageBox.Show(String.Format("Подготовка к сохранению: {0:00}:{1:00}:{2:00}.{3:00}",
+                stopwatch.Elapsed.Hours, stopwatch.Elapsed.Minutes, stopwatch.Elapsed.Seconds,
+                stopwatch.Elapsed.Milliseconds / 10));
+            stopwatch.Restart();
+#endif
+            //сериализация
+            File.WriteAllText(fileName, allText);
+#if notMockData
+#else
+            stopwatch.Stop();
+            MessageBox.Show(String.Format("Сохранение: {0:00}:{1:00}:{2:00}.{3:00}",
+                stopwatch.Elapsed.Hours, stopwatch.Elapsed.Minutes, stopwatch.Elapsed.Seconds,
+                stopwatch.Elapsed.Milliseconds / 10));
+#endif
+
+        }
+
         public void Load(DataGridView dataGridViewCriteria, DataGridView dataGridViewRole, string fileName = null)
         {
             if (dataGridViewCriteria == null)
@@ -682,10 +836,62 @@ namespace UniExpGridViewCriteria
             //
             this.DataInit(dataGridViewCriteria, dataGridViewRole);
             //
+#if notMockData
+#else
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+#endif
             //дсериализация
-            GridViewRoles gridViewRoles = JsonSerializer.Deserialize<GridViewRoles>(File.ReadAllText(fileName));
+            string allText = File.ReadAllText(fileName);
+#if notMockData
+#else
+            stopwatch.Stop();
+            MessageBox.Show(String.Format("Чтение: {0:00}:{1:00}:{2:00}.{3:00}",
+                stopwatch.Elapsed.Hours, stopwatch.Elapsed.Minutes, stopwatch.Elapsed.Seconds,
+                stopwatch.Elapsed.Milliseconds / 10));
+            stopwatch.Restart();
+#endif
+            GridViewRoles gridViewRoles = JsonSerializer.Deserialize<GridViewRoles>(allText);
             this.gridViewRowCriterias.AddRange(gridViewRoles.gridViewRowCriterias);
+#if testDecode           
+            List<GridViewRowRole> gridRowRoles = new List<GridViewRowRole>();
+            List<GridViewRowCriteria> rowCriterias = new List<GridViewRowCriteria>();
+            List<GridViewRowCriteria> rowCriteriasDecode = new List<GridViewRowCriteria>();
+            GridViewRowCriteria rowValue = new GridViewRowCriteria();
+            GridViewRowCriteria rowValueDecode = new GridViewRowCriteria();
+            foreach (GridViewRowRole gridRowRole in gridViewRoles.gridViewRowRoles)
+            {
+                rowCriterias = GridViewRowRole.GetSplitName(gridRowRole.roleName);
+                rowValue = GridViewRowRole.GetSplitValue(gridRowRole.roleValue);
+                rowCriteriasDecode.Clear();
+                rowValueDecode.criteriaName = string.Empty;
+                rowValueDecode.criteriaValue = string.Empty;
+                foreach (GridViewRowCriteria rowCriteria in rowCriterias)
+                {
+                    rowCriteriasDecode.Add(new GridViewRowCriteria() {
+                        criteriaName = gridViewRoles.gridViewRowCriterias[Convert.ToInt16(rowCriteria.criteriaName) - 1].criteriaName,
+                        criteriaOperate = rowCriteria.criteriaOperate,
+                        criteriaValue = GridViewRowCriteria.GetSplitValue(gridViewRoles.
+                        gridViewRowCriterias[Convert.ToInt16(rowCriteria.criteriaName) - 1].criteriaValue)
+                        [Convert.ToInt16(rowCriteria.criteriaValue.Replace(rowCriteria.criteriaName, "")) - 1]
+                    });
+                }
+                rowValueDecode.criteriaName = gridViewRoles.gridViewRowCriterias
+                    [Convert.ToInt16(rowValue.criteriaName) - 1].criteriaName;
+                rowValueDecode.criteriaValue = GridViewRowCriteria.GetSplitValue(gridViewRoles.
+                        gridViewRowCriterias[Convert.ToInt16(rowValue.criteriaName) - 1].criteriaValue)
+                        [Convert.ToInt16(rowValue.criteriaValue.Replace(rowValue.criteriaName, "")) - 1];
+                gridRowRoles.Add(new GridViewRowRole()
+                {
+                    roleName = GridViewRowRole.GetBuildName(rowCriteriasDecode),
+                    roleValue = GridViewRowRole.GetBuildValue(rowValueDecode)
+                });
+            }
+
+            this.gridViewRowRoles.AddRange(gridRowRoles);
+#else
             this.gridViewRowRoles.AddRange(gridViewRoles.gridViewRowRoles);
+#endif
             //
             GridViewColumns gridViewColumns = new GridViewColumns();
             //
@@ -746,6 +952,13 @@ namespace UniExpGridViewCriteria
             }
             //
             dataGridViewRole.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+#if notMockData
+#else
+            stopwatch.Stop();
+            MessageBox.Show(String.Format("Подготовка к использованию: {0:00}:{1:00}:{2:00}.{3:00}",
+               stopwatch.Elapsed.Hours, stopwatch.Elapsed.Minutes, stopwatch.Elapsed.Seconds,
+               stopwatch.Elapsed.Milliseconds / 10));
+#endif
         }
 
         protected void DataInit(DataGridView dataGridViewCriteria = null, DataGridView dataGridViewRole = null)
@@ -766,7 +979,7 @@ namespace UniExpGridViewCriteria
             }
         }
 
-        public bool checkRole(List<GridViewRowCriteria> gridViewRowCriterias, 
+        public bool checkRole(List<GridViewRowCriteria> gridViewRowCriterias,
             string roleName, string roleValue, int numRow)
         {
             bool result = false;
@@ -786,6 +999,7 @@ namespace UniExpGridViewCriteria
                 //
                 GridViewRowCriteria gridViewRCriteriaRoleValue = GridViewRowRole.GetSplitValue(roleValue);
                 List<GridViewRowCriteria> gridViewRCriteriasRole = GridViewRowRole.GetSplitName(roleName);
+#if notMockData
                 // критерии правила и значение правила пересекаются
                 if (gridViewRCriteriasRole.FirstOrDefault(cr => cr.criteriaName == gridViewRCriteriaRoleValue.criteriaName &&
                     cr.criteriaValue == gridViewRCriteriaRoleValue.criteriaValue) != null)
@@ -793,6 +1007,7 @@ namespace UniExpGridViewCriteria
                         gridViewColumns.colRoleValue, gridViewColumns.colRoleName, numRow),
                         "Warning");
                 //
+#endif
                 //gridViewRCriteriasRole.Add(gridViewRCriteriaRoleValue);
                 GridViewRowCriteria gridViewRCriteria = gridViewRowCriterias.FirstOrDefault(cr =>
                         cr.criteriaName == gridViewRCriteriaRoleValue.criteriaName);
@@ -811,7 +1026,7 @@ namespace UniExpGridViewCriteria
                             "Warning");
                 }
                 //
-                List<GridViewRowCriteria> uniqGridViewRCriteriasRole = new List<GridViewRowCriteria>();                
+                List<GridViewRowCriteria> uniqGridViewRCriteriasRole = new List<GridViewRowCriteria>();
                 foreach (GridViewRowCriteria gvRCriteriaRole in gridViewRCriteriasRole)
                 {
                     gridViewRCriteria = gridViewRowCriterias.FirstOrDefault(cr =>
@@ -873,7 +1088,7 @@ namespace UniExpGridViewCriteria
                         throw new ArgumentException(string.Format("Перед сохранением необходимо заполнить таблицу '{0}'",
                             string.Format("{0}/{1}", gridViewColumns.colRoleName, gridViewColumns.colRoleValue)),
                             "Warning");
-                    if (dataGridViewRole.Rows.Count > gridViewLimit.maxRoleRows)
+                    if (dataGridViewRole.Rows.Count - 1 > gridViewLimit.maxRoleRows)
                         throw new ArgumentException(string.Format("В таблице '{0}' должно быть записей не более {1}",
                             string.Format("{0}/{1}", gridViewColumns.colRoleName, gridViewColumns.colRoleValue),
                             gridViewLimit.maxRoleRows), "Warning");
@@ -910,19 +1125,22 @@ namespace UniExpGridViewCriteria
                         if (!lstUniqRoleValue.Contains(rValue))
                             lstUniqRoleValue.Add(rValue);
                         //
-                        lstRoleNames.Add(rName);                        
+                        lstRoleNames.Add(rName);
                     }
                     foreach (string roleName in lstRoleNames)
                     {
                         if (!lstUniqRoleNames.Contains(roleName))
                             lstUniqRoleNames.Add(roleName);
                     }
+#if notMockData
                     if (lstRoleNames.Count != lstUniqRoleNames.Count)
                         throw new ArgumentException(string.Format("В рамках одного проекта не может быть одинаковых '{0}'",
                             gridViewColumns.colRoleName), "Warning");
+                    //В рамках одного проекта одинаковых то для разных если
                     if (lstRoleNames.Count != lstUniqRoleValue.Count)
                         throw new ArgumentException(string.Format("В рамках одного проекта не может быть одинаковых '{0}' для разных '{1}'",
                             gridViewColumns.colRoleValue, gridViewColumns.colRoleName), "Warning");
+#endif
                     result = true;
                 }
             }

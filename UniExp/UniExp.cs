@@ -1,4 +1,7 @@
-﻿using System;
+﻿//Для получения тестовых данных закоментировать
+//#define notMockData
+//
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -354,8 +357,13 @@ namespace UniExp
                 GridViewRoles gridView = new GridViewRoles();
                 if (gridView.checkValues(dataGridViewCriteria, dataGridViewRoles))
                 {
+#if notMockData
                     gridView.Save(dataGridViewCriteria, dataGridViewRoles, Path.Combine(toolStripStatusLabel.Text,
                         makeFilePrefix(lstBoxProjName.SelectedIndex, false, false)));
+#else
+                    gridView.SaveMockData(Path.Combine(toolStripStatusLabel.Text,
+                        "MockData1.json"));
+#endif
                     SetEditTable(false);
                 }
             }
@@ -529,9 +537,9 @@ namespace UniExp
             helpFrom.ShowDialog();
         }
         //
-        #endregion MainMenu
+#endregion MainMenu
         //
-        #region lstBoxProjName
+#region lstBoxProjName
         //
         private void lstBoxProjName_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -604,15 +612,15 @@ namespace UniExp
             }
         }
         //
-        #endregion lstBoxProjName
+#endregion lstBoxProjName
         //
-        #region OtherFunction
+#region OtherFunction
         //
         private void initConrolsGrid()
         {
             GridViewColumns gridViewColumns = new GridViewColumns();
             //
-            #region dataGridViewCriteriaInitControls
+#region dataGridViewCriteriaInitControls
             //
             dataGridViewCriteria.Rows.Clear();
             dataGridViewCriteria.Columns.Clear();
@@ -634,9 +642,9 @@ namespace UniExp
             dataGridViewCriteria.Columns.Add(btnColumnCriteria);
             //
             dataGridViewCriteria.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            #endregion dataGridViewCriteriaInitControls
+#endregion dataGridViewCriteriaInitControls
             //
-            #region dataGridViewRoleInitControls
+#region dataGridViewRoleInitControls
             //
             dataGridViewRoles.Rows.Clear();
             dataGridViewRoles.Columns.Clear();
@@ -661,7 +669,7 @@ namespace UniExp
             //
             dataGridViewRoles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //
-            #endregion dataGridViewRoleInitControls
+#endregion dataGridViewRoleInitControls
         }
 
         private void SetEditTable(bool editMode)
@@ -800,7 +808,7 @@ namespace UniExp
 
         }
         //
-        #endregion OtherFunction
+#endregion OtherFunction
         //
     }
 }
