@@ -1,7 +1,7 @@
 ﻿//Для получения тестовых данных закоментировать
 //#define notMockData
 //Для работы с тестовыми данными заданного размера закоментировать
-//#define notTestData
+#define notTestData
 ////Для считывания с закодированного файла разкоментировать
 #define testDecode
 //
@@ -62,14 +62,14 @@ namespace UniExpGridViewCriteria
         // значение
         public readonly int maxLnCriteriaValue = 50; 
         // таблица критериев (кол-во критериев)
-        public readonly int maxCriteriaRows = 1000; 
+        public readonly int maxCriteriaRows = 5000; 
         // таблица значений критерия (кол-во значений для одного критерия)
         public readonly int maxCriteriaValueRows = 5; 
         // все значения критерия
         public readonly int maxLnCriteriaValues = 0;
         //
         // таблица правила (кол-во правил)
-        public readonly int maxRoleRows = 1000; 
+        public readonly int maxRoleRows = 5000; 
         // таблица критериев правила (кол-во критериев для одного правила)
         public readonly int maxRoleCriteriaRows = 10; 
         // таблица значений правила (кол-во значений для одного правила)
@@ -99,14 +99,14 @@ namespace UniExpGridViewCriteria
         // значение
         public readonly int maxLnCriteriaValue = 50;
         // таблица критериев (кол-во критериев)
-        public readonly int maxCriteriaRows = 1;
+        public readonly int maxCriteriaRows = 1000;
         // таблица значений критерия (кол-во значений для одного критерия)
         public readonly int maxCriteriaValueRows = 5;
         // все значения критерия
         public readonly int maxLnCriteriaValues = 0;
         //
         // таблица правила (кол-во правил)
-        public readonly int maxRoleRows = 1;
+        public readonly int maxRoleRows = 1000;
         // таблица критериев правила (кол-во критериев для одного правила)
         public readonly int maxRoleCriteriaRows = 10;
         // таблица значений правила (кол-во значений для одного правила)
