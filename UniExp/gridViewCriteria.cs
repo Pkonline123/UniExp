@@ -1,9 +1,9 @@
 ﻿//Для получения тестовых данных закоментировать
-//#define notMockData
+#define notMockData
 //Для работы с тестовыми данными заданного размера закоментировать
 #define notTestData
 ////Для считывания с закодированного файла разкоментировать
-#define testDecode
+//#define testDecode
 //
 using System;
 using System.Collections;
