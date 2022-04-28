@@ -612,9 +612,50 @@ namespace UniExp
             }
         }
         //
-#endregion lstBoxProjName
+        #endregion lstBoxProjName
         //
-#region OtherFunction
+        #region LogicalOutForm
+        private void LogicalOut_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (LogicalOut logicalOut =
+                          new LogicalOut(GridViewRoles.getCriterias(dataGridViewCriteria)))
+                {
+                    logicalOut.Owner = this;
+                    if (logicalOut.ShowDialog() == DialogResult.OK)
+                    {
+                        //int idxNewRow = 0;
+                        ////for(int idx = 0; dataGridViewRoles.Rows[idx] < dataGridViewCriteria.Rows.Count; idx++)
+                        //int idxRow = 0;
+                        //foreach(DataGridViewRow dataGridViewRow in dataGridViewRoles.Rows)
+                        //{
+                        //    idxRow++;
+                        //    if (dataGridViewRoles.Rows[idxRow].IsNewRow)
+                        //        idxNewRow = dataGridViewRoles.Rows.Add(1);
+                        //    else
+                        //        idxNewRow = idxRow;
+                        //}
+                        
+                        ////
+                        //dataGridViewRoles.Rows[idxNewRow].SetValues(string.Empty,
+                        //       configurateRole.getRoleName(), configurateRole.getRoleValue());
+                    }
+
+                    //LogicalOut logicalOut = new LogicalOut();
+                    //logicalOut.Owner = this;
+                    ////logicalOut.StartPosition = FormStartPosition.CenterParent;
+                    //logicalOut.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+        #endregion LogicalOutForm
+        //
+        #region OtherFunction
         //
         private void initConrolsGrid()
         {
@@ -808,7 +849,7 @@ namespace UniExp
 
         }
         //
-#endregion OtherFunction
+        #endregion OtherFunction
         //
     }
 }

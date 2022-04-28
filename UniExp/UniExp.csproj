@@ -131,12 +131,24 @@
     <Compile Include="configurateRoleFrom.Designer.cs">
       <DependentUpon>configurateRoleFrom.cs</DependentUpon>
     </Compile>
+    <Compile Include="Graph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Graph.Designer.cs">
+      <DependentUpon>Graph.cs</DependentUpon>
+    </Compile>
     <Compile Include="gridViewCriteria.cs" />
     <Compile Include="HelpFrom.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HelpFrom.Designer.cs">
       <DependentUpon>HelpFrom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogicalOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogicalOut.Designer.cs">
+      <DependentUpon>LogicalOut.cs</DependentUpon>
     </Compile>
     <Compile Include="UniExp.cs">
       <SubType>Form</SubType>
@@ -155,8 +167,14 @@
     <EmbeddedResource Include="configurateRoleFrom.resx">
       <DependentUpon>configurateRoleFrom.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Graph.resx">
+      <DependentUpon>Graph.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HelpFrom.resx">
       <DependentUpon>HelpFrom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogicalOut.resx">
+      <DependentUpon>LogicalOut.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UniExp.resx">
       <DependentUpon>UniExp.cs</DependentUpon>

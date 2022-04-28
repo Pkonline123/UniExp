@@ -57,6 +57,7 @@
             this.btnUndo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExist = new System.Windows.Forms.ToolStripMenuItem();
+            this.LogicalOut = new System.Windows.Forms.ToolStripMenuItem();
             this.btnInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.btninfoUniExp = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -300,6 +301,7 @@
             this.MainMenu.BackColor = System.Drawing.Color.White;
             this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnMenuFile,
+            this.LogicalOut,
             this.btnInfo});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
@@ -326,7 +328,7 @@
             this.btnCreated.Image = ((System.Drawing.Image)(resources.GetObject("btnCreated.Image")));
             this.btnCreated.Name = "btnCreated";
             this.btnCreated.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.btnCreated.Size = new System.Drawing.Size(172, 22);
+            this.btnCreated.Size = new System.Drawing.Size(180, 22);
             this.btnCreated.Text = "Создать";
             this.btnCreated.ToolTipText = "Создать новый файл проекта";
             this.btnCreated.Click += new System.EventHandler(this.btnCreated_Click);
@@ -335,7 +337,7 @@
             // 
             this.btnOpen.Image = ((System.Drawing.Image)(resources.GetObject("btnOpen.Image")));
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(172, 22);
+            this.btnOpen.Size = new System.Drawing.Size(173, 22);
             this.btnOpen.Text = "Открыть";
             this.btnOpen.ToolTipText = "Открыть заранее созданный файл проекта";
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
@@ -343,7 +345,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(169, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(170, 6);
             // 
             // btnSave
             // 
@@ -351,7 +353,7 @@
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.Name = "btnSave";
             this.btnSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.btnSave.Size = new System.Drawing.Size(172, 22);
+            this.btnSave.Size = new System.Drawing.Size(173, 22);
             this.btnSave.Text = "Сохранить";
             this.btnSave.ToolTipText = "Сохранить текущие изменения в проекте\r\n";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -362,7 +364,7 @@
             this.btnUndo.Image = ((System.Drawing.Image)(resources.GetObject("btnUndo.Image")));
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.btnUndo.Size = new System.Drawing.Size(172, 22);
+            this.btnUndo.Size = new System.Drawing.Size(173, 22);
             this.btnUndo.Text = "Отменить";
             this.btnUndo.ToolTipText = "Отменить текущие изменения в проекте";
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
@@ -370,17 +372,25 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(169, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(170, 6);
             // 
             // btnExist
             // 
             this.btnExist.Image = ((System.Drawing.Image)(resources.GetObject("btnExist.Image")));
             this.btnExist.Name = "btnExist";
             this.btnExist.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.btnExist.Size = new System.Drawing.Size(172, 22);
+            this.btnExist.Size = new System.Drawing.Size(173, 22);
             this.btnExist.Text = "Закрыть";
             this.btnExist.ToolTipText = "Закрыть программу";
             this.btnExist.Click += new System.EventHandler(this.btnExist_Click);
+            // 
+            // LogicalOut
+            // 
+            this.LogicalOut.Name = "LogicalOut";
+            this.LogicalOut.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.LogicalOut.Size = new System.Drawing.Size(122, 20);
+            this.LogicalOut.Text = "Логический вывод";
+            this.LogicalOut.Click += new System.EventHandler(this.LogicalOut_Click);
             // 
             // btnInfo
             // 
@@ -445,7 +455,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UniExp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UniExp";
+            this.Text = "Редактор базы знаний";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UniExp_FormClosing);
             this.Load += new System.EventHandler(this.UniExp_Load);
             this.panelMain.ResumeLayout(false);
@@ -513,6 +523,7 @@
         private System.Windows.Forms.Panel pnlProjectsName;
         private System.Windows.Forms.Panel pnlProject;
         private System.Windows.Forms.Label lblProjectName;
+        private System.Windows.Forms.ToolStripMenuItem LogicalOut;
     }
 }
 
