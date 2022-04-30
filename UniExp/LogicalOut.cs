@@ -11,19 +11,14 @@ using UniExpGridViewCriteria;
 
 namespace UniExp
 {
-    //public partial class LogicalOut : Form
-    //{
-    //public LogicalOut()
-    //{
-    //    InitializeComponent();
-    //}
-
     public partial class LogicalOut : Form
     {
         //protected string roleNumber { get; set; }
         //protected string roleName { get; set; }
         //protected string roleValue { get; set; }
         protected List<GridViewRowCriteria> gridViewRowCriterias { get; set; }
+        protected DataGridView gridViewRowRole { get; set; }
+        protected string roleName { get; set; }
 
         public LogicalOut()
         {
@@ -37,20 +32,33 @@ namespace UniExp
             //this.roleName = string.Empty;
             //this.roleValue = string.Empty;
             this.gridViewRowCriterias = new List<GridViewRowCriteria>();
+            this.gridViewRowRole = new DataGridView();
         }
 
-        public LogicalOut(List<GridViewRowCriteria> gridViewRowCriterias) : this()
+        //public LogicalOut(List<GridViewRowCriteria> gridViewRowCriterias, List<GridViewRowRole> gridViewRowRoles) : this()
+        public LogicalOut(List<GridViewRowCriteria> gridViewRowCriterias, DataGridView gridViewRowRole) : this()
         {
             //this.roleNumber = roleNumber;
             //this.roleName = criteriaName;
             //this.roleValue = criteriaValue;
             this.gridViewRowCriterias = gridViewRowCriterias;
+            this.gridViewRowRole = gridViewRowRole;
         }
 
         private void logicalOut_Load(object sender, EventArgs e)
         {
             try
             {
+                if (gridViewRowRole.RowCount < 2)
+                {
+                    WriteErrInfo("Необходимо заполнить таблицу с правилами");
+                    this.Close();
+                }
+                //
+                btnLogicOut.Enabled = false;
+                //
+                btnGraph.Enabled = false;
+                //
                 GridViewColumns gridViewColumns = new GridViewColumns();
                 GridViewDelims gridViewDelims = new GridViewDelims();
                 //
@@ -126,20 +134,17 @@ namespace UniExp
 
         private void dataGridViewIf_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-
+            try
+            {
+                FillCellValue(e.RowIndex, e.ColumnIndex, dataGridViewIf);
+                if(dataGridViewIf.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                    btnLogicOut.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
         }
-
-        //private void dataGridViewTo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    try
-        //    {
-        //        FillCellValue(e.RowIndex, e.ColumnIndex, dataGridViewTo);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        WriteErrInfo(ex.Message);
-        //    }
-        //}
 
         protected void FillCellValue(int rowIdx, int colIdx, DataGridView dataGridView)
         {
@@ -257,161 +262,6 @@ namespace UniExp
             dataGridViewCell.Value = value;
         }
 
-        //public string getRoleName()
-        //{
-        //    return this.roleName;
-        //}
-
-        //public string getRoleValue()
-        //{
-        //    return this.roleValue;
-        //}
-
-        //private void btnSave_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        this.DialogResult = DialogResult.None;
-        //        //
-        //        GridViewColumns gridViewColumns = new GridViewColumns();
-        //        //
-        //        List<GridViewRowCriteria> roleName = new List<GridViewRowCriteria>();
-        //        GridViewRowCriteria roleValue = new GridViewRowCriteria();
-        //        int cntRows = 0;
-        //        object objOperate = null;
-        //        object objName = null;
-        //        object objValue = null;
-        //        string operate = string.Empty;
-        //        string name = string.Empty;
-        //        string value = string.Empty;
-        //        //
-        //        foreach (DataGridViewRow dataGridViewRow in dataGridViewIf.Rows)
-        //        {
-        //            objOperate = dataGridViewRow.Cells[gridViewColumns.colRoleOperate].Value;
-        //            objName = dataGridViewRow.Cells[gridViewColumns.colCriteriaName].Value;
-        //            objValue = dataGridViewRow.Cells[gridViewColumns.colCriteriaValue].Value;
-        //            operate = objOperate == null ? string.Empty : objOperate.ToString();
-        //            name = objName == null ? string.Empty : objName.ToString();
-        //            value = objValue == null ? string.Empty : objValue.ToString();
-        //            //
-        //            if (objOperate == null && objName == null && objValue == null)
-        //            {
-        //                if (dataGridViewRow.Index == 0)
-        //                {
-        //                    WriteErrInfo(string.Format("Для строки {0} необходимо заполнить поля", dataGridViewRow.Index + 1),
-        //                        "Warning");
-        //                    return;
-        //                }
-        //                continue;
-        //            }
-        //            else
-        //            {
-        //                if (dataGridViewRow.Index > 0)
-        //                {
-        //                    if (objOperate == null)
-        //                    {
-        //                        WriteErrInfo(string.Format("Для строки {0} необходимо заполнить поле {1}", dataGridViewRow.Index + 1,
-        //                            gridViewColumns.colRoleOperate), "Warning");
-        //                        return;
-        //                    }
-        //                }
-        //                if (objName == null)
-        //                {
-        //                    WriteErrInfo(string.Format("Для строки {0} необходимо заполнить поле {1}", dataGridViewRow.Index + 1,
-        //                        gridViewColumns.colCriteriaName), "Warning");
-        //                    return;
-        //                }
-        //                if (objValue == null)
-        //                {
-        //                    WriteErrInfo(string.Format("Для строки {0} необходимо заполнить поле {1}", dataGridViewRow.Index + 1,
-        //                        gridViewColumns.colCriteriaValue), "Warning");
-        //                    return;
-        //                }
-        //                //
-        //                cntRows++;
-        //                //
-        //                roleName.Add(new GridViewRowCriteria()
-        //                {
-        //                    criteriaOperate = operate,
-        //                    criteriaName = name,
-        //                    criteriaValue = value
-        //                });
-        //            }
-        //        }
-        //        //
-        //        if (cntRows == 0)
-        //        {
-        //            WriteErrInfo(string.Format("Перед добавлением правил необходимо заполнить таблицу '{0}'",
-        //                gridViewColumns.colRoleName), "Warning");
-        //            return;
-        //        }
-        //        //
-        //        this.roleName = GridViewRowRole.GetBuildName(roleName);
-        //        //
-        //        cntRows = 0;
-        //        foreach (DataGridViewRow dataGridViewRow in dataGridViewTo.Rows)
-        //        {
-        //            objName = dataGridViewRow.Cells[gridViewColumns.colCriteriaName].Value;
-        //            objValue = dataGridViewRow.Cells[gridViewColumns.colCriteriaValue].Value;
-        //            name = objName == null ? string.Empty : objName.ToString();
-        //            value = objValue == null ? string.Empty : objValue.ToString();
-        //            //
-        //            if (objName == null && objValue == null)
-        //            {
-        //                continue;
-        //            }
-        //            else
-        //            {
-        //                if (objName == null)
-        //                {
-        //                    WriteErrInfo(string.Format("Для строки {0} необходимо заполнить поле {1}", dataGridViewRow.Index + 1,
-        //                        gridViewColumns.colCriteriaName), "Warning");
-        //                    return;
-        //                }
-        //                if (objValue == null)
-        //                {
-        //                    WriteErrInfo(string.Format("Для строки {0} необходимо заполнить поле {1}", dataGridViewRow.Index + 1,
-        //                        gridViewColumns.colCriteriaValue), "Warning");
-        //                    return;
-        //                }
-        //                //
-        //                cntRows++;
-        //                //
-        //                roleValue.criteriaName = name;
-        //                roleValue.criteriaValue = value;
-        //            }
-        //        }
-        //        //
-        //        if (cntRows == 0)
-        //        {
-        //            WriteErrInfo(string.Format("Перед добавлением правил необходимо заполнить таблицу '{0}'",
-        //                gridViewColumns.colRoleValue), "Warning");
-        //            return;
-        //        }
-        //        //
-        //        this.roleValue = GridViewRowRole.GetBuildValue(roleValue);
-        //        //
-        //        this.DialogResult = DialogResult.OK;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        WriteErrInfo(ex.Message);
-        //    }
-        //}
-
-        //private void btnSave_MouseHover(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        ToolTip btnCancelConfigurateCriteriaToolTip = new ToolTip();
-        //        btnCancelConfigurateCriteriaToolTip.SetToolTip(btnSave, "Сохранить введенное правило");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        WriteErrInfo(ex.Message);
-        //    }
-        //}
-
         private void btnExist_MouseHover(object sender, EventArgs e)
         {
             try
@@ -479,6 +329,167 @@ namespace UniExp
                 graph.ShowDialog();
             }
             catch(Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
+        }
+
+        private void btnLogicOut_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lstBoxLogicOut.Items.Count > 10 || lstBoxLogicOut.Items.IndexOf("Правил не найдено") != -1)
+                    lstBoxLogicOut.Items.Clear();
+                this.DialogResult = DialogResult.None;
+                //
+                GridViewColumns gridViewColumns = new GridViewColumns();
+                //
+                List<GridViewRowCriteria> roleName = new List<GridViewRowCriteria>();
+                GridViewRowCriteria roleValue = new GridViewRowCriteria();
+                int cntRows = 0;
+                object objOperate = null;
+                object objName = null;
+                object objValue = null;
+                string operate = string.Empty;
+                string name = string.Empty;
+                string value = string.Empty;
+                //
+                foreach (DataGridViewRow dataGridViewRow in dataGridViewIf.Rows)
+                {
+                    objOperate = dataGridViewRow.Cells[gridViewColumns.colRoleOperate].Value;
+                    objName = dataGridViewRow.Cells[gridViewColumns.colCriteriaName].Value;
+                    objValue = dataGridViewRow.Cells[gridViewColumns.colCriteriaValue].Value;
+                    operate = objOperate == null ? string.Empty : objOperate.ToString();
+                    name = objName == null ? string.Empty : objName.ToString();
+                    value = objValue == null ? string.Empty : objValue.ToString();
+                    //
+                    if (objOperate == null && objName == null && objValue == null)
+                    {
+                        if (dataGridViewRow.Index == 0)
+                        {
+                            WriteErrInfo(string.Format("Для строки {0} необходимо заполнить поля", dataGridViewRow.Index + 1),
+                                "Warning");
+                            return;
+                        }
+                        continue;
+                    }
+                    else
+                    {
+                        if (dataGridViewRow.Index > 0)
+                        {
+                            if (objOperate == null)
+                            {
+                                WriteErrInfo(string.Format("Для строки {0} необходимо заполнить поле {1}", dataGridViewRow.Index + 1,
+                                    gridViewColumns.colRoleOperate), "Warning");
+                                return;
+                            }
+                        }
+                        if (objName == null)
+                        {
+                            WriteErrInfo(string.Format("Для строки {0} необходимо заполнить поле {1}", dataGridViewRow.Index + 1,
+                                gridViewColumns.colCriteriaName), "Warning");
+                            return;
+                        }
+                        if (objValue == null)
+                        {
+                            WriteErrInfo(string.Format("Для строки {0} необходимо заполнить поле {1}", dataGridViewRow.Index + 1,
+                                gridViewColumns.colCriteriaValue), "Warning");
+                            return;
+                        }
+                        //
+                        cntRows++;
+                        //
+                        roleName.Add(new GridViewRowCriteria()
+                        {
+                            criteriaOperate = operate,
+                            criteriaName = name,
+                            criteriaValue = value
+                        });
+                    }
+                }
+                //
+                if (cntRows == 0)
+                {
+                    WriteErrInfo(string.Format("Перед формирование вывода, необходимо заполнить таблицу '{0}'",
+                        gridViewColumns.colRoleName), "Warning");
+                    return;
+                }
+                //
+                this.roleName = GridViewRowRole.GetBuildName(roleName);
+                //
+                StringBuilder sB = new StringBuilder();
+                sB.Append("Если");
+                string criteriaName = string.Empty;
+                string criteriaVal = string.Empty;
+                string criteriaOperate = string.Empty;
+                //string findRole = string.Empty;
+                string findRoleVal = string.Empty;
+                //
+                foreach (DataGridViewRow gridViewRow in gridViewRowRole.Rows)
+                {
+                    if (gridViewRow.Cells[1].Value == null)
+                        continue;
+                    if (gridViewRow.Cells[1].Value.ToString() == this.roleName)
+                    {
+                        //findRole = gridViewRow.Cells[1].Value.ToString();
+                        findRoleVal = gridViewRow.Cells[2].Value.ToString();
+                        //sB.Append("");
+                        //sB.Append(criteriaName);
+                        //sB.Append("");
+                        //sB.Append(criteriaVal);
+                        //if (criteriaOperate == string.Empty)
+                        //    sB.Append("");
+                        //else
+                        //    sB.Append(criteriaOperate);
+
+                        //sB.Append("To ");
+                        //sB.Append("");
+                        //sB.Append(GridViewRowRole.GetSplitValue(gridViewRow.Cells[2].Value.ToString()));
+                    }
+                }
+                //
+                if (!string.IsNullOrEmpty(findRoleVal))
+                {
+                    List<GridViewRowCriteria> gridViewRowCriteriasIf = GridViewRowRole.GetSplitName(this.roleName);
+                    GridViewRowCriteria gridViewRowCriteriasTo = GridViewRowRole.GetSplitValue(findRoleVal);
+                    //
+                    foreach (GridViewRowCriteria gridViewRowCriteria in gridViewRowCriteriasIf)
+                    {
+                        criteriaOperate = gridViewRowCriteria.criteriaOperate;
+                        criteriaName = gridViewRowCriteria.criteriaName;
+                        criteriaVal = gridViewRowCriteria.criteriaValue;
+                        //
+                        if (criteriaOperate == string.Empty)
+                            sB.Append("");
+                        else
+                        {
+                            sB.Append(" ");
+                            sB.Append(criteriaOperate);
+                            sB.Append(" ");
+                        }
+                        sB.Append(" ");
+                        sB.Append(criteriaName);
+                        sB.Append(" ");
+                        sB.Append(criteriaVal);
+                    }
+                    sB.Append(" То ");
+                    sB.Append(gridViewRowCriteriasTo.criteriaName);
+                    sB.Append(" ");
+                    sB.Append(gridViewRowCriteriasTo.criteriaValue);
+                    //
+                    lstBoxLogicOut.Items.Add(sB);
+                }
+                else
+                {
+                    lstBoxLogicOut.Items.Add("Правил не найдено");
+                }
+                //
+                //lstBoxLogicOut.Text = "11";
+                //
+                if (lstBoxLogicOut.Items.Count > 0)
+                    btnGraph.Enabled = true;
+            }
+            catch (Exception ex)
             {
                 WriteErrInfo(ex.Message);
             }

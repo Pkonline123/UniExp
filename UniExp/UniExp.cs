@@ -620,7 +620,7 @@ namespace UniExp
             try
             {
                 using (LogicalOut logicalOut =
-                          new LogicalOut(GridViewRoles.getCriterias(dataGridViewCriteria)))
+                          new LogicalOut(GridViewRoles.getCriterias(dataGridViewCriteria), dataGridViewRoles))
                 {
                     logicalOut.Owner = this;
                     if (logicalOut.ShowDialog() == DialogResult.OK)

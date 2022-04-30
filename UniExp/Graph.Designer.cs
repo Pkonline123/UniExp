@@ -41,11 +41,12 @@ namespace UniExp
             // 
             // pctBox
             // 
+            this.pctBox.BackColor = System.Drawing.Color.White;
             this.pctBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pctBox.Image = ((System.Drawing.Image)(resources.GetObject("pctBox.Image")));
             this.pctBox.Location = new System.Drawing.Point(0, 0);
             this.pctBox.Name = "pctBox";
-            this.pctBox.Size = new System.Drawing.Size(1308, 717);
+            this.pctBox.Size = new System.Drawing.Size(1307, 734);
             this.pctBox.TabIndex = 0;
             this.pctBox.TabStop = false;
             // 
@@ -56,7 +57,7 @@ namespace UniExp
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(1228, 0);
+            this.btnClose.Location = new System.Drawing.Point(1227, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(80, 39);
             this.btnClose.TabIndex = 1;
@@ -68,9 +69,9 @@ namespace UniExp
             // 
             this.panelBtn.Controls.Add(this.btnClose);
             this.panelBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBtn.Location = new System.Drawing.Point(0, 717);
+            this.panelBtn.Location = new System.Drawing.Point(0, 734);
             this.panelBtn.Name = "panelBtn";
-            this.panelBtn.Size = new System.Drawing.Size(1308, 39);
+            this.panelBtn.Size = new System.Drawing.Size(1307, 39);
             this.panelBtn.TabIndex = 2;
             // 
             // panelMain
@@ -79,14 +80,14 @@ namespace UniExp
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(1308, 717);
+            this.panelMain.Size = new System.Drawing.Size(1307, 734);
             this.panelMain.TabIndex = 3;
             // 
             // Graph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1308, 756);
+            this.ClientSize = new System.Drawing.Size(1307, 773);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

@@ -94,6 +94,7 @@ namespace UniExp
             this.btnLogicOut.Text = "Вывод";
             this.btnLogicOut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLogicOut.UseVisualStyleBackColor = true;
+            this.btnLogicOut.Click += new System.EventHandler(this.btnLogicOut_Click);
             // 
             // btnGraph
             // 
