@@ -451,7 +451,23 @@ namespace UniExp
 
         private void dataGridViewIf_AutoSizeColumnsModeChanged(object sender, DataGridViewAutoSizeColumnsModeEventArgs e)
         {
-
+            try
+            {
+                if (dataGridViewIf.Columns.Count > 0)
+                {
+                    GridViewColumns gridViewColumns = new GridViewColumns();
+                    if (dataGridViewIf.Columns.Contains(gridViewColumns.colRoleOperate))
+                    {
+                        dataGridViewIf.Columns[gridViewColumns.colRoleOperate].Width = 55;
+                        dataGridViewIf.Rows[0].Cells[gridViewColumns.colRoleOperate].ReadOnly = true;
+                        dataGridViewIf.Rows[0].Cells[gridViewColumns.colRoleOperate].Style.BackColor = Color.FromName("Control");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrInfo(ex.Message);
+            }
         }
 
 
