@@ -418,7 +418,9 @@ namespace UniExp
                 this.roleName = GridViewRowRole.GetBuildName(roleName);
                 //
                 StringBuilder sB = new StringBuilder();
+                StringBuilder sBSergev = new StringBuilder();
                 sB.Append("Если");
+                sBSergev.Append("В запросе вы произвели ввод критерия ");
                 string criteriaName = string.Empty;
                 string criteriaVal = string.Empty;
                 string criteriaOperate = string.Empty;
@@ -460,17 +462,28 @@ namespace UniExp
                         criteriaVal = gridViewRowCriteria.criteriaValue;
                         //
                         if (criteriaOperate == string.Empty)
+                        {
                             sB.Append("");
+                            sBSergev.Append("");
+                        }
                         else
                         {
                             sB.Append(" ");
+                            sBSergev.Append("разделили его логической операцией");
                             sB.Append(criteriaOperate);
+                            sBSergev.Append(criteriaOperate);
                             sB.Append(" ");
+                            sBSergev.Append(",");
                         }
                         sB.Append(" ");
+                        sBSergev.Append(" ");
                         sB.Append(criteriaName);
+                        sBSergev.Append(criteriaName);
                         sB.Append(" ");
+                        sBSergev.Append("который имеет значение ");
                         sB.Append(criteriaVal);
+                        sBSergev.Append(criteriaVal);
+                        sBSergev.Append(",");
                     }
                     sB.Append(" То ");
                     sB.Append(gridViewRowCriteriasTo.criteriaName);
@@ -478,6 +491,7 @@ namespace UniExp
                     sB.Append(gridViewRowCriteriasTo.criteriaValue);
                     //
                     lstBoxLogicOut.Items.Add(sB);
+                    lstBoxLogicOut.Items.Add(sBSergev);
                 }
                 else
                 {
