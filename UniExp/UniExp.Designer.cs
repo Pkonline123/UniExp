@@ -328,7 +328,7 @@
             this.btnCreated.Image = ((System.Drawing.Image)(resources.GetObject("btnCreated.Image")));
             this.btnCreated.Name = "btnCreated";
             this.btnCreated.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.btnCreated.Size = new System.Drawing.Size(180, 22);
+            this.btnCreated.Size = new System.Drawing.Size(173, 22);
             this.btnCreated.Text = "Создать";
             this.btnCreated.ToolTipText = "Создать новый файл проекта";
             this.btnCreated.Click += new System.EventHandler(this.btnCreated_Click);
@@ -388,8 +388,8 @@
             // 
             this.LogicalOut.Name = "LogicalOut";
             this.LogicalOut.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.LogicalOut.Size = new System.Drawing.Size(122, 20);
-            this.LogicalOut.Text = "Логический вывод";
+            this.LogicalOut.Size = new System.Drawing.Size(291, 20);
+            this.LogicalOut.Text = "Логический вывод и объяснение его результатов";
             this.LogicalOut.Click += new System.EventHandler(this.LogicalOut_Click);
             // 
             // btnInfo

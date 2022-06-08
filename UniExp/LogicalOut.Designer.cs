@@ -37,7 +37,9 @@ namespace UniExp
             this.panelBtn = new System.Windows.Forms.Panel();
             this.panelMain = new System.Windows.Forms.Panel();
             this.splitContainerMaim = new System.Windows.Forms.SplitContainer();
+            this.splitContainerSergeev = new System.Windows.Forms.SplitContainer();
             this.lstBoxLogicOut = new System.Windows.Forms.ListBox();
+            this.txtBoxInfoSergev = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIf)).BeginInit();
             this.panelBtn.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -45,6 +47,10 @@ namespace UniExp
             this.splitContainerMaim.Panel1.SuspendLayout();
             this.splitContainerMaim.Panel2.SuspendLayout();
             this.splitContainerMaim.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSergeev)).BeginInit();
+            this.splitContainerSergeev.Panel1.SuspendLayout();
+            this.splitContainerSergeev.Panel2.SuspendLayout();
+            this.splitContainerSergeev.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewIf
@@ -61,7 +67,7 @@ namespace UniExp
             this.dataGridViewIf.MultiSelect = false;
             this.dataGridViewIf.Name = "dataGridViewIf";
             this.dataGridViewIf.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridViewIf.Size = new System.Drawing.Size(800, 249);
+            this.dataGridViewIf.Size = new System.Drawing.Size(800, 306);
             this.dataGridViewIf.TabIndex = 5;
             this.dataGridViewIf.AutoSizeColumnsModeChanged += new System.Windows.Forms.DataGridViewAutoSizeColumnsModeEventHandler(this.dataGridViewIf_AutoSizeColumnsModeChanged);
             this.dataGridViewIf.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewIf_MouseClick);
@@ -116,7 +122,7 @@ namespace UniExp
             this.panelBtn.Controls.Add(this.btnExist);
             this.panelBtn.Controls.Add(this.btnLogicOut);
             this.panelBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBtn.Location = new System.Drawing.Point(0, 413);
+            this.panelBtn.Location = new System.Drawing.Point(0, 509);
             this.panelBtn.Name = "panelBtn";
             this.panelBtn.Size = new System.Drawing.Size(800, 37);
             this.panelBtn.TabIndex = 9;
@@ -127,7 +133,7 @@ namespace UniExp
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(800, 413);
+            this.panelMain.Size = new System.Drawing.Size(800, 509);
             this.panelMain.TabIndex = 10;
             // 
             // splitContainerMaim
@@ -143,31 +149,61 @@ namespace UniExp
             // 
             // splitContainerMaim.Panel2
             // 
-            this.splitContainerMaim.Panel2.Controls.Add(this.lstBoxLogicOut);
-            this.splitContainerMaim.Size = new System.Drawing.Size(800, 413);
-            this.splitContainerMaim.SplitterDistance = 249;
+            this.splitContainerMaim.Panel2.Controls.Add(this.splitContainerSergeev);
+            this.splitContainerMaim.Size = new System.Drawing.Size(800, 509);
+            this.splitContainerMaim.SplitterDistance = 306;
             this.splitContainerMaim.TabIndex = 0;
+            // 
+            // splitContainerSergeev
+            // 
+            this.splitContainerSergeev.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerSergeev.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerSergeev.Name = "splitContainerSergeev";
+            this.splitContainerSergeev.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerSergeev.Panel1
+            // 
+            this.splitContainerSergeev.Panel1.Controls.Add(this.lstBoxLogicOut);
+            // 
+            // splitContainerSergeev.Panel2
+            // 
+            this.splitContainerSergeev.Panel2.Controls.Add(this.txtBoxInfoSergev);
+            this.splitContainerSergeev.Size = new System.Drawing.Size(800, 199);
+            this.splitContainerSergeev.SplitterDistance = 139;
+            this.splitContainerSergeev.TabIndex = 3;
             // 
             // lstBoxLogicOut
             // 
             this.lstBoxLogicOut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstBoxLogicOut.FormattingEnabled = true;
+            this.lstBoxLogicOut.HorizontalScrollbar = true;
             this.lstBoxLogicOut.Location = new System.Drawing.Point(0, 0);
             this.lstBoxLogicOut.Name = "lstBoxLogicOut";
-            this.lstBoxLogicOut.Size = new System.Drawing.Size(800, 160);
-            this.lstBoxLogicOut.TabIndex = 0;
+            this.lstBoxLogicOut.Size = new System.Drawing.Size(800, 139);
+            this.lstBoxLogicOut.TabIndex = 1;
+            // 
+            // txtBoxInfoSergev
+            // 
+            this.txtBoxInfoSergev.BackColor = System.Drawing.Color.White;
+            this.txtBoxInfoSergev.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtBoxInfoSergev.Location = new System.Drawing.Point(0, 0);
+            this.txtBoxInfoSergev.Multiline = true;
+            this.txtBoxInfoSergev.Name = "txtBoxInfoSergev";
+            this.txtBoxInfoSergev.ReadOnly = true;
+            this.txtBoxInfoSergev.Size = new System.Drawing.Size(800, 56);
+            this.txtBoxInfoSergev.TabIndex = 3;
             // 
             // LogicalOut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 546);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panelBtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LogicalOut";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Логический вывод";
+            this.Text = "Логический вывод и объяснение его результатов";
             this.Load += new System.EventHandler(this.logicalOut_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIf)).EndInit();
             this.panelBtn.ResumeLayout(false);
@@ -176,6 +212,11 @@ namespace UniExp
             this.splitContainerMaim.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMaim)).EndInit();
             this.splitContainerMaim.ResumeLayout(false);
+            this.splitContainerSergeev.Panel1.ResumeLayout(false);
+            this.splitContainerSergeev.Panel2.ResumeLayout(false);
+            this.splitContainerSergeev.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSergeev)).EndInit();
+            this.splitContainerSergeev.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -189,6 +230,8 @@ namespace UniExp
         private System.Windows.Forms.Panel panelBtn;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.SplitContainer splitContainerMaim;
+        private System.Windows.Forms.SplitContainer splitContainerSergeev;
         private System.Windows.Forms.ListBox lstBoxLogicOut;
+        private System.Windows.Forms.TextBox txtBoxInfoSergev;
     }
 }

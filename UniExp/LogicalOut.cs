@@ -338,7 +338,7 @@ namespace UniExp
         {
             try
             {
-                if (lstBoxLogicOut.Items.Count > 10 || lstBoxLogicOut.Items.IndexOf("Правил не найдено") != -1)
+                if (lstBoxLogicOut.Items.Count > 5 || lstBoxLogicOut.Items.IndexOf("Правил не найдено") != -1)
                     lstBoxLogicOut.Items.Clear();
                 this.DialogResult = DialogResult.None;
                 //
@@ -419,8 +419,10 @@ namespace UniExp
                 //
                 StringBuilder sB = new StringBuilder();
                 StringBuilder sBSergev = new StringBuilder();
+                sB.Append("Логический вывод: ");
                 sB.Append("Если");
-                sBSergev.Append("В запросе вы произвели ввод критерия ");
+                sBSergev.Append("Объяснение результатов логического вывода: ");
+                sBSergev.Append("В запросе вы произвели ввод ");
                 string criteriaName = string.Empty;
                 string criteriaVal = string.Empty;
                 string criteriaOperate = string.Empty;
@@ -469,29 +471,34 @@ namespace UniExp
                         else
                         {
                             sB.Append(" ");
-                            sBSergev.Append("разделили его логической операцией");
+                            sBSergev.Append(" разделили его логической операцией ");
                             sB.Append(criteriaOperate);
                             sBSergev.Append(criteriaOperate);
                             sB.Append(" ");
                             sBSergev.Append(",");
                         }
                         sB.Append(" ");
-                        sBSergev.Append(" ");
+                        sBSergev.Append(" с критерием ");
                         sB.Append(criteriaName);
                         sBSergev.Append(criteriaName);
                         sB.Append(" ");
-                        sBSergev.Append("который имеет значение ");
+                        sBSergev.Append(" который имеет значение ");
                         sB.Append(criteriaVal);
                         sBSergev.Append(criteriaVal);
                         sBSergev.Append(",");
                     }
                     sB.Append(" То ");
+                    sBSergev.Append(" исходя из чего получили вывод правила который содержит критерий ");
                     sB.Append(gridViewRowCriteriasTo.criteriaName);
+                    sBSergev.Append(gridViewRowCriteriasTo.criteriaName);
                     sB.Append(" ");
+                    sBSergev.Append(" с значением ");
                     sB.Append(gridViewRowCriteriasTo.criteriaValue);
+                    sBSergev.Append(gridViewRowCriteriasTo.criteriaValue);
                     //
                     lstBoxLogicOut.Items.Add(sB);
-                    lstBoxLogicOut.Items.Add(sBSergev);
+                    //lstBoxLogicOut.Items.Add(sBSergev);
+                    txtBoxInfoSergev.Text = sBSergev.ToString();
                 }
                 else
                 {
